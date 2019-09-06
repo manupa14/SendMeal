@@ -144,6 +144,7 @@ private Boolean restriccionVencimiento() throws ParseException {
     int difdias = (int) (diff / (24 * 60 * 60 * 1000));
 
     return (difdias>=92);
+      //hola
 
 }
 
