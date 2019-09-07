@@ -84,8 +84,34 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view){
 
-                //validar campos obligatorios vacios()
-                //validar restricciones de campos()
+              if (!validarVacio()){ //si faltan campos por completar
+                  if (EsVendedor.isChecked()){ //si es vendedor informar que los campos de comprador + los de Alias CBU y CBU son obligatorios
+                      //toast
+                  } else { //si es comprador informar solo de la obligatoriedad de los campos de comprador
+                      //toast
+                  }
+              } else { //si todos los campos obligatorios fueron completados satisfactoriamente se verifican las demás restricciones
+                  if (!coincidenClaves()){ //si las claves no coinciden
+                      //toast informando que las claves no coinciden
+                  } else { //si las claves coinciden
+                      if(!restriccionCorreo()){ // si las restricciones del correo electrónico no se cumplen satisfactoriamente
+                          //toast informando al respecto
+                      } else { //las restricciones del correo se cumplen
+                          try {
+                              if (!restriccionVencimiento()){ // si las restricciones de vencimiento de la tarjeta no se cumplen
+                                  //toast informando al respecto
+                              } else { //todas las restricciones se cumplieron
+                                  //toast informando el exito del registro
+                              }
+                          } catch (ParseException e) {
+                              e.printStackTrace();
+                          }
+                      }
+                  }
+              }
+
+
+
 
             }
         });
@@ -144,7 +170,7 @@ private Boolean restriccionVencimiento() throws ParseException {
     int difdias = (int) (diff / (24 * 60 * 60 * 1000));
 
     return (difdias>=92);
-      //hola
+
 
 }
 
