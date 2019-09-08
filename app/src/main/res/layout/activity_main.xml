@@ -101,17 +101,17 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:hint="@string/number"
-                android:inputType="textPersonName" />
+                android:inputType="number" />
 
             <EditText
                 android:id="@+id/txtCCV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
+                android:autofillHints=""
                 android:ems="10"
                 android:hint="@string/ccv"
-                android:inputType="textPersonName"
-                android:autofillHints="" />
+                android:inputType="number" />
 
             <EditText
                 android:id="@+id/txtVencimiento"
@@ -235,7 +235,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="textPersonName" />
+                android:inputType="number" />
         </LinearLayout>
 
         <CheckBox
