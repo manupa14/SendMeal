@@ -145,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private Boolean coincidenClaves(){
-        return (Clave.getText().equals(RepetirClave.getText()));
+        return (Clave.getText().toString().equals(RepetirClave.getText().toString()));
     }
 
     private Boolean restriccionCorreo(){

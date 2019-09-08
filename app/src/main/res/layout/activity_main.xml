@@ -47,7 +47,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName|textPassword" />
 
         <TextView
             android:id="@+id/lblRepetirClave"
@@ -62,7 +62,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName|textPassword" />
 
         <TextView
             android:id="@+id/lblCorreo"
@@ -86,7 +86,6 @@
             android:text="@string/creditCard"
             android:textColor="@color/colorTittles"
             android:textSize="18sp" />
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -120,8 +119,6 @@
                 android:ems="10"
                 android:hint="@string/mmaa"
                 android:inputType="date" />
-
-
         </LinearLayout>
 
         <RadioGroup
@@ -158,7 +155,6 @@
                 android:layout_weight="1"
                 android:text="@string/full"
                 android:textSize="14sp" />
-
         </RadioGroup>
 
         <TextView
@@ -172,9 +168,7 @@
         <SeekBar
             android:id="@+id/seekBarCreditoInicial"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:max="1500"
-            android:min="100" />
+            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/lblNotificarCorreo"
@@ -215,8 +209,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="textPersonName"
-                android:text="Name" />
+                android:inputType="textPersonName" />
 
             <TextView
                 android:id="@+id/lblCBU"
@@ -230,8 +223,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="textPersonName"
-                android:text="Name" />
+                android:inputType="textPersonName" />
         </LinearLayout>
 
         <CheckBox
@@ -246,7 +238,6 @@
             android:layout_height="wrap_content"
             android:enabled="false"
             android:text="@string/bttnAccept" />
-
     </LinearLayout>
 
 </ScrollView>
