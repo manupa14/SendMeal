@@ -16,31 +16,32 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/registroTittle"
-            android:textColor="@color/colorTittles"
-            android:textSize="36sp" />
+            android:textColor="@color/colorTitulo"
+            android:textSize="@dimen/titulo" />
 
         <TextView
             android:id="@+id/lblNombreRegistrar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/name"
-            android:textColor="@color/colorTittles"
-            android:textSize="18sp" />
+            android:textColor="@color/colorEtiquetas"
+            android:textSize="@dimen/etiquetas" />
 
         <EditText
             android:id="@+id/txtNombreRegistrar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:autofillHints="" />
 
         <TextView
             android:id="@+id/lblClave"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/password"
-            android:textColor="@color/colorTittles"
-            android:textSize="18sp" />
+            android:textColor="@color/colorEtiquetas"
+            android:textSize="@dimen/etiquetas" />
 
         <EditText
             android:id="@+id/txtClave"
@@ -54,8 +55,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/passwordRepeat"
-            android:textColor="@color/colorTittles"
-            android:textSize="18sp" />
+            android:textColor="@color/colorEtiquetas"
+            android:textSize="@dimen/etiquetas" />
 
         <EditText
             android:id="@+id/txtRepetirClave"
@@ -69,8 +70,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/email"
-            android:textColor="@color/colorTittles"
-            android:textSize="18sp" />
+            android:textColor="@color/colorEtiquetas"
+            android:textSize="@dimen/etiquetas" />
 
         <EditText
             android:id="@+id/txtCorreo"
@@ -84,8 +85,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/creditCard"
-            android:textColor="@color/colorTittles"
-            android:textSize="18sp" />
+            android:textColor="@color/colorEtiquetas"
+            android:textSize="@dimen/etiquetas" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -109,7 +110,8 @@
                 android:layout_weight="3"
                 android:ems="10"
                 android:hint="@string/ccv"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                android:autofillHints="" />
 
             <EditText
                 android:id="@+id/txtVencimiento"
@@ -134,11 +136,13 @@
                 android:layout_weight="1"
                 android:text="@string/accountType" />
 
+
             <RadioButton
                 android:id="@+id/rbBase"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:checked="true"
                 android:text="@string/base" />
 
             <RadioButton
@@ -162,33 +166,40 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/initialCredit"
-            android:textColor="@color/colorTittles"
-            android:textSize="18sp" />
+            android:textColor="@color/colorEtiquetas"
+            android:textSize="@dimen/etiquetas" />
+
+        <TextView
+            android:id="@+id/lblProgresoCredito"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
         <SeekBar
             android:id="@+id/seekBarCreditoInicial"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:max="1500" />
 
         <TextView
             android:id="@+id/lblNotificarCorreo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/notif"
-            android:textSize="18sp" />
+            android:textSize="@dimen/etiquetas" />
 
         <Button
             android:id="@+id/BtnNotificaciones"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/bttnNotificaciones" />
+            android:text="@string/bttnNotificaciones"
+            android:textSize="@dimen/buttons"/>
 
         <Switch
             android:id="@+id/swVendedor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/isSeller"
-            android:textSize="18sp" />
+            android:textSize="@dimen/buttons" />
 
         <LinearLayout
             android:id="@+id/hiddenLayout"
@@ -202,21 +213,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/aliasCbu"
-                android:textSize="18sp" />
+                android:textSize="@dimen/etiquetas" />
 
             <EditText
                 android:id="@+id/txtAliasCbu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                android:autofillHints="" />
 
             <TextView
                 android:id="@+id/lblCBU"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/cbu"
-                android:textSize="18sp" />
+                android:textSize="@dimen/etiquetas" />
 
             <EditText
                 android:id="@+id/txtCBU"
@@ -237,7 +249,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:enabled="false"
-            android:text="@string/bttnAccept" />
+            android:text="@string/bttnAccept"
+            android:textSize="@dimen/buttons" />
     </LinearLayout>
 
 </ScrollView>

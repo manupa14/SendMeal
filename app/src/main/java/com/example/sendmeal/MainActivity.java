@@ -10,8 +10,10 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.ParseException;
@@ -29,9 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText NumeroTarjeta;
     private EditText CCV;
     private EditText Vencimiento;
-    private RadioButton Base;
-    private RadioButton Premium;
-    private RadioButton Full;
+    private RadioGroup TipoCuenta;
     private SeekBar Credito;
     private Button Notificaciones;
     private Switch EsVendedor;
@@ -40,12 +40,18 @@ public class MainActivity extends AppCompatActivity {
     private EditText CBU;
     private LinearLayout Vendedor;
     private Button Registrar;
+    private TextView Progreso;
+    private int creditoMinimo;
+    private static final int creditoMinimoBase=100;
+    private static final int creditoMinimoPremium=250;
+    private static final int creditoMinimoFull=500;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        creditoMinimo = creditoMinimoBase;
         Nombre = (EditText)findViewById(R.id.txtNombreRegistrar);
         Clave = (EditText) findViewById(R.id.txtClave);
         RepetirClave = (EditText) findViewById(R.id.txtRepetirClave);
@@ -53,9 +59,6 @@ public class MainActivity extends AppCompatActivity {
         NumeroTarjeta = (EditText) findViewById(R.id.txtNumeroTarjeta);
         CCV = (EditText) findViewById(R.id.txtCCV);
         Vencimiento = (EditText) findViewById(R.id.txtVencimiento);
-        Base = (RadioButton) findViewById(R.id.rbBase);
-        Premium = (RadioButton) findViewById(R.id.rbPremium);
-        Full = (RadioButton) findViewById(R.id.rbFull);
         Credito = (SeekBar) findViewById(R.id.seekBarCreditoInicial);
         Notificaciones = (Button) findViewById(R.id.BtnNotificaciones);
         EsVendedor = (Switch) findViewById(R.id.swVendedor);
@@ -64,6 +67,11 @@ public class MainActivity extends AppCompatActivity {
         CBU = (EditText) findViewById(R.id.txtCBU);
         Vendedor = (LinearLayout) findViewById(R.id.hiddenLayout);
         Registrar = (Button) findViewById(R.id.btnRegistrar);
+        Progreso = (TextView) findViewById(R.id.lblCreditoInicial);
+        Progreso.setText(((Integer) creditoMinimo).toString());
+        TipoCuenta = (RadioGroup) findViewById(R.id.rgTipoCuenta);
+
+
 
         EsVendedor.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -86,6 +94,43 @@ public class MainActivity extends AppCompatActivity {
                 else {
                     Registrar.setEnabled(false);
                 }
+            }
+        });
+
+        Credito.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
+                String aux = ((Integer)(progress + creditoMinimo)).toString();
+                Progreso.setText(aux);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+        TipoCuenta.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int id) {
+                switch (id){
+                    case R.id.rbBase:
+                        creditoMinimo = creditoMinimoBase;
+                        break;
+                    case R.id.rbPremium:
+                        creditoMinimo = creditoMinimoPremium;
+                        break;
+                    case R.id.rbFull:
+                        creditoMinimo = creditoMinimoFull;
+                        break;
+                }
+                Credito.setProgress(0);
+                Progreso.setText(((Integer)creditoMinimo).toString());
             }
         });
 
@@ -135,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Boolean validarVacio(){
 
-        Boolean resultado = Correo.getText().length()>0 && Clave.getText().length()>0 && RepetirClave.getText().length()>0 && NumeroTarjeta.getText().length()>0 && (Base.isChecked() || Premium.isChecked() || Full.isChecked());
+        Boolean resultado = Correo.getText().length()>0 && Clave.getText().length()>0 && RepetirClave.getText().length()>0 && NumeroTarjeta.getText().length()>0;
 
         if(resultado && EsVendedor.isChecked()) {
             resultado = AliasCBU.getText().length()>0 && CBU.getText().length()>0;

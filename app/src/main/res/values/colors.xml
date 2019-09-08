@@ -2,7 +2,8 @@
 <resources>
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
-    <color name="colorTittles">@android:color/holo_blue_dark</color>
+    <color name="colorAccent">#4FC3F7</color>
+    <color name="colorTitulo">#01579B</color>
+    <color name="colorEtiquetas">#0277BD</color>
 
 </resources>
