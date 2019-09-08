@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.SeekBar;
 import android.widget.Switch;
+import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -40,9 +41,6 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayout Vendedor;
     private Button Registrar;
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,75 +65,90 @@ public class MainActivity extends AppCompatActivity {
         Vendedor = (LinearLayout) findViewById(R.id.hiddenLayout);
         Registrar = (Button) findViewById(R.id.btnRegistrar);
 
-
         EsVendedor.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked){
+                if(isChecked) {
                     Vendedor.setVisibility(View.VISIBLE);
-                }else{
+                }
+                else {
                     Vendedor.setVisibility(View.GONE);
                 }
             }
         });
 
-
-        Registrar.setOnClickListener(new View.OnClickListener(){
+        Terminos.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View view){
-
-              if (!validarVacio()){ //si faltan campos por completar
-                  if (EsVendedor.isChecked()){ //si es vendedor informar que los campos de comprador + los de Alias CBU y CBU son obligatorios
-                      //toast
-                  } else { //si es comprador informar solo de la obligatoriedad de los campos de comprador
-                      //toast
-                  }
-              } else { //si todos los campos obligatorios fueron completados satisfactoriamente se verifican las demás restricciones
-                  if (!coincidenClaves()){ //si las claves no coinciden
-                      //toast informando que las claves no coinciden
-                  } else { //si las claves coinciden
-                      if(!restriccionCorreo()){ // si las restricciones del correo electrónico no se cumplen satisfactoriamente
-                          //toast informando al respecto
-                      } else { //las restricciones del correo se cumplen
-                          try {
-                              if (!restriccionVencimiento()){ // si las restricciones de vencimiento de la tarjeta no se cumplen
-                                  //toast informando al respecto
-                              } else { //todas las restricciones se cumplieron
-                                  //toast informando el exito del registro
-                              }
-                          } catch (ParseException e) {
-                              e.printStackTrace();
-                          }
-                      }
-                  }
-              }
-
-
-
-
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if(isChecked) {
+                    Registrar.setEnabled(true);
+                }
+                else {
+                    Registrar.setEnabled(false);
+                }
             }
         });
 
-       }
+        Registrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!validarVacio()) {//si faltan campos por completar
+                    if(EsVendedor.isChecked()) { //si es vendedor informar que los campos de comprador + los de Alias CBU y CBU son obligatorios
+                        String text = "¡Debe completar los datos de usuario y cuenta bancaria!";
+                        Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
+                    }
+                    else { //si es comprador informar solo de la obligatoriedad de los campos de comprador
+                        String text = "¡Debe completar los datos de usuario!";
+                        Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
+                    }
+                }
+                else { //si todos los campos obligatorios fueron completados satisfactoriamente se verifican las demás restricciones
+                    if (!coincidenClaves()) { //si las claves no coinciden
+                        String text = "¡Las claves ingresadas no coinciden!";
+                        Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
+                    }
+                    else {//si las claves coinciden
+                        if(!restriccionCorreo()) { // si las restricciones del correo electrónico no se cumplen satisfactoriamente
+                            String text = "¡El correo electrónico ingresado no es válido!";
+                            Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
+                        }
+                        else {//las restricciones del correo se cumplen
+                            try {
+                                if(!restriccionVencimiento()) { // si las restricciones de vencimiento de la tarjeta no se cumplen
+                                    String text = "¡La tarjeta de crédito ingresada está próxima a vencerse!";
+                                    Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
+                                }
+                                else { //todas las restricciones se cumplieron
+                                    String text = "¡Datos guardados correctamente!";
+                                    Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                            catch(ParseException e) {
+                              e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
 
     private Boolean validarVacio(){
 
-        Boolean resultado = Correo.getText().length()>0 && Clave.getText().length()>0 && RepetirClave.getText().length()>0 && NumeroTarjeta.getText().length()>0 && (Base.isChecked() || Premium.isChecked() || Full.isChecked()) && Terminos.isChecked();
+        Boolean resultado = Correo.getText().length()>0 && Clave.getText().length()>0 && RepetirClave.getText().length()>0 && NumeroTarjeta.getText().length()>0 && (Base.isChecked() || Premium.isChecked() || Full.isChecked());
 
-        if(resultado && EsVendedor.isChecked()){
+        if(resultado && EsVendedor.isChecked()) {
             resultado = AliasCBU.getText().length()>0 && CBU.getText().length()>0;
         }
 
         return resultado;
-}
+    }
 
-private Boolean coincidenClaves(){
-
+    private Boolean coincidenClaves(){
         return (Clave.getText().equals(RepetirClave.getText()));
+    }
 
-}
-
-private Boolean restriccionCorreo(){
+    private Boolean restriccionCorreo(){
 
         Boolean resultado = Correo.getText().toString().contains("@");
 
@@ -152,27 +165,20 @@ private Boolean restriccionCorreo(){
         }
 
         return resultado;
-
-
     }
 
-private Boolean restriccionVencimiento() throws ParseException {
-    SimpleDateFormat sdf = new SimpleDateFormat("MM/YY");
-    Date v = sdf.parse(Vencimiento.getText().toString());
+    private Boolean restriccionVencimiento() throws ParseException {
 
-    String c = sdf.format(new Date());
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/YY");
+        Date v = sdf.parse(Vencimiento.getText().toString());
+        String c = sdf.format(new Date());
+        Date actual = sdf.parse(c);
 
-    Date actual = sdf.parse(c);
+        long diff = v.getTime() - actual.getTime();
+        int difdias = (int) (diff / (24 * 60 * 60 * 1000));
 
-
-    long diff = v.getTime() - actual.getTime();
-
-    int difdias = (int) (diff / (24 * 60 * 60 * 1000));
-
-    return (difdias>=92);
-
-
-}
+        return (difdias>=92);
+    }
 
 
 
