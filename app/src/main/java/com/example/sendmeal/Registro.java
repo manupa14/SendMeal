@@ -1,15 +1,17 @@
 package com.example.sendmeal;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.Switch;
@@ -22,7 +24,7 @@ import java.util.Date;
 
 import static java.lang.Character.isLetter;
 
-public class MainActivity extends AppCompatActivity {
+public class Registro extends AppCompatActivity {
 
     private EditText Nombre;
     private EditText Clave;
@@ -49,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_registro);
 
         creditoMinimo = creditoMinimoBase;
         Nombre = (EditText)findViewById(R.id.txtNombreRegistrar);
@@ -176,7 +178,26 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
+
     }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
 
     private Boolean validarVacio(){
 
