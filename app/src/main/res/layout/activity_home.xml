@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".HOME" >
+    tools:context=".Activities.HOME" >
 
 
     <androidx.appcompat.widget.Toolbar
@@ -16,5 +16,13 @@
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/welcome"
+        android:textSize = "@dimen/titulo"
+        android:gravity="center"/>
 
 </LinearLayout>

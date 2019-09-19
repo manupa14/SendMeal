@@ -8,16 +8,16 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".HOME">
+        android:theme="@style/My_DarkTheme">
+        <activity android:name=".Activities.HOME">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Registro"
-            android:parentActivityName = ".HOME">
+        <activity android:name=".Activities.Registro"
+            android:parentActivityName = ".Activities.HOME">
         </activity>
     </application>
 

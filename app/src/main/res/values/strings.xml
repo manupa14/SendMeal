@@ -15,11 +15,18 @@
     <string name="full">Full</string>
     <string name="initialCredit">Credito inicial</string>
     <string name="notif">Notificar por correro electronico </string>
-    <string name="bttnNotificaciones">NO ENVIAR NOTIFICACIONES AL MAIL</string>
+    <string name="btnNotificacionesOn">ENVIAR NOTIFICACIONES AL MAIL</string>
+    <string name="btnNotificacionesOff">NO ENVIAR NOTIFICACIONES AL MAIL</string>
     <string name="isSeller">Es vendedor</string>
     <string name="aliasCbu">Alias CBU</string>
     <string name="terms">Acepta terminos y condiciones</string>
     <string name="cbu">CBU</string>
-    <string name="bttnAccept">Aceptar</string>
+    <string name="btnAccept">Aceptar</string>
+    <string name="welcome">BIENVENIDOS</string>
+    <string name="menu1Opt1">"Registrarse"</string>
+    <string name="menu1Opt2">Crear Item</string>
+    <string name="menu1Opt3">Lista de ítems</string>
+
+
 
 </resources>

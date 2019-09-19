@@ -9,13 +9,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".Registro">
+        tools:context=".Activities.Registro">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/tbRegistro"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/colorPrimary"
             android:minHeight="?attr/actionBarSize"
             android:theme="?attr/actionBarTheme" />
 
@@ -23,17 +22,14 @@
             android:id="@+id/lblRegistrar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/registroTittle"
-            android:textColor="@color/colorTitulo"
-            android:textSize="@dimen/titulo" />
+            android:textSize="@dimen/titulo"
+            android:text="@string/registroTittle" />
 
         <TextView
             android:id="@+id/lblNombreRegistrar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/name"
-            android:textColor="@color/colorEtiquetas"
-            android:textSize="@dimen/etiquetas" />
+            android:text="@string/name" />
 
         <EditText
             android:id="@+id/txtNombreRegistrar"
@@ -47,9 +43,7 @@
             android:id="@+id/lblClave"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/password"
-            android:textColor="@color/colorEtiquetas"
-            android:textSize="@dimen/etiquetas" />
+            android:text="@string/password" />
 
         <EditText
             android:id="@+id/txtClave"
@@ -62,9 +56,7 @@
             android:id="@+id/lblRepetirClave"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/passwordRepeat"
-            android:textColor="@color/colorEtiquetas"
-            android:textSize="@dimen/etiquetas" />
+            android:text="@string/passwordRepeat" />
 
         <EditText
             android:id="@+id/txtRepetirClave"
@@ -77,9 +69,7 @@
             android:id="@+id/lblCorreo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/email"
-            android:textColor="@color/colorEtiquetas"
-            android:textSize="@dimen/etiquetas" />
+            android:text="@string/email" />
 
         <EditText
             android:id="@+id/txtCorreo"
@@ -92,15 +82,13 @@
             android:id="@+id/lblTarjeta"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/creditCard"
-            android:textColor="@color/colorEtiquetas"
-            android:textSize="@dimen/etiquetas" />
+            android:text="@string/creditCard" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            tools:context=".Registro">
+            tools:context=".Activities.Registro">
 
             <EditText
                 android:id="@+id/txtNumeroTarjeta"
@@ -109,7 +97,8 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:hint="@string/number"
-                android:inputType="number" />
+                android:inputType="number"
+                android:maxLength="16" />
 
             <EditText
                 android:id="@+id/txtCCV"
@@ -166,17 +155,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/full"
-                android:textSize="14sp" />
+                android:text="@string/full" />
         </RadioGroup>
 
         <TextView
             android:id="@+id/lblCreditoInicial"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/initialCredit"
-            android:textColor="@color/colorEtiquetas"
-            android:textSize="@dimen/etiquetas" />
+            android:text="@string/initialCredit" />
 
         <TextView
             android:id="@+id/lblProgresoCredito"
@@ -193,14 +179,14 @@
             android:id="@+id/lblNotificarCorreo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/notif"
-            android:textSize="@dimen/etiquetas" />
+            android:text="@string/notif" />
 
-        <Button
+        <ToggleButton
             android:id="@+id/BtnNotificaciones"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/bttnNotificaciones"
+            android:textOn="@string/btnNotificacionesOn"
+            android:textOff="@string/btnNotificacionesOff"
             android:textSize="@dimen/buttons"/>
 
         <Switch
@@ -221,8 +207,7 @@
                 android:id="@+id/lblAliasCBU"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/aliasCbu"
-                android:textSize="@dimen/etiquetas" />
+                android:text="@string/aliasCbu" />
 
             <EditText
                 android:id="@+id/txtAliasCbu"
@@ -236,8 +221,7 @@
                 android:id="@+id/lblCBU"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/cbu"
-                android:textSize="@dimen/etiquetas" />
+                android:text="@string/cbu" />
 
             <EditText
                 android:id="@+id/txtCBU"
@@ -258,7 +242,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:enabled="false"
-            android:text="@string/bttnAccept"
+            android:text="@string/btnAccept"
             android:textSize="@dimen/buttons" />
     </LinearLayout>
 

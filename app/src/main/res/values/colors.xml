@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#4FC3F7</color>
-    <color name="colorTitulo">#01579B</color>
-    <color name="colorEtiquetas">#0277BD</color>
+    <color name="colorPrimary_DarkTheme">#455a64</color>
+    <color name="colorPrimaryDark_DarkTheme">#37474f</color>
+    <color name="colorAccent_DarkTheme">#4FC3F7</color>
+    <color name="colorBackground_DarkTheme">#424242</color>
+    <color name="colorTitulo_DarkTheme">#fafafa</color>
+    <color name="colorTexto_DarkTheme">#b0bec5</color>
+
 
 </resources>
