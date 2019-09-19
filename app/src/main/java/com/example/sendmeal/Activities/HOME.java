@@ -42,6 +42,16 @@ public class HOME extends AppCompatActivity {
                 startActivity(i1);
                 return true;
 
+            case R.id.itemCrear:
+                Intent i2=new Intent( this, AltaPlato.class);
+                startActivity(i2);
+                return true;
+
+            case R.id.itemLista:
+                Intent i3=new Intent(this, ListaPlatos.class);
+                startActivity(i3);
+                return true;
+
             default:
                 Toast.makeText(this,"Falló",Toast.LENGTH_LONG).show();
                 return super.onOptionsItemSelected(item);

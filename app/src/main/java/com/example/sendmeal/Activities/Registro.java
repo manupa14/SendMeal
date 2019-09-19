@@ -88,7 +88,7 @@ public class Registro extends AppCompatActivity {
         txtAliasCbu = findViewById(R.id.txtAliasCbu);
         txtCbu = findViewById(R.id.txtCBU);
         llVendedor = findViewById(R.id.hiddenLayout);
-        btnRegistrar = findViewById(R.id.btnRegistrar);
+        btnRegistrar = findViewById(R.id.btnRegistrarUsuario);
         lblProgreso = findViewById(R.id.lblCreditoInicial);
         lblProgreso.setText(((Integer)creditoMinimo).toString());
         rgTipoCuenta = findViewById(R.id.rgTipoCuenta);

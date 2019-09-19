@@ -11,7 +11,10 @@ import android.widget.Toast;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.sendmeal.Domain.Plato;
 import com.example.sendmeal.R;
+
+import java.util.List;
 
 public class PlatoAdapter extends RecyclerView.Adapter<PlatoAdapter.PlatoViewHolder> {
 
@@ -38,7 +41,7 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoAdapter.PlatoViewHol
 
         holder.imagen.setImageResource(myPlato.getImagen());
         holder.titulo.setText(myPlato.getTitulo());
-        holder.titulo.setText(myPlato.getPrecio());
+        holder.precio.setText(myPlato.getPrecio().toString());
 
         holder.cv.setOnClickListener(new View.OnClickListener() {
             @Override

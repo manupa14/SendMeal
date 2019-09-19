@@ -26,6 +26,12 @@
     <string name="menu1Opt1">"Registrarse"</string>
     <string name="menu1Opt2">Crear Item</string>
     <string name="menu1Opt3">Lista de ítems</string>
-
+    <string name="registrarPlato">Registrar plato</string>
+    <string name="idPlato">Id del plato</string>
+    <string name="descripcion">Descripcion</string>
+    <string name="precio">Precio</string>
+    <string name="calorias">Calorías</string>
+    <string name="faltanCampos">¡Debe completar todos los datos!</string>
+    <string name="datosGuardados">¡Datos guardados correctamente!</string>
 
 </resources>
