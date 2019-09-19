@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/My_DarkTheme">
+        <activity android:name=".Activities.ListaPlatos"></activity>
         <activity android:name=".Activities.HOME">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -16,9 +17,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.Registro"
-            android:parentActivityName = ".Activities.HOME">
-        </activity>
+        <activity
+            android:name=".Activities.Registro"
+            android:parentActivityName=".Activities.HOME"></activity>
     </application>
 
 </manifest>
