@@ -12,11 +12,12 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sendmeal.Domain.Plato;
+import com.example.sendmeal.Holders.PlatoViewHolder;
 import com.example.sendmeal.R;
 
 import java.util.List;
 
-public class PlatoAdapter extends RecyclerView.Adapter<PlatoAdapter.PlatoViewHolder> {
+public class PlatoAdapter extends RecyclerView.Adapter<PlatoViewHolder> {
 
     private List<Plato> listaPlato;
     private Context context;
@@ -39,11 +40,11 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoAdapter.PlatoViewHol
 
         Plato myPlato = listaPlato.get(position);
 
-        holder.imagen.setImageResource(myPlato.getImagen());
-        holder.titulo.setText(myPlato.getTitulo());
-        holder.precio.setText(myPlato.getPrecio().toString());
+        holder.getImagen().setImageResource(myPlato.getImagen());
+        holder.getTitulo().setText(myPlato.getTitulo());
+        holder.getPrecio().setText(myPlato.getPrecio().toString());
 
-        holder.cv.setOnClickListener(new View.OnClickListener() {
+        holder.getCv().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(context,"The position is:"+position,Toast.LENGTH_SHORT).show();
@@ -56,22 +57,6 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoAdapter.PlatoViewHol
         return listaPlato.size();
     }
 
-    public class PlatoViewHolder extends RecyclerView.ViewHolder
-    {
-        CardView cv;
-        ImageView imagen;
-        TextView titulo;
-        TextView precio;
 
-        public PlatoViewHolder(View itemView)
-        {
-            super(itemView);
-            cv = itemView.findViewById(R.id.cvFilaPlato);
-            imagen = itemView.findViewById(R.id.imgFilaPlato);
-            titulo = itemView.findViewById(R.id.txtTituloPlato);
-            precio = itemView.findViewById(R.id.txtPrecioPlato);
-        }
-
-    }
 
 }
