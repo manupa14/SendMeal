@@ -1,21 +1,21 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="My_DarkTheme" parent="Theme.AppCompat.NoActionBar">
+    <style name="myDarkTheme" parent="Theme.AppCompat.NoActionBar">
         <!-- Customize your theme here. -->
 
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:typeface">sans</item>
 
-        <item name="colorPrimary">@color/colorPrimary_DarkTheme</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark_DarkTheme</item>
-        <item name="colorAccent">@color/colorAccent_DarkTheme</item>
-        <item name="android:colorBackground">@color/colorBackground_DarkTheme</item>
-        <item name="android:textColor">@color/colorTexto_DarkTheme</item>
+        <item name="colorPrimary">@color/colorPrimary_myDarkTheme</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark_myDarkTheme</item>
+        <item name="colorAccent">@color/colorAccent_myDarkTheme</item>
+        <item name="android:colorBackground">@color/colorBackground_myDarkTheme</item>
+        <item name="android:textColor">@color/colorTexto_myDarkTheme</item>
         <item name="android:textSize">@dimen/etiquetas</item>
-
         </style>
+
 
 
 </resources>

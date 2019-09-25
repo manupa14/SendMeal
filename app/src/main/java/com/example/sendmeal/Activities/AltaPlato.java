@@ -36,6 +36,7 @@ public class AltaPlato extends AppCompatActivity {
         setSupportActionBar(tbAltaPlato);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         configurarEventos();
+
     }
 
     private void inicializarComponentes(){
@@ -46,8 +47,8 @@ public class AltaPlato extends AppCompatActivity {
         txtCalorias = findViewById(R.id.txtCalorias);
         btnRegistrarPlato = findViewById(R.id.btnRegistrarPlato);
         tbAltaPlato = findViewById(R.id.tbAltaPlato);
-        //esto es para probar
-        listaPlatos=new ArrayList<Plato>();
+        //para probar
+        listaPlatos = new ArrayList<Plato>();
     }
 
     private void configurarEventos(){

@@ -11,8 +11,9 @@
         android:id="@+id/cvFilaPlato"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:elevation="4dp"
-        android:layout_margin="4dp">
+        android:elevation="@dimen/cvElevation"
+        android:layout_margin="@dimen/llMargin"
+        >
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout"

@@ -3,4 +3,6 @@
     <dimen name = "titulo">32sp</dimen>
     <dimen name = "etiquetas">16sp</dimen>
     <dimen name = "buttons">18sp</dimen>
+    <dimen name = "cvElevation">4dp</dimen>
+    <dimen name = "llMargin">4dp</dimen>
 </resources>
