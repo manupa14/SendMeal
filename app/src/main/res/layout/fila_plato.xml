@@ -20,17 +20,65 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <Button
+                android:id="@+id/btnOferta"
+                style="@android:style/Widget.Material.Button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginBottom="8dp"
+                android:elevation="@dimen/cvElevation"
+                android:text="Oferta"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imgFilaPlato"
+                tools:visibility="visible" />
+
+            <Button
+                android:id="@+id/btnEditar"
+                style="@android:style/Widget.Material.Button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginBottom="8dp"
+                android:text="Editar"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/btnOferta" />
+
+            <Button
+                android:id="@+id/btnQuitar"
+                style="@android:style/Widget.Material.Button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginBottom="8dp"
+                android:text="Quitar"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/btnEditar" />
+
             <ImageView
                 android:id="@+id/imgFilaPlato"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="4dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:srcCompat="@tools:sample/avatars" />
+
+            <TextView
+                android:id="@+id/txtPrecioPlato"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="8dp"
+                android:text="TextView"
+                android:textSize="@dimen/etiquetas"
+                app:layout_constraintBottom_toTopOf="@+id/btnOferta"
+                app:layout_constraintStart_toEndOf="@+id/imgFilaPlato"
+                app:layout_constraintTop_toBottomOf="@+id/txtTituloPlato" />
 
             <TextView
                 android:id="@+id/txtTituloPlato"
@@ -43,16 +91,6 @@
                 app:layout_constraintStart_toEndOf="@+id/imgFilaPlato"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/txtPrecioPlato"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="30dp"
-                android:text="TextView"
-                android:textSize="@dimen/etiquetas"
-                app:layout_constraintStart_toEndOf="@+id/imgFilaPlato"
-                app:layout_constraintTop_toBottomOf="@+id/txtTituloPlato" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

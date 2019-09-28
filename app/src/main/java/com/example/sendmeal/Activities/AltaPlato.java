@@ -1,5 +1,6 @@
 package com.example.sendmeal.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -37,6 +38,8 @@ public class AltaPlato extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         configurarEventos();
 
+       // Bundle parametros = this.getIntent().getExtras();
+        //if(parametros!=null) cargarDatos(parametros.getInt("PlatoSeleccionado"));
     }
 
     private void inicializarComponentes(){
@@ -76,6 +79,23 @@ public class AltaPlato extends AppCompatActivity {
                 txtDescripcion.getText().length()>0 &&
                 txtNombre.getText().length()>0 &&
                 txtPrecio.getText().length()>0;
+    }
+
+    private void cargarDatos(int index){
+        System.out.println(index);
+        txtIdPlato.setText(listaPlatos.get(index).getId());
+        txtNombre.setText(listaPlatos.get(index).getTitulo());
+        txtDescripcion.setText(listaPlatos.get(index).getDescripcion());
+        txtPrecio.setText(listaPlatos.get(index).getPrecio().toString());
+        txtCalorias.setText(listaPlatos.get(index).getCalorias());
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+
+        switch (requestCode){
+            case 1: cargarDatos(data.getExtras().getInt("PlatoSeleccionado"));
+        }
     }
 
 
