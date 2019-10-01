@@ -32,13 +32,13 @@
         android:inputType="number" />
 
     <TextView
-        android:id="@+id/lblNombre"
+        android:id="@+id/lblTitulo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/name" />
 
     <EditText
-        android:id="@+id/txtNombre"
+        android:id="@+id/txtTitulo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"

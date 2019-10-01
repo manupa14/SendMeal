@@ -16,7 +16,7 @@ public class PlatoViewHolder extends RecyclerView.ViewHolder
     ImageView imagen;
     TextView titulo;
     TextView precio;
-    Button oferta;
+    Button ofertar;
     Button editar;
     Button quitar;
 
@@ -52,12 +52,12 @@ public class PlatoViewHolder extends RecyclerView.ViewHolder
         this.precio = precio;
     }
 
-    public Button getOferta() {
-        return oferta;
+    public Button getOfertar() {
+        return ofertar;
     }
 
-    public void setOferta(Button oferta) {
-        this.oferta = oferta;
+    public void setOfertar(Button ofertar) {
+        this.ofertar = ofertar;
     }
 
     public Button getEditar() {
@@ -83,7 +83,7 @@ public class PlatoViewHolder extends RecyclerView.ViewHolder
         imagen = itemView.findViewById(R.id.imgFilaPlato);
         titulo = itemView.findViewById(R.id.txtTituloPlato);
         precio = itemView.findViewById(R.id.txtPrecioPlato);
-        oferta = itemView.findViewById(R.id.btnOferta);
+        ofertar = itemView.findViewById(R.id.btnOfertar);
         editar = itemView.findViewById(R.id.btnEditar);
         quitar = itemView.findViewById(R.id.btnQuitar);
 

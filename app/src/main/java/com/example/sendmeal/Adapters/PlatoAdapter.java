@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,6 +25,9 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoViewHolder> {
 
     private List<Plato> listaPlato;
     private Context contexto;
+    private static final int CODIGO_OFERTAR_PLATO = 1;
+    private static final int CODIGO_EDITAR_PLATO = 2;
+    private static final int CODIGO_QUITAR_PLATO = 3;
 
     public PlatoAdapter(List<Plato> listaPlato, Context context)
     {
@@ -43,15 +47,23 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoViewHolder> {
     public void onBindViewHolder(PlatoViewHolder holder, final int position) {
 
         Plato myPlato = listaPlato.get(position);
+        String pr = "$".concat(myPlato.getPrecio().toString());
 
         holder.getImagen().setImageResource(myPlato.getImagen());
         holder.getTitulo().setText(myPlato.getTitulo());
-        holder.getPrecio().setText(myPlato.getPrecio().toString());
+        holder.getPrecio().setText(pr);
 
         holder.getCv().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(contexto,"The position is:"+position,Toast.LENGTH_SHORT).show();
+                //Toast.makeText(contexto,"The position is: "+position,Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        holder.getOfertar().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
             }
         });
 
@@ -59,11 +71,17 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoViewHolder> {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(contexto, AltaPlato.class);
-                i.putExtra("PlatoSeleccionado",position);
-                ((Activity)contexto).startActivityForResult(i,1);
+                i.putExtra("platoSeleccionado", position);
+                ((Activity)contexto).startActivityForResult(i,CODIGO_EDITAR_PLATO);
             }
         });
 
+        holder.getQuitar().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
 
     }
 
@@ -71,7 +89,5 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoViewHolder> {
     public int getItemCount() {
         return listaPlato.size();
     }
-
-
 
 }
