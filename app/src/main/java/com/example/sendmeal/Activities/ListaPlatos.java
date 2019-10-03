@@ -7,13 +7,19 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.BroadcastReceiver;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.os.Build;
 import android.os.Bundle;
 import android.widget.Toast;
 
 import com.example.sendmeal.Adapters.PlatoAdapter;
 import com.example.sendmeal.Domain.Plato;
 import com.example.sendmeal.R;
+import com.example.sendmeal.Receivers.MyReceiver;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,10 +32,13 @@ public class ListaPlatos extends AppCompatActivity {
     PlatoAdapter myPlatoAdapter;
     List<Plato> myListaPlatos;
     Toolbar tbListaPlatos;
-    private static final int CODIGO_OFERTAR_PLATO = 1;
-    private static final int CODIGO_EDITAR_PLATO = 2;
-    private static final int CODIGO_QUITAR_PLATO = 3;
+    private static final int CODIGO_EDITAR_PLATO = 1;
 
+
+
+    //---------
+    public static final String CANAL_MENSAJES_ID="10001";
+    //-----
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +57,14 @@ public class ListaPlatos extends AppCompatActivity {
         myRecyclerView.setItemAnimator(new DefaultItemAnimator());
         myRecyclerView.setAdapter(myPlatoAdapter);
 
+        createNotificationChannel();
+        BroadcastReceiver br = new MyReceiver();
+        IntentFilter filtro = new IntentFilter();
+        filtro.addAction(MyReceiver.EVENTO_OFERTAR);
+        getApplication().getApplicationContext().registerReceiver(br,filtro);
+
+
+
     }
 
 
@@ -65,33 +82,37 @@ public class ListaPlatos extends AppCompatActivity {
 
         if(resultCode == RESULT_OK){
             switch (requestCode){
-                case CODIGO_OFERTAR_PLATO:
-                    break;
 
                 case CODIGO_EDITAR_PLATO:
                     //le avisamos a nuestro adaptador que cambiaron los datos
                     myPlatoAdapter.notifyDataSetChanged();
                     break;
 
-                case CODIGO_QUITAR_PLATO:
-                    break;
             }
 
         }
         else{
             switch(requestCode) {
-                case CODIGO_OFERTAR_PLATO:
-                    Toast.makeText(getApplicationContext(), R.string.falloOfertar, Toast.LENGTH_SHORT).show();
-                    break;
                 case CODIGO_EDITAR_PLATO:
                     Toast.makeText(getApplicationContext(), R.string.falloEditar, Toast.LENGTH_SHORT).show();
-                    break;
-                case CODIGO_QUITAR_PLATO:
-                    Toast.makeText(getApplicationContext(), R.string.falloOfertar, Toast.LENGTH_SHORT).show();
                     break;
             }
         }
 
+    }
+
+    //------------------------------------------------------------
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = getString(R.string.nombreCanal);
+            String description = getString(R.string.descripcionCanal);
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(CANAL_MENSAJES_ID, name, importance);
+            channel.setDescription(description);
+
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
     }
 
 

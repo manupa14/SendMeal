@@ -14,6 +14,7 @@ public class Plato {
     private Double precio;
     private Integer calorias;
     private int imagen;
+    private boolean enOferta;
 
     public Plato(Integer id, String titulo, String descripcion, Double precio, Integer calorias) {
         this.id = id;
@@ -22,6 +23,7 @@ public class Plato {
         this.precio = precio;
         this.calorias = calorias;
         this.imagen = R.drawable.ic_launcher_background;
+        this.enOferta = false;
     }
 
     public Integer getId() {
@@ -48,6 +50,10 @@ public class Plato {
         return imagen;
     }
 
+   public  boolean getEnOferta(){
+        return enOferta;
+   }
+
     public void setId(Integer id) {
         this.id = id;
     }
@@ -70,6 +76,10 @@ public class Plato {
 
     public void setImagen(int imagen) {
         this.imagen = imagen;
+    }
+
+    public void setEnOferta (boolean enOferta){
+        this.enOferta = enOferta;
     }
 
     @Override

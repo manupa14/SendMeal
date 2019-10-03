@@ -32,6 +32,7 @@
     <string name="btnOfertar">Ofertar</string>
     <string name="btnEditar">Editar</string>
     <string name="btnQuitar">Quitar</string>
+    <string name="btnCancelar">Cancelar</string>
 
 
     <string name="menu1Opt1">"Registrarse"</string>
@@ -41,10 +42,22 @@
 
     <string name="faltanCampos">¡Debe completar todos los datos!</string>
     <string name="falloEditar">Lo sentimos, no se pudo editar el plato</string>
-    <string name="falloOfertar">Lo sentimos, no se pudo editar el plato</string>
+    <string name="falloOfertar">Lo sentimos, no se pudo ofertar el plato</string>
     <string name="falloQuitar">Lo sentimos, no se pudo quitar el plato</string>
 
     <string name="datosGuardados">¡Datos guardados correctamente!</string>
+    <string name="platoBorrado">¡El plato se ha borrado correctamente!</string>
+
+    <string name="tituloAlertDialogQuitar">Quitar</string>
+    <string name="mensajeAlertDialogQuitar">¿Desea quitar el plato seleccionado?</string>
+
+    <string name="tituloNotificacion">Nueva Oferta</string>
+    <string name="mensajeNotificacion">¡Hay una nueva oferta disponible!</string>
+
+
+
+    <string name="nombreCanal">Ofertas</string>
+    <string name="descripcionCanal">Este canal informara cuando existan nuevas ofertas</string>
 
 
 

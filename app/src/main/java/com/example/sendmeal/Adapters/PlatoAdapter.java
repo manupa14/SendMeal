@@ -1,7 +1,10 @@
 package com.example.sendmeal.Adapters;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +21,7 @@ import com.example.sendmeal.Activities.AltaPlato;
 import com.example.sendmeal.Domain.Plato;
 import com.example.sendmeal.Holders.PlatoViewHolder;
 import com.example.sendmeal.R;
+import com.example.sendmeal.Receivers.MyReceiver;
 
 import java.util.List;
 
@@ -25,9 +29,7 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoViewHolder> {
 
     private List<Plato> listaPlato;
     private Context contexto;
-    private static final int CODIGO_OFERTAR_PLATO = 1;
-    private static final int CODIGO_EDITAR_PLATO = 2;
-    private static final int CODIGO_QUITAR_PLATO = 3;
+    private static final int CODIGO_EDITAR_PLATO = 1;
 
     public PlatoAdapter(List<Plato> listaPlato, Context context)
     {
@@ -64,6 +66,28 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoViewHolder> {
             @Override
             public void onClick(View view) {
 
+                listaPlato.get(position).setEnOferta(true);
+
+                Runnable myRunnable = new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            Thread.currentThread().sleep(10000);
+
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        Intent i = new Intent();
+                        //i.putExtra("Titulo", R.string.tituloNotificacion);
+                        //i.putExtra("Mensaje", R.string.mensajeNotificacion);
+                        i.putExtra("Titulo", "titulo");
+                        i.putExtra("Mensaje", "texto");
+                        i.setAction(MyReceiver.EVENTO_OFERTAR);
+                        contexto.sendBroadcast(i);
+                    }
+                };
+                Thread t1 = new Thread(myRunnable);
+                t1.start();
             }
         });
 
@@ -80,8 +104,29 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoViewHolder> {
             @Override
             public void onClick(View view) {
 
+                AlertDialog.Builder builder = new AlertDialog.Builder((Activity)contexto);
+                builder.setTitle(R.string.tituloAlertDialogQuitar);
+                builder.setMessage(R.string.mensajeAlertDialogQuitar);
+                builder.setPositiveButton(R.string.btnAccept, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        listaPlato.remove(position);
+                        Toast.makeText(contexto, R.string.platoBorrado, Toast.LENGTH_SHORT).show();
+                        notifyDataSetChanged();
+                    }
+                });
+                builder.setNegativeButton(R.string.btnCancelar, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
+
             }
         });
+
 
     }
 
@@ -89,5 +134,6 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoViewHolder> {
     public int getItemCount() {
         return listaPlato.size();
     }
+
 
 }
