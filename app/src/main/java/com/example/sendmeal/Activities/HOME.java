@@ -44,6 +44,7 @@ public class HOME extends AppCompatActivity {
 
             case R.id.itemCrear:
                 Intent i2=new Intent( this, AltaPlato.class);
+                i2.putExtra("startedFrom","home");
                 startActivity(i2);
                 return true;
 

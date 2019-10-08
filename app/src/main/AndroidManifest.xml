@@ -25,6 +25,7 @@
         <activity android:name=".Activities.ListaPlatos"
             android:parentActivityName=".Activities.HOME">
         </activity>
+        <service android:name=".IntentServices.MyIntentService"></service>
 
     </application>
 

@@ -32,17 +32,28 @@ public class AltaPlato extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alta_plato);
+
         inicializarComponentes();
         setSupportActionBar(tbAltaPlato);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         configurarEventos();
 
-        //Si la actividad ha recibido un intent para editar el plato entonces carga los datos.
-        if(getIntent().hasExtra("platoSeleccionado")){
-            cargarDatos();
+        String startedFrom = getIntent().getExtras().getString("startedFrom");
+
+        if(startedFrom.equals("home")){
+            listaPlatos = new ArrayList<Plato>();
         }
+        if(startedFrom.equals("editar")){
+            cargarDatosEditables();
+        }
+        if (startedFrom.equals("notificacion")){
+            cargarDatosNoEditables();
+        }
+
+
     }
 
     private void inicializarComponentes(){
@@ -53,11 +64,6 @@ public class AltaPlato extends AppCompatActivity {
         txtCalorias = findViewById(R.id.txtCalorias);
         btnRegistrarPlato = findViewById(R.id.btnRegistrarPlato);
         tbAltaPlato = findViewById(R.id.tbAltaPlato);
-        //para probar (la validacion es para que no resetee la lista cuando es llamada desde el editar)
-        if (!getIntent().hasExtra("platoSeleccionado")) {
-            listaPlatos = new ArrayList<Plato>();
-        }
-
     }
 
     private void configurarEventos(){
@@ -69,8 +75,8 @@ public class AltaPlato extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), R.string.faltanCampos, Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    /*Preguntamos si hay un intent, para saber si debemos crear el plato o solo editarlo*/
-                    if(!getIntent().hasExtra(("platoSeleccionado"))) {
+                    /*Preguntamos si accedimos desde home, para saber si debemos crear el plato o solo editarlo*/
+                    if(getIntent().getExtras().getString("startedFrom").equals("home")) {
                         Plato plato = new Plato(Integer.parseInt(txtIdPlato.getText().toString()), txtTitulo.getText().toString(), txtDescripcion.getText().toString(), Double.parseDouble(txtPrecio.getText().toString()), Integer.parseInt(txtCalorias.getText().toString()));
                         listaPlatos.add(plato);
                     }
@@ -95,7 +101,7 @@ public class AltaPlato extends AppCompatActivity {
                 txtPrecio.getText().length()>0;
     }
 
-    private void cargarDatos(){
+    private void cargarDatosEditables(){
         //Este metodo carga en la actividad los datos del plato seleccionado para edicion.
         //Obtenemos el plato seleccionado y cargamos sus atributos en los edits texts
 
@@ -113,7 +119,7 @@ public class AltaPlato extends AppCompatActivity {
         /*Obtenemos los extras del intent, especificamente la posicion del plato plato seleccionado en la lista.
         de este modo accedemos al elemento de la lista de platos*/
         int index;
-        index = getIntent().getExtras().getInt("platoSeleccionado");
+        index = getIntent().getExtras().getInt("idPlatoSeleccionado");
         return listaPlatos.get(index);
     }
 
@@ -125,6 +131,23 @@ public class AltaPlato extends AppCompatActivity {
         plato.setDescripcion(txtDescripcion.getText().toString());
         plato.setPrecio(Double.parseDouble(txtPrecio.getText().toString()));
         plato.setCalorias(Integer.parseInt(txtCalorias.getText().toString()));
+    }
+
+    private void cargarDatosNoEditables() {
+        ////Este metodo carga en la actividad los datos del plato pero no permite modificarlos
+        Plato plato = obtenerPlatoSeleccionado();
+
+        txtIdPlato.setText(plato.getId().toString(), TextView.BufferType.NORMAL);
+        txtIdPlato.setEnabled(false);
+        txtTitulo.setText(plato.getTitulo(), TextView.BufferType.NORMAL);
+        txtTitulo.setEnabled(false);
+        txtDescripcion.setText(plato.getDescripcion(), TextView.BufferType.NORMAL);
+        txtDescripcion.setEnabled(false);
+        txtPrecio.setText(plato.getPrecio().toString(), TextView.BufferType.NORMAL);
+        txtPrecio.setEnabled(false);
+        txtCalorias.setText(plato.getCalorias().toString(), TextView.BufferType.NORMAL);
+        txtCalorias.setEnabled(false);
+        btnRegistrarPlato.setVisibility(View.INVISIBLE);
     }
 
 

@@ -57,11 +57,13 @@ public class ListaPlatos extends AppCompatActivity {
         myRecyclerView.setItemAnimator(new DefaultItemAnimator());
         myRecyclerView.setAdapter(myPlatoAdapter);
 
+        //Creamos canal y registramos el BroadcastReceiver
         createNotificationChannel();
         BroadcastReceiver br = new MyReceiver();
         IntentFilter filtro = new IntentFilter();
         filtro.addAction(MyReceiver.EVENTO_OFERTAR);
         getApplication().getApplicationContext().registerReceiver(br,filtro);
+        //---------------
 
 
 
