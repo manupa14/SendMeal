@@ -53,6 +53,11 @@ public class HOME extends AppCompatActivity {
                 startActivity(i3);
                 return true;
 
+            case R.id.itemBuscar:
+                Intent i4=new Intent(this, BuscarPlato.class);
+                startActivity(i4);
+                return true;
+
             default:
                 Toast.makeText(this,"Falló",Toast.LENGTH_LONG).show();
                 return super.onOptionsItemSelected(item);

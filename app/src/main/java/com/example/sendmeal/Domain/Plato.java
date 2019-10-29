@@ -6,17 +6,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity
 public class Plato {
 
+    @PrimaryKey
     private Integer id;
     private String titulo;
     private String descripcion;
-    private Double precio;
+    private int precio;
     private Integer calorias;
     private int imagen;
     private boolean enOferta;
 
-    public Plato(Integer id, String titulo, String descripcion, Double precio, Integer calorias) {
+    public Plato(Integer id, String titulo, String descripcion, int precio, Integer calorias) {
         this.id = id;
         this.titulo = titulo;
         this.descripcion = descripcion;
@@ -38,7 +43,7 @@ public class Plato {
         return descripcion;
     }
 
-    public Double getPrecio() {
+    public int getPrecio() {
         return precio;
     }
 
@@ -66,7 +71,7 @@ public class Plato {
         this.descripcion = descripcion;
     }
 
-    public void setPrecio(Double precio) {
+    public void setPrecio(int precio) {
         this.precio = precio;
     }
 
@@ -82,6 +87,7 @@ public class Plato {
         this.enOferta = enOferta;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -91,7 +97,7 @@ public class Plato {
                 id.equals(plato.id) &&
                 titulo.equals(plato.titulo) &&
                 descripcion.equals(plato.descripcion) &&
-                precio.equals(plato.precio) &&
+                precio == plato.precio &&
                 calorias.equals(plato.calorias);
     }
 
