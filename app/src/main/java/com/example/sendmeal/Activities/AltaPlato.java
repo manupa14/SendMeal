@@ -116,7 +116,7 @@ public class AltaPlato extends AppCompatActivity {
         txtIdPlato.setText(plato.getId().toString(), TextView.BufferType.EDITABLE);
         txtTitulo.setText(plato.getTitulo(), TextView.BufferType.EDITABLE);
         txtDescripcion.setText(plato.getDescripcion(), TextView.BufferType.EDITABLE);
-        txtPrecio.setText(plato.getPrecio().toString(), TextView.BufferType.EDITABLE);
+        txtPrecio.setText(plato.getPrecio(), TextView.BufferType.EDITABLE);
         txtCalorias.setText(plato.getCalorias().toString(), TextView.BufferType.EDITABLE);
     }
 
@@ -135,7 +135,7 @@ public class AltaPlato extends AppCompatActivity {
         plato.setId(Integer.parseInt(txtIdPlato.getText().toString()));
         plato.setTitulo(txtTitulo.getText().toString());
         plato.setDescripcion(txtDescripcion.getText().toString());
-        plato.setPrecio(Double.parseDouble(txtPrecio.getText().toString()));
+        plato.setPrecio(Integer.parseInt(txtPrecio.getText().toString()));
         plato.setCalorias(Integer.parseInt(txtCalorias.getText().toString()));
     }
 
@@ -149,7 +149,7 @@ public class AltaPlato extends AppCompatActivity {
         txtTitulo.setEnabled(false);
         txtDescripcion.setText(plato.getDescripcion(), TextView.BufferType.NORMAL);
         txtDescripcion.setEnabled(false);
-        txtPrecio.setText(plato.getPrecio().toString(), TextView.BufferType.NORMAL);
+        txtPrecio.setText(plato.getPrecio(), TextView.BufferType.NORMAL);
         txtPrecio.setEnabled(false);
         txtCalorias.setText(plato.getCalorias().toString(), TextView.BufferType.NORMAL);
         txtCalorias.setEnabled(false);

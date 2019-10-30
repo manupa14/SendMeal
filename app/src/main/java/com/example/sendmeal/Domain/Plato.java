@@ -12,16 +12,16 @@ import androidx.room.PrimaryKey;
 @Entity
 public class Plato {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private Integer id;
     private String titulo;
     private String descripcion;
-    private int precio;
+    private Double precio;
     private Integer calorias;
     private int imagen;
     private boolean enOferta;
 
-    public Plato(Integer id, String titulo, String descripcion, int precio, Integer calorias) {
+    public Plato(Integer id, String titulo, String descripcion, Double precio, Integer calorias) {
         this.id = id;
         this.titulo = titulo;
         this.descripcion = descripcion;
@@ -43,7 +43,7 @@ public class Plato {
         return descripcion;
     }
 
-    public int getPrecio() {
+    public Double getPrecio() {
         return precio;
     }
 
@@ -71,7 +71,7 @@ public class Plato {
         this.descripcion = descripcion;
     }
 
-    public void setPrecio(int precio) {
+    public void setPrecio(Double precio) {
         this.precio = precio;
     }
 

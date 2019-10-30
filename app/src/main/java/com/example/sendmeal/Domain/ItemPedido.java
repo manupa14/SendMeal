@@ -1,12 +1,22 @@
 package com.example.sendmeal.Domain;
 
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
-@Entity
+@Entity(foreignKeys = {
+        @ForeignKey(entity = Plato.class,
+                parentColumns = "id",
+                childColumns = "platoid",
+                onDelete = ForeignKey.CASCADE),
+        @ForeignKey(entity = Pedido.class,
+                parentColumns = "id",
+                childColumns = "idpedido",
+                onDelete = ForeignKey.CASCADE)})
+
 public class ItemPedido {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private int id;
     private int platoid;
     private int cantidad;

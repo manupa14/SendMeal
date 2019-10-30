@@ -10,7 +10,7 @@ import androidx.room.PrimaryKey;
 @Entity
 public class Pedido {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private int id;
 
     private Date fecha;
