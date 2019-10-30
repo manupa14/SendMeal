@@ -56,12 +56,10 @@
     <string name="tituloNotificacion">Nueva Oferta</string>
     <string name="mensajeNotificacion">¡Hay una nueva oferta disponible!</string>
 
-
-
     <string name="nombreCanal">Ofertas</string>
     <string name="descripcionCanal">Este canal informara cuando existan nuevas ofertas</string>
 
-
+    <string name="itemPedidoQuitado">¡Se quitó el plato del pedido!</string>
 
 
 </resources>

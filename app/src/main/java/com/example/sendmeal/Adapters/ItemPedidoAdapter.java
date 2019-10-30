@@ -5,9 +5,9 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.sendmeal.Domain.ItemPedido;
-import com.example.sendmeal.Domain.Plato;
 import com.example.sendmeal.Holders.ItemPedidoViewHolder;
 import com.example.sendmeal.R;
 
@@ -17,11 +17,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class ItemPedidoAdapter extends RecyclerView.Adapter<ItemPedidoViewHolder> {
 
-    private List<ItemPedido> listaItemsPedido;
+    private List<ItemPedido> itemsPedido;
     private Context context;
 
 
-    public ItemPedidoAdapter(Context context) {
+    public ItemPedidoAdapter(List<ItemPedido> itemsPedido, Context context) {
+        this.itemsPedido = itemsPedido;
         this.context = context;
     }
 
@@ -33,19 +34,47 @@ public class ItemPedidoAdapter extends RecyclerView.Adapter<ItemPedidoViewHolder
     }
 
     @Override
-    public void onBindViewHolder(ItemPedidoViewHolder holder, final int position) {
+    public void onBindViewHolder(final ItemPedidoViewHolder holder, final int position) {
 
-        ItemPedido itemPedido = listaItemsPedido.get(position);
-        String precio = "$".concat(myPlato.getPrecio().toString());
+        ItemPedido itemPedido = itemsPedido.get(position);
+        String precio = "$".concat(itemPedido.getSubTotal().toString());
 
-        holder.getImgPlato().setImageResource(myPlato.getImagen());
-        holder.getTxtTitulo().setText(myPlato.getTitulo());
+        holder.getImgPlato().setImageResource(itemPedido.getPlato().getImagen());
+        holder.getTxtTitulo().setText(itemPedido.getPlato().getTitulo());
         holder.getTxtPrecio().setText(precio);
 
-        holder.getCv().setOnClickListener(new View.OnClickListener() {
+        holder.getBtnMas().setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                //Toast.makeText(contexto,"The position is: "+position,Toast.LENGTH_SHORT).show();
+            public void onClick(View v) {
+                int cantidadNueva = Integer.parseInt(holder.getTxtCantidad().getText().toString()) + 1;
+                holder.getTxtCantidad().setText(cantidadNueva);
+
+                //TODO Ver como incrementar el sub total
+            }
+        });
+
+        holder.getBtnMenos().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                int cantidadActual = Integer.parseInt(holder.getTxtCantidad().getText().toString());
+
+                if(cantidadActual > 0){
+                    int cantidadNueva = cantidadActual - 1;
+                    holder.getTxtCantidad().setText(cantidadNueva);
+                }
+
+                //TODO Ver como disminuir el sub total
+
+            }
+        });
+
+        holder.getBtnQuitar().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                itemsPedido.remove(position);
+                Toast.makeText(context, R.string.itemPedidoQuitado, Toast.LENGTH_SHORT).show();
+                notifyDataSetChanged();
             }
         });
 
@@ -53,7 +82,7 @@ public class ItemPedidoAdapter extends RecyclerView.Adapter<ItemPedidoViewHolder
 
     @Override
     public int getItemCount() {
-        return listaPlato.size();
+        return itemsPedido.size();
     }
 
 

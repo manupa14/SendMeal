@@ -2,6 +2,7 @@ package com.example.sendmeal.Domain;
 
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(foreignKeys = {
@@ -17,54 +18,61 @@ import androidx.room.PrimaryKey;
 public class ItemPedido {
 
     @PrimaryKey(autoGenerate = true)
-    private int id;
-    private int platoid;
-    private int cantidad;
-    private int precio;
-    private int idpedido;
+    private Integer id;
+    private Integer platoid;
+    private Integer cantidad;
+    private Double subTotal;
+    private Integer idpedido;
+
+    @Ignore
+    private Plato Plato;
 
 
-    public int getIdpedido() {
-        return idpedido;
-    }
-
-    public void setIdpedido(int idpedido) {
-        this.idpedido = idpedido;
-    }
-
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-
-    public int getPlatoid() {
+    public Integer getPlatoid() {
         return platoid;
     }
 
-    public void setPlatoid(int platoid) {
+    public void setPlatoid(Integer platoid) {
         this.platoid = platoid;
     }
 
-    public int getCantidad() {
+    public Integer getCantidad() {
         return cantidad;
     }
 
-    public void setCantidad(int cantidad) {
+    public void setCantidad(Integer cantidad) {
         this.cantidad = cantidad;
     }
 
-    public int getPrecio() {
-        return precio;
+    public Double getSubTotal() {
+        return subTotal;
     }
 
-    public void setPrecio(int precio) {
-        this.precio = precio;
+    public void setSubTotal(Double subTotal) {
+        this.subTotal = subTotal;
     }
 
+    public Integer getIdpedido() {
+        return idpedido;
+    }
 
+    public void setIdpedido(Integer idpedido) {
+        this.idpedido = idpedido;
+    }
 
+    public com.example.sendmeal.Domain.Plato getPlato() {
+        return Plato;
+    }
+
+    public void setPlato(com.example.sendmeal.Domain.Plato plato) {
+        Plato = plato;
+    }
 }

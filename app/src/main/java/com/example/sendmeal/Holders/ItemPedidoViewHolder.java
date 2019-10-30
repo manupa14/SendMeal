@@ -17,6 +17,7 @@ public class ItemPedidoViewHolder extends RecyclerView.ViewHolder {
     TextView txtTitulo;
     TextView txtPrecio;
     TextView txtCantidad;
+    Button btnQuitar;
     Button btnMas;
     Button btnMenos;
 
@@ -24,13 +25,14 @@ public class ItemPedidoViewHolder extends RecyclerView.ViewHolder {
     public ItemPedidoViewHolder(View itemView)
     {
         super(itemView);
-        /*cv = itemView.findViewById(R.id.cvFilaPedido);
+        cv = itemView.findViewById(R.id.cvFilaPedido);
         imgPlato = itemView.findViewById(R.id.imgFilaPedido);
         txtTitulo = itemView.findViewById(R.id.txtTituloItem);
         txtPrecio = itemView.findViewById(R.id.txtPrecioItem);
         txtCantidad = itemView.findViewById(R.id.txtCantidad);
+        btnQuitar = itemView.findViewById(R.id.btnQuitarItem);
         btnMas = itemView.findViewById(R.id.btnMas);
-        btnMenos = itemView.findViewById(R.id.btnMenos);*/
+        btnMenos = itemView.findViewById(R.id.btnMenos);
     }
 
     public CardView getCv() {
@@ -87,6 +89,14 @@ public class ItemPedidoViewHolder extends RecyclerView.ViewHolder {
 
     public void setBtnMenos(Button btnMenos) {
         this.btnMenos = btnMenos;
+    }
+
+    public Button getBtnQuitar() {
+        return btnQuitar;
+    }
+
+    public void setBtnQuitar(Button btnQuitar) {
+        this.btnQuitar = btnQuitar;
     }
 
 }
