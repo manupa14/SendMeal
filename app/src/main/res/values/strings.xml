@@ -64,6 +64,6 @@
     <string name="descripcionCanal">Este canal informara cuando existan nuevas ofertas</string>
 
     <string name="itemPedidoQuitado">¡Se quitó el plato del pedido!</string>
-
+    <string name="falloEnviarPedido">Lo sentimos, no se pudo enviar el pedido</string>
 
 </resources>

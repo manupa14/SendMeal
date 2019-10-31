@@ -49,6 +49,8 @@ public class ItemPedidoAdapter extends RecyclerView.Adapter<ItemPedidoViewHolder
                 int cantidadNueva = Integer.parseInt(holder.getTxtCantidad().getText().toString()) + 1;
                 holder.getTxtCantidad().setText(cantidadNueva);
 
+                itemsPedido.get(position).setCantidad(cantidadNueva);
+
                 //TODO Ver como incrementar el sub total
             }
         });
@@ -62,6 +64,8 @@ public class ItemPedidoAdapter extends RecyclerView.Adapter<ItemPedidoViewHolder
                 if(cantidadActual > 0){
                     int cantidadNueva = cantidadActual - 1;
                     holder.getTxtCantidad().setText(cantidadNueva);
+
+                    itemsPedido.get(position).setCantidad(cantidadNueva);
                 }
 
                 //TODO Ver como disminuir el sub total

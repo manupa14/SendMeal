@@ -25,4 +25,8 @@ public class MyRetrofit {
         return rf.create(PlatoRest.class);
     }
 
+    public PedidoRest crearPedidoRest(){
+        return rf.create(PedidoRest.class);
+    }
+
 }

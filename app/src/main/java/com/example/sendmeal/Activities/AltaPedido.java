@@ -7,10 +7,13 @@ import android.widget.Button;
 import com.example.sendmeal.Adapters.ItemPedidoAdapter;
 import com.example.sendmeal.Adapters.PlatoAdapter;
 import com.example.sendmeal.Domain.ItemPedido;
+import com.example.sendmeal.Domain.Pedido;
 import com.example.sendmeal.Domain.Plato;
+import com.example.sendmeal.Persistence.PedidoRepository;
 import com.example.sendmeal.R;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,12 +23,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class AltaPedido extends AppCompatActivity {
 
-    private Button btnCrear;
-    private Button btnEnviar;
-    private List<ItemPedido> itemsPedido;
-
     RecyclerView myRecyclerView;
     ItemPedidoAdapter myItemPedidoAdapter;
+
+    private Button btnCrear;
+    private Button btnEnviar;
+    private Button btnAgregarItem;
+    private List<ItemPedido> itemsPedido = new ArrayList<>();
+
+    Pedido pedido = new Pedido();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,9 +53,11 @@ public class AltaPedido extends AppCompatActivity {
 
     private void inicializarComponentes(){
 
-        //btnCrear = findViewById(R.id.btnCrear);
-        //btnEnviar = findViewById(R.id.btnEnviar);
-        itemsPedido = new ArrayList<>();
+        btnCrear = findViewById(R.id.btnCrear);
+        btnEnviar = findViewById(R.id.btnEnviar);
+        btnAgregarItem = findViewById(R.id.fltBtnAgregarItem);
+
+        btnEnviar.setEnabled(false);
 
     }
 
@@ -58,10 +67,32 @@ public class AltaPedido extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                pedido.setEstado(1);
+                pedido.setFecha(new Date());
+                pedido.setLat(-1);
+                pedido.setLng(-1);
+                pedido.setItems(itemsPedido);
 
+                PedidoRepository.getInstance(getApplicationContext()).getPedidoDao().insert(pedido);
+
+                btnCrear.setEnabled(false);
+                btnAgregarItem.setVisibility(View.INVISIBLE);
+                btnEnviar.setEnabled(true);
 
             }
         });
+
+        btnEnviar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                pedido.setEstado(2);
+                PedidoRepository.getInstance(getApplicationContext()).guardarPedidoEnviado(pedido);
+
+            }
+        });
+
+
 
     }
 
