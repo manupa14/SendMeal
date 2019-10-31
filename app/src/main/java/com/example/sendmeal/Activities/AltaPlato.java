@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.sendmeal.Domain.Plato;
+import com.example.sendmeal.Persistence.PlatoRepository;
 import com.example.sendmeal.R;
 
 import java.util.ArrayList;
@@ -27,7 +28,6 @@ public class AltaPlato extends AppCompatActivity {
     private Toolbar tbAltaPlato;
     //para probar
     public static List<Plato> listaPlatos;
-
 
 
     @Override
@@ -81,7 +81,7 @@ public class AltaPlato extends AppCompatActivity {
                     if(getIntent().getExtras().getString("startedFrom").equals("home")) {
                         Plato plato = new Plato(Integer.parseInt(txtIdPlato.getText().toString()), txtTitulo.getText().toString(), txtDescripcion.getText().toString(), Double.parseDouble(txtPrecio.getText().toString()), Integer.parseInt(txtCalorias.getText().toString()));
                         listaPlatos.add(plato);
-                        .getInstance().crearPlato(getApplicationContext(), plato);
+                        PlatoRepository.getInstance(getApplicationContext()).crearPlato(plato);
                     }
                     else
                     {
@@ -113,7 +113,7 @@ public class AltaPlato extends AppCompatActivity {
         txtIdPlato.setText(plato.getId().toString(), TextView.BufferType.EDITABLE);
         txtTitulo.setText(plato.getTitulo(), TextView.BufferType.EDITABLE);
         txtDescripcion.setText(plato.getDescripcion(), TextView.BufferType.EDITABLE);
-        txtPrecio.setText(plato.getPrecio(), TextView.BufferType.EDITABLE);
+        txtPrecio.setText(plato.getPrecio().toString(), TextView.BufferType.EDITABLE);
         txtCalorias.setText(plato.getCalorias().toString(), TextView.BufferType.EDITABLE);
     }
 
@@ -132,7 +132,7 @@ public class AltaPlato extends AppCompatActivity {
         plato.setId(Integer.parseInt(txtIdPlato.getText().toString()));
         plato.setTitulo(txtTitulo.getText().toString());
         plato.setDescripcion(txtDescripcion.getText().toString());
-        plato.setPrecio(Integer.parseInt(txtPrecio.getText().toString()));
+        plato.setPrecio(Double.parseDouble(txtPrecio.getText().toString()));
         plato.setCalorias(Integer.parseInt(txtCalorias.getText().toString()));
     }
 
@@ -146,7 +146,7 @@ public class AltaPlato extends AppCompatActivity {
         txtTitulo.setEnabled(false);
         txtDescripcion.setText(plato.getDescripcion(), TextView.BufferType.NORMAL);
         txtDescripcion.setEnabled(false);
-        txtPrecio.setText(plato.getPrecio(), TextView.BufferType.NORMAL);
+        txtPrecio.setText(plato.getPrecio().toString(), TextView.BufferType.NORMAL);
         txtPrecio.setEnabled(false);
         txtCalorias.setText(plato.getCalorias().toString(), TextView.BufferType.NORMAL);
         txtCalorias.setEnabled(false);

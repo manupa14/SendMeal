@@ -1,5 +1,8 @@
 package com.example.sendmeal.Domain;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.example.sendmeal.R;
 
 import java.util.ArrayList;
@@ -10,7 +13,7 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity
-public class Plato {
+public class Plato implements Parcelable {
 
     @PrimaryKey(autoGenerate = true)
     private Integer id;
@@ -29,6 +32,14 @@ public class Plato {
         this.calorias = calorias;
         this.imagen = R.drawable.ic_launcher_background;
         this.enOferta = false;
+    }
+
+    public Plato(Parcel in) {
+        this.readFromParcel(in);
+    }
+
+    public Plato() {
+
     }
 
     public Integer getId() {
@@ -117,6 +128,44 @@ public class Plato {
                 ", imagen=" + imagen +
                 '}';
     }
+
+    @Override
+    public int describeContents(){
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags){
+
+        dest.writeInt(id);
+        dest.writeString(titulo);
+        dest.writeString(descripcion);
+        dest.writeDouble(precio);
+        dest.writeInt(imagen);
+
+    }
+
+    private void readFromParcel(Parcel in){
+
+        id = in.readInt();
+        titulo = in.readString();
+        descripcion = in.readString();
+        precio = in.readDouble();
+        imagen = in.readInt();
+
+    }
+
+    public static final Parcelable.Creator<Plato> CREATOR = new Parcelable.Creator<Plato>() {
+
+        public Plato createFromParcel(Parcel in) {
+            return new Plato(in);
+        }
+
+        public Plato[] newArray(int size) {
+            return new Plato[size];
+        }
+
+    };
 
 }
 

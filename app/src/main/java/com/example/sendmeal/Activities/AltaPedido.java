@@ -37,7 +37,7 @@ public class AltaPedido extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_alta_pedido);
+        setContentView(R.layout.activity_alta_pedido);
 
         inicializarComponentes();
         configurarEventos();
@@ -45,8 +45,8 @@ public class AltaPedido extends AppCompatActivity {
         String startedFrom = getIntent().getExtras().getString("startedFrom");
 
         if(startedFrom.equals("buscar")){
-            //recuperar plato del intent.
-            //agregarItemPedido(plato)
+            Plato plato = getIntent().getParcelableExtra("plato");
+            agregarItemPedido(plato);
         }
 
     }
@@ -92,6 +92,13 @@ public class AltaPedido extends AppCompatActivity {
             }
         });
 
+        btnAgregarItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Agregar mas items
+            }
+        });
+
 
 
     }
@@ -108,7 +115,7 @@ public class AltaPedido extends AppCompatActivity {
 
         myItemPedidoAdapter = new ItemPedidoAdapter(itemsPedido, this);
 
-        //myRecyclerView = findViewById(R.id.rvItemsPedido);
+        myRecyclerView = findViewById(R.id.rvAltaPedidos);
         myRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         myRecyclerView.setItemAnimator(new DefaultItemAnimator());
         myRecyclerView.setAdapter(myItemPedidoAdapter);

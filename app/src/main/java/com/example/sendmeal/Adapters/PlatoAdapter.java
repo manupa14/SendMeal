@@ -20,6 +20,7 @@ import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.sendmeal.Activities.AltaPedido;
 import com.example.sendmeal.Activities.AltaPlato;
 import com.example.sendmeal.Activities.ListaPlatos;
 import com.example.sendmeal.Domain.Plato;
@@ -28,7 +29,9 @@ import com.example.sendmeal.IntentServices.MyIntentService;
 import com.example.sendmeal.R;
 import com.example.sendmeal.Receivers.MyReceiver;
 
+import java.lang.reflect.Array;
 import java.security.Provider;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PlatoAdapter extends RecyclerView.Adapter<PlatoViewHolder> {
@@ -36,11 +39,14 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoViewHolder> {
     private List<Plato> listaPlato;
     private Context contexto;
     private static final int CODIGO_EDITAR_PLATO = 1;
+    private static final int _BUSCAR_PLATO = 1;
+    private int flag;
 
-    public PlatoAdapter(List<Plato> listaPlato, Context context)
+    public PlatoAdapter(List<Plato> listaPlato, Context context, int flag)
     {
         this.listaPlato = listaPlato;
         this.contexto = context;
+        this.flag = flag;
     }
 
     @Override
@@ -52,7 +58,7 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(PlatoViewHolder holder, final int position) {
+    public void onBindViewHolder(final PlatoViewHolder holder, final int position) {
 
         Plato myPlato = listaPlato.get(position);
         String pr = "$".concat(myPlato.getPrecio().toString());
@@ -61,13 +67,23 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoViewHolder> {
         holder.getTitulo().setText(myPlato.getTitulo());
         holder.getPrecio().setText(pr);
 
+
         holder.getCv().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //Toast.makeText(contexto,"The position is: "+position,Toast.LENGTH_SHORT).show();
+                if(flag == _BUSCAR_PLATO) {
+
+                    Plato plato = listaPlato.get(position);
+                    Intent i = new Intent(contexto, AltaPedido.class);
+                    i.putExtra("plato", plato);
+                    contexto.startActivity(i);
+
+                }
 
             }
         });
+
 
         holder.getOfertar().setOnClickListener(new View.OnClickListener() {
             @Override
