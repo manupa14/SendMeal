@@ -1,4 +1,4 @@
-package com.example.sendmeal.Dao.Rest;
+package com.example.sendmeal.Persistence;
 import com.example.sendmeal.Domain.Plato;
 
 import java.util.List;
@@ -29,8 +29,5 @@ public interface PlatoRest {
 
     @POST("platos/")
     Call<Plato> crear(@Body Plato plato);
-
-
-
 
 }

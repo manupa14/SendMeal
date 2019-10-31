@@ -3,17 +3,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.util.Log;
-import android.view.View;
 import android.widget.SearchView;
 
 import com.example.sendmeal.Adapters.PlatoAdapter;
-import com.example.sendmeal.Dao.Rest.MyRetrofit;
-import com.example.sendmeal.Dao.Rest.PlatoRest;
 import com.example.sendmeal.Domain.Plato;
 import com.example.sendmeal.R;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,8 +16,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class BuscarPlato extends AppCompatActivity {
