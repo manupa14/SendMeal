@@ -1,8 +1,6 @@
 package com.example.sendmeal.Activities;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.text.SpannableStringBuilder;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -63,9 +61,9 @@ public class AltaPlato extends AppCompatActivity {
 
     private void inicializarComponentes(){
         txtIdPlato = findViewById(R.id.txtIdPlato);
-        txtTitulo = findViewById(R.id.txtTitulo);
+        txtTitulo = findViewById(R.id.txtTituloItem);
         txtDescripcion = findViewById(R.id.txtDescripcion);
-        txtPrecio = findViewById(R.id.txtPrecio);
+        txtPrecio = findViewById(R.id.txtPrecioItem);
         txtCalorias = findViewById(R.id.txtCalorias);
         btnRegistrarPlato = findViewById(R.id.btnRegistrarPlato);
         tbAltaPlato = findViewById(R.id.tbAltaPlato);

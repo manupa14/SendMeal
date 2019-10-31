@@ -33,6 +33,10 @@
     <string name="btnEditar">Editar</string>
     <string name="btnQuitar">Quitar</string>
     <string name="btnCancelar">Cancelar</string>
+    <string name="btnCrear">Crear</string>
+    <string name="btnEnviar">Enviar</string>
+    <string name="btnMas">+</string>
+    <string name="btnMenos">-</string>
 
 
     <string name="menu1Opt1">"Registrarse"</string>

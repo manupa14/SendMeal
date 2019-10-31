@@ -74,26 +74,6 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoViewHolder> {
 
                 listaPlato.get(position).setEnOferta(true);
 
-                /*Runnable myRunnable = new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            Thread.currentThread().sleep(10000);
-
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        //Enviamos el mensaje de Broadcast
-                        Intent i = new Intent();
-                        i.putExtra("Titulo", contexto.getString(R.string.tituloNotificacion));
-                        i.putExtra("Mensaje", contexto.getString(R.string.mensajeNotificacion));
-                        i.setAction(MyReceiver.EVENTO_OFERTAR);
-                        contexto.sendBroadcast(i);
-                    }
-                };
-                Thread t1 = new Thread(myRunnable);
-                t1.start();*/
-                //Implementado mediante IntentService por Juan 05/10/2019
                Intent nuevoServicio = new Intent(contexto,MyIntentService.class);
                nuevoServicio.putExtra("idPlatoSeleccionado",position);
                contexto.startService(nuevoServicio);

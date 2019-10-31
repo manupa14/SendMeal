@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvFilaPedido"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/llMargin"
+        android:elevation="@dimen/cvElevation"
+        app:cardElevation="@dimen/cvElevation">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imgFilaPedido"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/cvElevation"
+                android:layout_marginTop="@dimen/llMargin"
+                android:layout_marginBottom="@dimen/llMargin"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:srcCompat="@tools:sample/avatars" />
+
+            <TextView
+                android:id="@+id/txtTituloItem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="@dimen/llMargin"
+                app:layout_constraintStart_toEndOf="@+id/imgFilaPedido"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txtPrecioItem"
+                android:layout_width="63dp"
+                android:layout_height="17dp"
+                android:layout_marginStart="@dimen/llMargin"
+                android:layout_marginBottom="@dimen/cvElevation"
+                app:layout_constraintBottom_toTopOf="@+id/btnMenos"
+                app:layout_constraintStart_toEndOf="@+id/imgFilaPedido" />
+
+            <Button
+                android:id="@+id/btnMenos"
+                style="@android:style/Widget.Material.Button.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="43dp"
+                android:layout_marginBottom="@dimen/llMargin"
+                android:text="@string/btnMenos"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btnMas" />
+
+            <Button
+                android:id="@+id/btnMas"
+                style="@android:style/Widget.Material.Light.Button.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/llMargin"
+                android:layout_marginBottom="@dimen/llMargin"
+                android:text="@string/btnMas"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <TextView
+                android:id="@+id/txtCantidad"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btnMas"
+                app:layout_constraintStart_toEndOf="@+id/btnMenos"
+                app:layout_constraintTop_toTopOf="@+id/btnMenos" />
+
+            <Button
+                android:id="@+id/btnQuitarItem"
+                style="@android:style/Widget.Material.Button.Borderless.Small"
+                android:layout_width="35dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="@dimen/cvElevation"
+                android:layout_marginEnd="@dimen/cvElevation"
+                android:text="X"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>

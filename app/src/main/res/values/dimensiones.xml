@@ -4,5 +4,5 @@
     <dimen name = "etiquetas">16sp</dimen>
     <dimen name = "buttons">18sp</dimen>
     <dimen name = "cvElevation">4dp</dimen>
-    <dimen name = "llMargin">4dp</dimen>
+    <dimen name = "llMargin">8dp</dimen>
 </resources>
