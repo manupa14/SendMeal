@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.sendmeal">
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
     <application
         android:usesCleartextTraffic="true"
@@ -14,7 +15,7 @@
 
 
 
-        <activity android:name=".Activities.HOME">
+        <activity android:name=".Activities.MapPedidos">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -33,7 +34,13 @@
         <activity android:name=".Activities.BuscarPlato"
             android:parentActivityName=".Activities.HOME">
         </activity>
+
         <service android:name=".IntentServices.MyIntentService"></service>
+        <meta-data android:name="com.google.android.gms.version"
+                    android:value="@integer/google_play_services_version"/>
+        <meta-data android:name="com.google.android.geo.API_KEY"
+                    android:value="AIzaSyCuYHwH_F4qzlVLJYDJWIR5FZWS_eN5loA" />
+
 
     </application>
 

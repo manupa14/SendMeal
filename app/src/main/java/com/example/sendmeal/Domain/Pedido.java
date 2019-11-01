@@ -12,7 +12,7 @@ public class Pedido {
 
     @PrimaryKey(autoGenerate = true)
     private int id;
-
+    @Ignore
     private Date fecha;
     //1.PENDIENTE, 2.ENVIADO, 3.ACEPTADO, 4.RECHAZADO, 5.EN_PREPARACION, 6.EN_ENVIO, 7.ENTREGADO, 8.CANCELADO
     private int estado;

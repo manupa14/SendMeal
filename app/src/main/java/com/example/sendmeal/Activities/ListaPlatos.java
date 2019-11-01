@@ -50,7 +50,7 @@ public class ListaPlatos extends AppCompatActivity {
 
         myListaPlatos = AltaPlato.listaPlatos;
 
-        myPlatoAdapter = new PlatoAdapter(myListaPlatos, this);
+        myPlatoAdapter = new PlatoAdapter(myListaPlatos, this, 0);
 
         myRecyclerView = findViewById(R.id.rvListaPlatos);
         myRecyclerView.setLayoutManager(new LinearLayoutManager(this));
