@@ -53,8 +53,9 @@ public class HOME extends AppCompatActivity {
                 startActivity(i3);
                 return true;
 
-            case R.id.itemBuscar:
-                Intent i4=new Intent(this, BuscarPlato.class);
+            case R.id.itemPedido:
+                Intent i4=new Intent(this, AltaPedido.class);
+                i4.putExtra("startedFrom", "home");
                 startActivity(i4);
                 return true;
 

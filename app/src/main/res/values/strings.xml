@@ -42,7 +42,7 @@
     <string name="menu1Opt1">"Registrarse"</string>
     <string name="menu1Opt2">Crear item</string>
     <string name="menu1Opt3">Lista de ítems</string>
-    <string name="menu1Opt4">Buscar items</string>
+    <string name="menu1Opt4">Crear pedido</string>
 
 
     <string name="faltanCampos">¡Debe completar todos los datos!</string>
@@ -50,6 +50,7 @@
     <string name="falloOfertar">Lo sentimos, no se pudo ofertar el plato</string>
     <string name="falloQuitar">Lo sentimos, no se pudo quitar el plato</string>
     <string name="falloCrear">Lo sentimos, no se pudo crear el plato</string>
+    <string name="falloBuscar">Lo sentimos, no se pudo encontrar el plato</string>
 
     <string name="datosGuardados">¡Datos guardados correctamente!</string>
     <string name="platoBorrado">¡El plato se ha borrado correctamente!</string>

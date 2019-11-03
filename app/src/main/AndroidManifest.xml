@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.sendmeal">
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
@@ -13,33 +15,41 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Design.Light.NoActionBar">
 
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCuYHwH_F4qzlVLJYDJWIR5FZWS_eN5loA"/>
 
-
-        <activity android:name=".Activities.MapPedidos">
+        <activity android:name=".Activities.HOME">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".Activities.Registro"
             android:parentActivityName = ".Activities.HOME">
         </activity>
+
         <activity android:name=".Activities.AltaPlato"
             android:parentActivityName=".Activities.HOME">
         </activity>
+
         <activity android:name=".Activities.ListaPlatos"
             android:parentActivityName=".Activities.HOME">
         </activity>
+
         <activity android:name=".Activities.BuscarPlato"
             android:parentActivityName=".Activities.HOME">
         </activity>
 
-        <service android:name=".IntentServices.MyIntentService"></service>
-        <meta-data android:name="com.google.android.gms.version"
-                    android:value="@integer/google_play_services_version"/>
-        <meta-data android:name="com.google.android.geo.API_KEY"
-                    android:value="AIzaSyCuYHwH_F4qzlVLJYDJWIR5FZWS_eN5loA" />
+        <activity android:name=".Activities.AltaPedido"
+            android:parentActivityName=".Activities.HOME">
+        </activity>
+
+        <service
+            android:name=".IntentServices.MyIntentService">
+        </service>
+
 
 
     </application>

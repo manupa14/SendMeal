@@ -5,7 +5,6 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.sendmeal.Adapters.ItemPedidoAdapter;
-import com.example.sendmeal.Adapters.PlatoAdapter;
 import com.example.sendmeal.Domain.ItemPedido;
 import com.example.sendmeal.Domain.Pedido;
 import com.example.sendmeal.Domain.Plato;
@@ -23,12 +22,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class AltaPedido extends AppCompatActivity {
 
-    RecyclerView myRecyclerView;
-    ItemPedidoAdapter myItemPedidoAdapter;
+    private RecyclerView mRecyclerView;
+    private ItemPedidoAdapter mItemPedidoAdapter;
 
     private Button btnCrear;
     private Button btnEnviar;
-    private Button btnAgregarItem;
+    private com.google.android.material.floatingactionbutton.FloatingActionButton btnAgregarItem;
+
     private List<ItemPedido> itemsPedido = new ArrayList<>();
 
     Pedido pedido = new Pedido();
@@ -57,6 +57,10 @@ public class AltaPedido extends AppCompatActivity {
         btnEnviar = findViewById(R.id.btnEnviar);
         btnAgregarItem = findViewById(R.id.fltBtnAgregarItem);
 
+        mRecyclerView = findViewById(R.id.rvAltaPedidos);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+
         btnEnviar.setEnabled(false);
 
     }
@@ -76,7 +80,7 @@ public class AltaPedido extends AppCompatActivity {
                 PedidoRepository.getInstance(getApplicationContext()).getPedidoDao().insert(pedido);
 
                 btnCrear.setEnabled(false);
-                btnAgregarItem.setVisibility(View.INVISIBLE);
+                btnAgregarItem.setEnabled(false);
                 btnEnviar.setEnabled(true);
 
             }
@@ -113,12 +117,9 @@ public class AltaPedido extends AppCompatActivity {
 
         itemsPedido.add(itemPedido);
 
-        myItemPedidoAdapter = new ItemPedidoAdapter(itemsPedido, this);
+        mItemPedidoAdapter = new ItemPedidoAdapter(itemsPedido, this);
 
-        myRecyclerView = findViewById(R.id.rvAltaPedidos);
-        myRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        myRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        myRecyclerView.setAdapter(myItemPedidoAdapter);
+        mRecyclerView.setAdapter(mItemPedidoAdapter);
 
     }
 

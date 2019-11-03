@@ -69,7 +69,7 @@ public class PlatoRepository {
             }
             @Override
             public void onFailure(Call<List<Plato>> call, Throwable t) {
-                Toast.makeText(ctx, R.string.falloCrear, Toast.LENGTH_SHORT).show();
+                Toast.makeText(ctx, R.string.falloBuscar, Toast.LENGTH_SHORT).show();
             }
         });
     }
