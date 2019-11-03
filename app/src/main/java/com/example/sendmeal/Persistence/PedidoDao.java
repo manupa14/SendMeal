@@ -26,6 +26,6 @@ public interface PedidoDao {
     @Query("DELETE FROM pedido")
     void deleteAll();
 
-    @Query("SELECT * FROM pedido where pedido.id = :pid ")
+    @Query("SELECT * FROM pedido where pedido.pedido_id = :pid ")
     Pedido findById(int pid);
 }

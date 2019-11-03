@@ -75,8 +75,8 @@ public class AltaPedido extends AppCompatActivity {
 
                 pedido.setEstado(1);
                 pedido.setFecha(new Date());
-                pedido.setLat(-1);
-                pedido.setLng(-1);
+                pedido.setLatitud(-1.0);
+                pedido.setLongitud(-1.0);
                 pedido.setItems(PedidoRepository.getInstance(getApplicationContext()).getItemsPedido());
                 PedidoRepository.getInstance(getApplicationContext()).setItemsPedido(new ArrayList<ItemPedido>());
 

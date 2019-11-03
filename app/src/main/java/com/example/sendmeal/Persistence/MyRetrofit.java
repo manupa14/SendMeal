@@ -5,7 +5,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MyRetrofit {
 
-    public static String _SERVER = "http://10.0.2.2:5000";
+    public static String _SERVER = "http://192.168.0.16:5000";
     private static final MyRetrofit ourInstance = new MyRetrofit();
 
     private Retrofit rf;

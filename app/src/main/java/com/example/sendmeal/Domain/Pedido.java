@@ -3,38 +3,42 @@ package com.example.sendmeal.Domain;
 import java.util.Date;
 import java.util.List;
 
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-@Entity
+@Entity(indices = {@Index("pedido_id")})
 public class Pedido {
 
     @PrimaryKey(autoGenerate = true)
-    private int id;
+    @ColumnInfo(name = "pedido_id")
+    private Integer idPedido;
 
-    private Date fecha;
     //1.PENDIENTE, 2.ENVIADO, 3.ACEPTADO, 4.RECHAZADO, 5.EN_PREPARACION, 6.EN_ENVIO, 7.ENTREGADO, 8.CANCELADO
-    private int estado;
-    private double lat;
-    private double lng;
+    private Integer estado;
+    private Date fecha;
+    private Double latitud;
+    private Double longitud;
+
     @Ignore
     private List<ItemPedido> items;
 
-    public List<ItemPedido> getItems() {
-        return items;
+    public Integer getIdPedido() {
+        return idPedido;
     }
 
-    public void setItems(List<ItemPedido> items) {
-        this.items = items;
+    public void setIdPedido(Integer idPedido) {
+        this.idPedido = idPedido;
     }
 
-    public int getId() {
-        return id;
+    public Integer getEstado() {
+        return estado;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setEstado(Integer estado) {
+        this.estado = estado;
     }
 
     public Date getFecha() {
@@ -45,31 +49,27 @@ public class Pedido {
         this.fecha = fecha;
     }
 
-    public int getEstado() {
-        return estado;
+    public Double getLatitud() {
+        return latitud;
     }
 
-    public void setEstado(int estado) {
-        this.estado = estado;
+    public void setLatitud(Double latitud) {
+        this.latitud = latitud;
     }
 
-    public double getLat() {
-        return lat;
+    public Double getLongitud() {
+        return longitud;
     }
 
-    public void setLat(double lat) {
-        this.lat = lat;
+    public void setLongitud(Double longitud) {
+        this.longitud = longitud;
     }
 
-    public double getLng() {
-        return lng;
+    public List<ItemPedido> getItems() {
+        return items;
     }
 
-    public void setLng(double lng) {
-        this.lng = lng;
+    public void setItems(List<ItemPedido> items) {
+        this.items = items;
     }
-
-
-
-
 }

@@ -1,5 +1,6 @@
 package com.example.sendmeal.Domain;
 
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Ignore;
@@ -9,41 +10,53 @@ import java.util.Objects;
 
 @Entity(foreignKeys = {
         @ForeignKey(entity = Plato.class,
-                parentColumns = "id",
-                childColumns = "platoid",
+                parentColumns = "plato_id",
+                childColumns = "plato_id",
                 onDelete = ForeignKey.CASCADE),
         @ForeignKey(entity = Pedido.class,
-                parentColumns = "id",
-                childColumns = "idpedido",
+                parentColumns = "pedido_id",
+                childColumns = "pedido_id",
                 onDelete = ForeignKey.CASCADE)})
 
 public class ItemPedido {
 
     @PrimaryKey(autoGenerate = true)
-    private Integer id;
-    private Integer platoid;
+    private Integer idItemPedido;
+
+    @ColumnInfo(name = "pedido_id")
+    private Integer idPedido;
+
+    @ColumnInfo(name = "plato_id")
+    private Integer idPlato;
+
     private Integer cantidad;
     private Double subTotal;
-    private Integer idpedido;
 
     @Ignore
     private Plato Plato;
 
-
-    public Integer getId() {
-        return id;
+    public Integer getIdItemPedido() {
+        return idItemPedido;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setIdItemPedido(Integer idItemPedido) {
+        this.idItemPedido = idItemPedido;
     }
 
-    public Integer getPlatoid() {
-        return platoid;
+    public Integer getIdPedido() {
+        return idPedido;
     }
 
-    public void setPlatoid(Integer platoid) {
-        this.platoid = platoid;
+    public void setIdPedido(Integer idPedido) {
+        this.idPedido = idPedido;
+    }
+
+    public Integer getIdPlato() {
+        return idPlato;
+    }
+
+    public void setIdPlato(Integer idPlato) {
+        this.idPlato = idPlato;
     }
 
     public Integer getCantidad() {
@@ -60,14 +73,6 @@ public class ItemPedido {
 
     public void setSubTotal(Double subTotal) {
         this.subTotal = subTotal;
-    }
-
-    public Integer getIdpedido() {
-        return idpedido;
-    }
-
-    public void setIdpedido(Integer idpedido) {
-        this.idpedido = idpedido;
     }
 
     public com.example.sendmeal.Domain.Plato getPlato() {

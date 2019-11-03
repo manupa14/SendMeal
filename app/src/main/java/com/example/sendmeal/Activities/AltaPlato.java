@@ -110,7 +110,7 @@ public class AltaPlato extends AppCompatActivity {
 
         Plato plato = obtenerPlatoSeleccionado();
 
-        txtIdPlato.setText(plato.getId().toString(), TextView.BufferType.EDITABLE);
+        txtIdPlato.setText(plato.getIdPlato().toString(), TextView.BufferType.EDITABLE);
         txtTitulo.setText(plato.getTitulo(), TextView.BufferType.EDITABLE);
         txtDescripcion.setText(plato.getDescripcion(), TextView.BufferType.EDITABLE);
         txtPrecio.setText(plato.getPrecio().toString(), TextView.BufferType.EDITABLE);
@@ -129,7 +129,7 @@ public class AltaPlato extends AppCompatActivity {
     private void editarPlato() {
         //Este metodo setea los nuevos valores de los atributos del plato seleccionado para edicion
         Plato plato = obtenerPlatoSeleccionado();
-        plato.setId(Integer.parseInt(txtIdPlato.getText().toString()));
+        plato.setIdPlato(Integer.parseInt(txtIdPlato.getText().toString()));
         plato.setTitulo(txtTitulo.getText().toString());
         plato.setDescripcion(txtDescripcion.getText().toString());
         plato.setPrecio(Double.parseDouble(txtPrecio.getText().toString()));
@@ -140,7 +140,7 @@ public class AltaPlato extends AppCompatActivity {
         ////Este metodo carga en la actividad los datos del plato pero no permite modificarlos
         Plato plato = obtenerPlatoSeleccionado();
 
-        txtIdPlato.setText(plato.getId().toString(), TextView.BufferType.NORMAL);
+        txtIdPlato.setText(plato.getIdPlato().toString(), TextView.BufferType.NORMAL);
         txtIdPlato.setEnabled(false);
         txtTitulo.setText(plato.getTitulo(), TextView.BufferType.NORMAL);
         txtTitulo.setEnabled(false);
