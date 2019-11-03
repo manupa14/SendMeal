@@ -5,6 +5,8 @@ import androidx.room.ForeignKey;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import java.util.Objects;
+
 @Entity(foreignKeys = {
         @ForeignKey(entity = Plato.class,
                 parentColumns = "id",
@@ -74,5 +76,18 @@ public class ItemPedido {
 
     public void setPlato(com.example.sendmeal.Domain.Plato plato) {
         Plato = plato;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ItemPedido that = (ItemPedido) o;
+        return Plato.equals(that.Plato);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(Plato);
     }
 }

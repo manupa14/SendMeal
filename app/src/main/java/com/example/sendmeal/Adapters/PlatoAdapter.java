@@ -2,36 +2,27 @@ package com.example.sendmeal.Adapters;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
-import android.app.IntentService;
-import android.app.Service;
+import android.content.ClipData;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.MainThread;
-import androidx.annotation.Nullable;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sendmeal.Activities.AltaPedido;
 import com.example.sendmeal.Activities.AltaPlato;
-import com.example.sendmeal.Activities.ListaPlatos;
+import com.example.sendmeal.Domain.ItemPedido;
 import com.example.sendmeal.Domain.Plato;
 import com.example.sendmeal.Holders.PlatoViewHolder;
 import com.example.sendmeal.IntentServices.MyIntentService;
+import com.example.sendmeal.Persistence.PedidoRepository;
 import com.example.sendmeal.R;
-import com.example.sendmeal.Receivers.MyReceiver;
 
-import java.lang.reflect.Array;
-import java.security.Provider;
-import java.util.ArrayList;
+
 import java.util.List;
 
 public class PlatoAdapter extends RecyclerView.Adapter<PlatoViewHolder> {
@@ -39,6 +30,7 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoViewHolder> {
     private List<Plato> listaPlato;
     private Context contexto;
     private static final int CODIGO_EDITAR_PLATO = 1;
+    private static final int _LISTA_PLATOS = 0;
     private static final int _BUSCAR_PLATO = 1;
     private int flag;
 
@@ -53,7 +45,6 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoViewHolder> {
     public PlatoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fila_plato,parent,false);
         PlatoViewHolder myHolder = new PlatoViewHolder(view);
-        //context = parent.getContext();
         return myHolder;
     }
 
@@ -67,17 +58,33 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoViewHolder> {
         holder.getTitulo().setText(myPlato.getTitulo());
         holder.getPrecio().setText(pr);
 
+        switch (flag) {
+            case _BUSCAR_PLATO:
+                ocultarBotones(holder);
+                break;
+        }
 
         holder.getCv().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //Toast.makeText(contexto,"The position is: "+position,Toast.LENGTH_SHORT).show();
-                if(flag == _BUSCAR_PLATO) {
+                switch (flag) {
+                    case _BUSCAR_PLATO:
 
-                    Plato plato = listaPlato.get(position);
-                    Intent i = new Intent(contexto, AltaPedido.class);
-                    i.putExtra("plato", plato);
-                    contexto.startActivity(i);
+                        Plato plato = listaPlato.get(position);
+                        ItemPedido itemPedidoAux = new ItemPedido();
+                        itemPedidoAux.setPlato(plato);
+
+                        if(PedidoRepository.getInstance(contexto).getItemsPedido().contains(plato)) {
+                            Toast.makeText(contexto, R.string.falloAgregarItem, Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            Intent i = new Intent(contexto, AltaPedido.class);
+                            i.putExtra("plato", plato);
+                            i.putExtra("startedFrom","buscar");
+                            contexto.startActivity(i);
+                        }
+                        break;
 
                 }
 
@@ -141,6 +148,12 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoViewHolder> {
     @Override
     public int getItemCount() {
         return listaPlato.size();
+    }
+
+    private void ocultarBotones (PlatoViewHolder holder) {
+        holder.getQuitar().setVisibility(View.INVISIBLE);
+        holder.getOfertar().setVisibility(View.INVISIBLE);
+        holder.getEditar().setVisibility(View.INVISIBLE);
     }
 
 

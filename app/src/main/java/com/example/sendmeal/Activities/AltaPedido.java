@@ -1,7 +1,10 @@
 package com.example.sendmeal.Activities;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 
 import com.example.sendmeal.Adapters.ItemPedidoAdapter;
@@ -28,10 +31,9 @@ public class AltaPedido extends AppCompatActivity {
 
     private Button btnCrear;
     private Button btnEnviar;
-    private Button btnAgregarItem;
-    private List<ItemPedido> itemsPedido = new ArrayList<>();
-
+    private com.google.android.material.floatingactionbutton.FloatingActionButton btnAgregarItem;
     Pedido pedido = new Pedido();
+    private List<ItemPedido> itemsSeleccionados = new ArrayList<>();
 
 
     @Override
@@ -57,6 +59,10 @@ public class AltaPedido extends AppCompatActivity {
         btnEnviar = findViewById(R.id.btnEnviar);
         btnAgregarItem = findViewById(R.id.fltBtnAgregarItem);
 
+        myRecyclerView = findViewById(R.id.rvAltaPedidos);
+        myRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        myRecyclerView.setItemAnimator(new DefaultItemAnimator());
+
         btnEnviar.setEnabled(false);
 
     }
@@ -71,12 +77,13 @@ public class AltaPedido extends AppCompatActivity {
                 pedido.setFecha(new Date());
                 pedido.setLat(-1);
                 pedido.setLng(-1);
-                pedido.setItems(itemsPedido);
+                pedido.setItems(PedidoRepository.getInstance(getApplicationContext()).getItemsPedido());
+                PedidoRepository.getInstance(getApplicationContext()).setItemsPedido(new ArrayList<ItemPedido>());
 
                 PedidoRepository.getInstance(getApplicationContext()).getPedidoDao().insert(pedido);
 
                 btnCrear.setEnabled(false);
-                btnAgregarItem.setVisibility(View.INVISIBLE);
+                btnAgregarItem.setEnabled(false);
                 btnEnviar.setEnabled(true);
 
             }
@@ -95,7 +102,9 @@ public class AltaPedido extends AppCompatActivity {
         btnAgregarItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Agregar mas items
+                PedidoRepository.getInstance(getApplicationContext()).setItemsPedido(itemsSeleccionados);
+                Intent i = new Intent(getApplicationContext(),BuscarPlato.class);
+                startActivity(i);
             }
         });
 
@@ -111,13 +120,11 @@ public class AltaPedido extends AppCompatActivity {
         itemPedido.setSubTotal(plato.getPrecio());
         itemPedido.setCantidad(1);
 
-        itemsPedido.add(itemPedido);
+        itemsSeleccionados = PedidoRepository.getInstance(getApplicationContext()).getItemsPedido();
+        itemsSeleccionados.add(itemPedido);
 
-        myItemPedidoAdapter = new ItemPedidoAdapter(itemsPedido, this);
+        myItemPedidoAdapter = new ItemPedidoAdapter(itemsSeleccionados, this);
 
-        myRecyclerView = findViewById(R.id.rvAltaPedidos);
-        myRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        myRecyclerView.setItemAnimator(new DefaultItemAnimator());
         myRecyclerView.setAdapter(myItemPedidoAdapter);
 
     }

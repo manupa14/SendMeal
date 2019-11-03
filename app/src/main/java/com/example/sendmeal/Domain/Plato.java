@@ -105,7 +105,6 @@ public class Plato implements Parcelable {
         if (o == null || getClass() != o.getClass()) return false;
         Plato plato = (Plato) o;
         return imagen == plato.imagen &&
-                id.equals(plato.id) &&
                 titulo.equals(plato.titulo) &&
                 descripcion.equals(plato.descripcion) &&
                 precio == plato.precio &&
@@ -114,7 +113,7 @@ public class Plato implements Parcelable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, titulo, descripcion, precio, calorias, imagen);
+        return Objects.hash(titulo, descripcion, precio, calorias, imagen);
     }
 
     @Override
@@ -166,6 +165,8 @@ public class Plato implements Parcelable {
         }
 
     };
+
+
 
 }
 
