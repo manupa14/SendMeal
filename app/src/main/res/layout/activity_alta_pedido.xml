@@ -7,15 +7,29 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/tbAltaPedido"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <Button
         android:id="@+id/btnEnviar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/cvElevation"
-        android:layout_marginBottom="@dimen/cvElevation"
+        android:layout_marginEnd="@dimen/llMargin"
         android:text="@string/btnEnviar"
+        android:textSize="@dimen/buttons"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toStartOf="@+id/btnCrear"
+        app:layout_constraintHorizontal_bias="0.958"
+        app:layout_constraintStart_toEndOf="@+id/txtPrecioTotal"
+        app:layout_constraintTop_toBottomOf="@+id/rvAltaPedidos" />
 
     <Button
         android:id="@+id/btnCrear"
@@ -23,23 +37,23 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:text="@string/btnCrear"
+        android:textSize="@dimen/buttons"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rvAltaPedidos" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvAltaPedidos"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginTop="@dimen/cvElevation"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/btnEnviar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/tbAltaPedido"
+        app:layout_constraintVertical_bias="0.43" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fltBtnAgregarItem"
@@ -50,5 +64,15 @@
         android:focusable="true"
         app:layout_constraintBottom_toTopOf="@+id/btnCrear"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@android:color/holo_blue_bright" />
+        app:srcCompat="@android:drawable/ic_input_add" />
+
+    <TextView
+        android:id="@+id/txtPrecioTotal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/llMargin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rvAltaPedidos" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

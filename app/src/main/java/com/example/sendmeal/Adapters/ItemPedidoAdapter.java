@@ -42,16 +42,19 @@ public class ItemPedidoAdapter extends RecyclerView.Adapter<ItemPedidoViewHolder
         holder.getImgPlato().setImageResource(itemPedido.getPlato().getImagen());
         holder.getTxtTitulo().setText(itemPedido.getPlato().getTitulo());
         holder.getTxtPrecio().setText(precio);
+        holder.getTxtCantidad().setText(itemPedido.getCantidad().toString());
 
         holder.getBtnMas().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                int cantidadNueva = Integer.parseInt(holder.getTxtCantidad().getText().toString()) + 1;
-                holder.getTxtCantidad().setText(cantidadNueva);
+                Integer cantidadNueva = Integer.parseInt(holder.getTxtCantidad().getText().toString()) + 1;
+                holder.getTxtCantidad().setText(cantidadNueva.toString());
                 itemsPedido.get(position).setCantidad(cantidadNueva);
 
-                //TODO Ver como incrementar el sub total
+                Double nuevoSubTotal = cantidadNueva*itemsPedido.get(position).getPlato().getPrecio();
+
+                holder.getTxtPrecio().setText(nuevoSubTotal.toString());
             }
         });
 
@@ -59,15 +62,18 @@ public class ItemPedidoAdapter extends RecyclerView.Adapter<ItemPedidoViewHolder
             @Override
             public void onClick(View v) {
 
-                int cantidadActual = Integer.parseInt(holder.getTxtCantidad().getText().toString());
+                Integer cantidadActual = Integer.parseInt(holder.getTxtCantidad().getText().toString());
 
-                if(cantidadActual > 0){
-                    int cantidadNueva = cantidadActual - 1;
-                    holder.getTxtCantidad().setText(cantidadNueva);
+                if(cantidadActual > 1){
+                    Integer cantidadNueva = cantidadActual - 1;
+                    holder.getTxtCantidad().setText(cantidadNueva.toString());
                     itemsPedido.get(position).setCantidad(cantidadNueva);
+
+                    Double nuevoSubTotal = cantidadNueva*itemsPedido.get(position).getPlato().getPrecio();
+                    holder.getTxtPrecio().setText(nuevoSubTotal.toString());
                 }
 
-                //TODO Ver como disminuir el sub total
+
 
             }
         });

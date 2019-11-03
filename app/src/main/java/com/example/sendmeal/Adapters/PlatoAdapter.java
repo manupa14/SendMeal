@@ -2,7 +2,6 @@ package com.example.sendmeal.Adapters;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.ClipData;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -61,6 +60,7 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoViewHolder> {
         switch (flag) {
             case _BUSCAR_PLATO:
                 ocultarBotones(holder);
+                holder.getDescripcion().setText(myPlato.getDescripcion());
                 break;
         }
 
@@ -75,7 +75,7 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoViewHolder> {
                         ItemPedido itemPedidoAux = new ItemPedido();
                         itemPedidoAux.setPlato(plato);
 
-                        if(PedidoRepository.getInstance(contexto).getItemsPedido().contains(plato)) {
+                        if(PedidoRepository.getInstance(contexto).getItemsPedido().contains(itemPedidoAux)) {
                             Toast.makeText(contexto, R.string.falloAgregarItem, Toast.LENGTH_SHORT).show();
                         }
                         else {
@@ -154,6 +154,7 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoViewHolder> {
         holder.getQuitar().setVisibility(View.INVISIBLE);
         holder.getOfertar().setVisibility(View.INVISIBLE);
         holder.getEditar().setVisibility(View.INVISIBLE);
+        holder.getDescripcion().setVisibility(View.VISIBLE);
     }
 
 

@@ -33,9 +33,8 @@
         <activity android:name=".Activities.BuscarPlato"
             android:parentActivityName=".Activities.HOME">
         </activity>
-
         <activity android:name=".Activities.AltaPedido">
-
+            android:parentActivityName=".Activities.HOME">
         </activity>
         <service android:name=".IntentServices.MyIntentService"></service>
 

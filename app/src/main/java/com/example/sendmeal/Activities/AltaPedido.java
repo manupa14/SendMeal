@@ -20,6 +20,7 @@ import java.util.Date;
 import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -29,19 +30,26 @@ public class AltaPedido extends AppCompatActivity {
     RecyclerView myRecyclerView;
     ItemPedidoAdapter myItemPedidoAdapter;
 
+    private Toolbar tbAltaPedido;
     private Button btnCrear;
     private Button btnEnviar;
     private com.google.android.material.floatingactionbutton.FloatingActionButton btnAgregarItem;
     Pedido pedido = new Pedido();
     private List<ItemPedido> itemsSeleccionados = new ArrayList<>();
 
-
+    //TODO ver por que se cargar platos iguales al pedido
+    //TODO ver lo de room que falla
+    //TODO mejorar look & feel, agregar toolbar, etc.
+    //TODO agreagar precio total
+    //TODO Lista Platos
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alta_pedido);
 
         inicializarComponentes();
+        setSupportActionBar(tbAltaPedido);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         configurarEventos();
 
         String startedFrom = getIntent().getExtras().getString("startedFrom");
@@ -50,11 +58,16 @@ public class AltaPedido extends AppCompatActivity {
             Plato plato = getIntent().getParcelableExtra("plato");
             agregarItemPedido(plato);
         }
+        if(startedFrom.equals("verPedido")) {
+            myItemPedidoAdapter = new ItemPedidoAdapter(PedidoRepository.getInstance(getApplicationContext()).getItemsPedido(), this);
+            myRecyclerView.setAdapter(myItemPedidoAdapter);
+        }
 
     }
 
     private void inicializarComponentes(){
 
+        tbAltaPedido = findViewById(R.id.tbAltaPlato);
         btnCrear = findViewById(R.id.btnCrear);
         btnEnviar = findViewById(R.id.btnEnviar);
         btnAgregarItem = findViewById(R.id.fltBtnAgregarItem);
@@ -102,7 +115,7 @@ public class AltaPedido extends AppCompatActivity {
         btnAgregarItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PedidoRepository.getInstance(getApplicationContext()).setItemsPedido(itemsSeleccionados);
+
                 Intent i = new Intent(getApplicationContext(),BuscarPlato.class);
                 startActivity(i);
             }
@@ -122,7 +135,7 @@ public class AltaPedido extends AppCompatActivity {
 
         itemsSeleccionados = PedidoRepository.getInstance(getApplicationContext()).getItemsPedido();
         itemsSeleccionados.add(itemPedido);
-
+        PedidoRepository.getInstance(getApplicationContext()).setItemsPedido(itemsSeleccionados);
         myItemPedidoAdapter = new ItemPedidoAdapter(itemsSeleccionados, this);
 
         myRecyclerView.setAdapter(myItemPedidoAdapter);

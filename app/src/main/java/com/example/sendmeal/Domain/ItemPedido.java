@@ -30,10 +30,11 @@ public class ItemPedido {
     private Integer idPlato;
 
     private Integer cantidad;
+
     private Double subTotal;
 
     @Ignore
-    private Plato Plato;
+    private Plato plato;
 
     public Integer getIdItemPedido() {
         return idItemPedido;
@@ -75,12 +76,12 @@ public class ItemPedido {
         this.subTotal = subTotal;
     }
 
-    public com.example.sendmeal.Domain.Plato getPlato() {
-        return Plato;
+    public Plato getPlato() {
+        return plato;
     }
 
-    public void setPlato(com.example.sendmeal.Domain.Plato plato) {
-        Plato = plato;
+    public void setPlato(Plato plato) {
+        this.plato = plato;
     }
 
     @Override
@@ -88,11 +89,11 @@ public class ItemPedido {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ItemPedido that = (ItemPedido) o;
-        return Plato.equals(that.Plato);
+        return plato.equals(that.plato);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(Plato);
+        return Objects.hash(plato);
     }
 }
