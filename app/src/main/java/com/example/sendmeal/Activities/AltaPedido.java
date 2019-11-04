@@ -49,7 +49,7 @@ public class AltaPedido extends AppCompatActivity {
 
         inicializarComponentes();
         setSupportActionBar(tbAltaPedido);
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         configurarEventos();
 
         String startedFrom = getIntent().getExtras().getString("startedFrom");
@@ -67,7 +67,7 @@ public class AltaPedido extends AppCompatActivity {
 
     private void inicializarComponentes(){
 
-        tbAltaPedido = findViewById(R.id.tbAltaPlato);
+        tbAltaPedido = findViewById(R.id.tbAltaPedido);
         btnCrear = findViewById(R.id.btnCrear);
         btnEnviar = findViewById(R.id.btnEnviar);
         btnAgregarItem = findViewById(R.id.fltBtnAgregarItem);
