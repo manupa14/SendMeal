@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.example.sendmeal.Adapters.ItemPedidoAdapter;
 import com.example.sendmeal.Domain.ItemPedido;
@@ -16,6 +18,7 @@ import com.example.sendmeal.R;
 import java.util.ArrayList;
 import java.util.Date;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -30,6 +33,8 @@ public class AltaPedido extends AppCompatActivity {
     private Toolbar tbAltaPedido;
     private Button btnCrear;
     private Button btnEnviar;
+    private ImageButton btnSetMapa;
+
     private com.google.android.material.floatingactionbutton.FloatingActionButton btnAgregarItem;
     Pedido pedido = new Pedido();
 
@@ -66,11 +71,13 @@ public class AltaPedido extends AppCompatActivity {
         btnCrear = findViewById(R.id.btnCrear);
         btnEnviar = findViewById(R.id.btnEnviar);
         btnAgregarItem = findViewById(R.id.fltBtnAgregarItem);
+        btnSetMapa=findViewById(R.id.btnSetMapa);
 
         myRecyclerView = findViewById(R.id.rvAltaPedidos);
         myRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         myRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
+        btnCrear.setEnabled(false);
         btnEnviar.setEnabled(false);
 
     }
@@ -83,8 +90,6 @@ public class AltaPedido extends AppCompatActivity {
 
                 pedido.setEstado(1);
                 pedido.setFecha(new Date());
-                pedido.setLatitud(-1.0);
-                pedido.setLongitud(-1.0);
                 pedido.setItems(PedidoRepository.getInstance(getApplicationContext()).getItemsPedido());
                 Runnable r = new Runnable() {
                     @Override
@@ -130,7 +135,39 @@ public class AltaPedido extends AppCompatActivity {
             }
         });
 
+        btnSetMapa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), MapPedidos.class);
+                startActivityForResult(i, MapPedidos.CODIGO_MAPA);
+            }
+        });
 
+
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(resultCode == RESULT_OK){
+            switch (requestCode){
+                case MapPedidos.CODIGO_MAPA:
+                    pedido.setLatitud(data.getExtras().getDouble("latitud"));
+                    pedido.setLongitud(data.getExtras().getDouble("longitud"));
+                    btnCrear.setEnabled(true);
+                    myItemPedidoAdapter.notifyDataSetChanged();
+                    break;
+            }
+        }
+        else{
+            switch (requestCode){
+                case MapPedidos.CODIGO_MAPA:
+                    Toast.makeText(getApplicationContext(), R.string.falloMapa, Toast.LENGTH_SHORT).show();
+                    break;
+            }
+        }
 
     }
 

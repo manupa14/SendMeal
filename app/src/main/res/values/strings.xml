@@ -54,6 +54,8 @@ s
     <string name="falloQuitar">Lo sentimos, no se pudo quitar el plato</string>
     <string name="falloCrear">Lo sentimos, no se pudo crear el plato</string>
     <string name="falloAgregarItem">El plato ya forma parte de su pedido</string>
+    <string name="falloBuscar">Lo sentimos, no se pudo encontrar el plato en el menu</string>
+    <string name="falloMapa">Lo sentimos, no se pudo cargar la ubicacion</string>
 
     <string name="datosGuardados">¡Datos guardados correctamente!</string>
     <string name="platoBorrado">¡El plato se ha borrado correctamente!</string>
