@@ -75,4 +75,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rvAltaPedidos" />
 
+    <ImageButton
+        android:id="@+id/btnSetMapa"
+        style="@android:style/Widget.Holo.Light.ImageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnEnviar"
+        app:layout_constraintHorizontal_bias="0.707"
+        app:layout_constraintStart_toEndOf="@+id/txtPrecioTotal"
+        app:srcCompat="@android:drawable/ic_dialog_map" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
