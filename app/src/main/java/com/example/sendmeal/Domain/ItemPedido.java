@@ -1,6 +1,7 @@
 package com.example.sendmeal.Domain;
 
 import androidx.room.ColumnInfo;
+import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Ignore;
@@ -9,10 +10,6 @@ import androidx.room.PrimaryKey;
 import java.util.Objects;
 
 @Entity(foreignKeys = {
-        @ForeignKey(entity = Plato.class,
-                parentColumns = "plato_id",
-                childColumns = "plato_id",
-                onDelete = ForeignKey.CASCADE),
         @ForeignKey(entity = Pedido.class,
                 parentColumns = "pedido_id",
                 childColumns = "pedido_id",
@@ -24,16 +21,13 @@ public class ItemPedido {
     private Integer idItemPedido;
 
     @ColumnInfo(name = "pedido_id")
-    private Integer idPedido;
-
-    @ColumnInfo(name = "plato_id")
-    private Integer idPlato;
+    private Long idPedido;
 
     private Integer cantidad;
 
     private Double subTotal;
 
-    @Ignore
+    @Embedded
     private Plato plato;
 
     public Integer getIdItemPedido() {
@@ -44,20 +38,12 @@ public class ItemPedido {
         this.idItemPedido = idItemPedido;
     }
 
-    public Integer getIdPedido() {
+    public Long getIdPedido() {
         return idPedido;
     }
 
-    public void setIdPedido(Integer idPedido) {
+    public void setIdPedido(Long idPedido) {
         this.idPedido = idPedido;
-    }
-
-    public Integer getIdPlato() {
-        return idPlato;
-    }
-
-    public void setIdPlato(Integer idPlato) {
-        this.idPlato = idPlato;
     }
 
     public Integer getCantidad() {

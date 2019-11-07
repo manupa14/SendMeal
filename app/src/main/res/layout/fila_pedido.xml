@@ -85,12 +85,13 @@
 
             <Button
                 android:id="@+id/btnQuitarItem"
-                style="@android:style/Widget.Material.Button.Borderless.Small"
-                android:layout_width="20dp"
-                android:layout_height="36dp"
+                style="@android:style/Widget.Holo.Light.Button.Borderless.Small"
+                android:layout_width="26dp"
+                android:layout_height="30dp"
                 android:layout_marginTop="@dimen/cvElevation"
                 android:layout_marginEnd="@dimen/cvElevation"
-                android:drawableBottom="@android:drawable/ic_delete"
+                android:background="@android:drawable/btn_dialog"
+                android:text="@string/btnQuitarItem"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 

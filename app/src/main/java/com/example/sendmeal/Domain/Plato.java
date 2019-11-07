@@ -20,6 +20,7 @@ public class Plato implements Parcelable {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "plato_id")
+
     private Integer idPlato;
     private String titulo;
     private String descripcion;

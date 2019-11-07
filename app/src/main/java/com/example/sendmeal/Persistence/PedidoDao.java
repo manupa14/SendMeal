@@ -18,7 +18,7 @@ public interface PedidoDao {
     void insertAll(Pedido... pedidos);
 
     @Insert
-    void insert(Pedido pedido);
+    Long insert(Pedido pedido);
 
     @Delete
     void delete(Pedido pedido);
