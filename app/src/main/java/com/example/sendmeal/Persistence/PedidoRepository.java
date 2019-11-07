@@ -1,10 +1,15 @@
 package com.example.sendmeal.Persistence;
 
+import android.content.ClipData;
 import android.content.Context;
 import android.widget.Toast;
 
+import com.example.sendmeal.Domain.ItemPedido;
 import com.example.sendmeal.Domain.Pedido;
 import com.example.sendmeal.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -17,7 +22,7 @@ public class PedidoRepository {
     private PedidoDao pedidoDao;
     private PedidoRest pedidoRest;
     private Context ctx;
-
+    private List<ItemPedido> itemsPedido = new ArrayList<>();
 
     private PedidoRepository(Context ctx){
         this.ctx = ctx;
@@ -32,6 +37,14 @@ public class PedidoRepository {
 
     public PedidoDao getPedidoDao(){
         return pedidoDao;
+    }
+
+    public List<ItemPedido> getItemsPedido () {
+        return itemsPedido;
+    }
+
+    public void setItemsPedido (List<ItemPedido> itemsPedido) {
+        this.itemsPedido = itemsPedido;
     }
 
     public void guardarPedidoEnviado(Pedido p){

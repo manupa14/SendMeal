@@ -1,8 +1,11 @@
 package com.example.sendmeal.Activities;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.view.View;
+import android.widget.Button;
 import android.widget.SearchView;
 
 import com.example.sendmeal.Adapters.PlatoAdapter;
@@ -14,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,7 +26,9 @@ import androidx.recyclerview.widget.RecyclerView;
 public class BuscarPlato extends AppCompatActivity {
 
     List<Plato> listaDataSet = new ArrayList<>();
+    private Toolbar tbBuscar;
     private SearchView svBuscar;
+    private Button btnVerPedido;
     private RecyclerView myRecyclerView;
     private PlatoAdapter myPlatoAdapter;
 
@@ -35,13 +41,17 @@ public class BuscarPlato extends AppCompatActivity {
 
         inicializarComponentes();
         configurarEventos();
+        setSupportActionBar(tbBuscar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
     }
 
     private void inicializarComponentes(){
 
+        tbBuscar = findViewById(R.id.tbBuscar);
         svBuscar = findViewById(R.id.svBuscar);
         svBuscar.setIconified(false);
+        btnVerPedido = findViewById(R.id.btnVerPedido);
 
         myRecyclerView = findViewById(R.id.rvBuscarPlatos);
         myRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
@@ -75,6 +85,17 @@ public class BuscarPlato extends AppCompatActivity {
                 return true;
             }
         });
+
+        btnVerPedido.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(),AltaPedido.class);
+                i.putExtra("startedFrom","verPedido");
+                startActivity(i);
+            }
+        });
+
+
     }
 
 

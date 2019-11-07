@@ -1,5 +1,6 @@
 package com.example.sendmeal.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -8,38 +9,42 @@ import com.example.sendmeal.Adapters.ItemPedidoAdapter;
 import com.example.sendmeal.Domain.ItemPedido;
 import com.example.sendmeal.Domain.Pedido;
 import com.example.sendmeal.Domain.Plato;
+import com.example.sendmeal.Persistence.ItemPedidoRepository;
 import com.example.sendmeal.Persistence.PedidoRepository;
 import com.example.sendmeal.R;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class AltaPedido extends AppCompatActivity {
 
-    private RecyclerView mRecyclerView;
-    private ItemPedidoAdapter mItemPedidoAdapter;
+    RecyclerView myRecyclerView;
+    ItemPedidoAdapter myItemPedidoAdapter;
 
+    private Toolbar tbAltaPedido;
     private Button btnCrear;
     private Button btnEnviar;
     private com.google.android.material.floatingactionbutton.FloatingActionButton btnAgregarItem;
-
-    private List<ItemPedido> itemsPedido = new ArrayList<>();
-
     Pedido pedido = new Pedido();
 
 
+    //TODO ver por que se cargar platos iguales al pedido
+    //TODO agreagar precio total
+    //TODO Lista Platos
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alta_pedido);
 
         inicializarComponentes();
+        setSupportActionBar(tbAltaPedido);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         configurarEventos();
 
         String startedFrom = getIntent().getExtras().getString("startedFrom");
@@ -48,18 +53,23 @@ public class AltaPedido extends AppCompatActivity {
             Plato plato = getIntent().getParcelableExtra("plato");
             agregarItemPedido(plato);
         }
+        if(startedFrom.equals("verPedido")) {
+            myItemPedidoAdapter = new ItemPedidoAdapter(PedidoRepository.getInstance(getApplicationContext()).getItemsPedido(), this);
+            myRecyclerView.setAdapter(myItemPedidoAdapter);
+        }
 
     }
 
     private void inicializarComponentes(){
 
+        tbAltaPedido = findViewById(R.id.tbAltaPedido);
         btnCrear = findViewById(R.id.btnCrear);
         btnEnviar = findViewById(R.id.btnEnviar);
         btnAgregarItem = findViewById(R.id.fltBtnAgregarItem);
 
-        mRecyclerView = findViewById(R.id.rvAltaPedidos);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        myRecyclerView = findViewById(R.id.rvAltaPedidos);
+        myRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        myRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
         btnEnviar.setEnabled(false);
 
@@ -73,11 +83,26 @@ public class AltaPedido extends AppCompatActivity {
 
                 pedido.setEstado(1);
                 pedido.setFecha(new Date());
-                pedido.setLat(-1);
-                pedido.setLng(-1);
-                pedido.setItems(itemsPedido);
+                pedido.setLatitud(-1.0);
+                pedido.setLongitud(-1.0);
+                pedido.setItems(PedidoRepository.getInstance(getApplicationContext()).getItemsPedido());
+                Runnable r = new Runnable() {
+                    @Override
+                    public void run() {
+                        Long id = PedidoRepository.getInstance(getApplicationContext()).getPedidoDao().insert(pedido);
 
-                PedidoRepository.getInstance(getApplicationContext()).getPedidoDao().insert(pedido);
+                        for(ItemPedido itemPedido: PedidoRepository.getInstance(getApplicationContext()).getItemsPedido()) {
+
+                            itemPedido.setIdPedido(id);
+                            ItemPedidoRepository.getInstance(getApplicationContext()).getItemPedidoDao().insert(itemPedido);
+
+                        }
+
+                        PedidoRepository.getInstance(getApplicationContext()).setItemsPedido(new ArrayList<ItemPedido>());
+                    }
+                };
+                Thread thread = new Thread(r);
+                thread.start();
 
                 btnCrear.setEnabled(false);
                 btnAgregarItem.setEnabled(false);
@@ -99,7 +124,9 @@ public class AltaPedido extends AppCompatActivity {
         btnAgregarItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Agregar mas items
+
+                Intent i = new Intent(getApplicationContext(),BuscarPlato.class);
+                startActivity(i);
             }
         });
 
@@ -115,11 +142,11 @@ public class AltaPedido extends AppCompatActivity {
         itemPedido.setSubTotal(plato.getPrecio());
         itemPedido.setCantidad(1);
 
-        itemsPedido.add(itemPedido);
+        PedidoRepository.getInstance(getApplicationContext()).getItemsPedido().add(itemPedido);
 
-        mItemPedidoAdapter = new ItemPedidoAdapter(itemsPedido, this);
+        myItemPedidoAdapter = new ItemPedidoAdapter(PedidoRepository.getInstance(getApplicationContext()).getItemsPedido(), this);
 
-        mRecyclerView.setAdapter(mItemPedidoAdapter);
+        myRecyclerView.setAdapter(myItemPedidoAdapter);
 
     }
 

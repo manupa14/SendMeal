@@ -2,14 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/cvFilaPedido"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="@dimen/llMargin"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/llMargin"
         android:elevation="@dimen/cvElevation"
         app:cardElevation="@dimen/cvElevation">
 
@@ -31,19 +32,23 @@
 
             <TextView
                 android:id="@+id/txtTituloItem"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="@dimen/llMargin"
+                android:layout_marginBottom="@dimen/llMargin"
+                android:textSize="@dimen/titulo"
+                app:layout_constraintBottom_toTopOf="@+id/txtPrecioItem"
                 app:layout_constraintStart_toEndOf="@+id/imgFilaPedido"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/txtPrecioItem"
-                android:layout_width="63dp"
-                android:layout_height="17dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/llMargin"
                 android:layout_marginBottom="@dimen/cvElevation"
+                android:textSize="@dimen/etiquetas"
                 app:layout_constraintBottom_toTopOf="@+id/btnMenos"
                 app:layout_constraintStart_toEndOf="@+id/imgFilaPedido" />
 
@@ -80,15 +85,16 @@
 
             <Button
                 android:id="@+id/btnQuitarItem"
-                style="@android:style/Widget.Material.Button.Borderless.Small"
-                android:layout_width="35dp"
-                android:layout_height="40dp"
+                style="@android:style/Widget.Holo.Light.Button.Borderless.Small"
+                android:layout_width="26dp"
+                android:layout_height="30dp"
                 android:layout_marginTop="@dimen/cvElevation"
                 android:layout_marginEnd="@dimen/cvElevation"
-                android:text="X"
+                android:background="@android:drawable/btn_dialog"
+                android:text="@string/btnQuitarItem"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 </LinearLayout>

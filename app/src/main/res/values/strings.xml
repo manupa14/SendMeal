@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SendMeal</string>
+    <string name="app_name">Send Meal</string>
     <string name="registroTittle">Registrar Usuario</string>
     <string name="name">Nombre</string>
     <string name="password">Clave</string>
@@ -37,11 +37,13 @@
     <string name="btnEnviar">Enviar</string>
     <string name="btnMas">+</string>
     <string name="btnMenos">-</string>
-
+    <string name="verPedido">Ver mi pedido</string>
+    <string name="btnQuitarItem">X</string>
+s
 
     <string name="menu1Opt1">"Registrarse"</string>
-    <string name="menu1Opt2">Crear item</string>
-    <string name="menu1Opt3">Lista de ítems</string>
+    <string name="menu1Opt2">Crear plato</string>
+    <string name="menu1Opt3">Lista de platos</string>
     <string name="menu1Opt4">Crear pedido</string>
 
 
@@ -50,7 +52,7 @@
     <string name="falloOfertar">Lo sentimos, no se pudo ofertar el plato</string>
     <string name="falloQuitar">Lo sentimos, no se pudo quitar el plato</string>
     <string name="falloCrear">Lo sentimos, no se pudo crear el plato</string>
-    <string name="falloBuscar">Lo sentimos, no se pudo encontrar el plato</string>
+    <string name="falloAgregarItem">El plato ya forma parte de su pedido</string>
 
     <string name="datosGuardados">¡Datos guardados correctamente!</string>
     <string name="platoBorrado">¡El plato se ha borrado correctamente!</string>

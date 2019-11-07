@@ -14,16 +14,16 @@ import retrofit2.http.Path;
 
 public interface PedidoRest {
 
-    @GET("pedido/")
+    @GET("pedidos/")
     Call<List<Pedido>> buscarTodos();
 
-    @DELETE("pedido/{id}")
+    @DELETE("pedidos/{id}")
     Call<Void> borrar(@Path("id") Integer id);
 
-    @PUT("pedido/{id}")
+    @PUT("pedidos/{id}")
     Call<Pedido> actualizar(@Path("id") Integer id, @Body Pedido pedido);
 
-    @POST("pedido/")
+    @POST("pedidos/")
     Call<Pedido> crear(@Body Pedido pedido);
 
 }
