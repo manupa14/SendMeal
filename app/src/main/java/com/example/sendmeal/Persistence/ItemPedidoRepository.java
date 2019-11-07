@@ -17,4 +17,7 @@ public class ItemPedidoRepository {
         return _INSTANCE;
     }
 
+    public ItemPedidoDao getItemPedidoDao() {
+        return itemPedidoDao;
+    }
 }

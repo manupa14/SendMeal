@@ -9,23 +9,31 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-@Entity
+@Entity(indices = {@Index("plato_id")})
 public class Plato implements Parcelable {
 
     @PrimaryKey(autoGenerate = true)
-    private Integer id;
+    @ColumnInfo(name = "plato_id")
+
+    private Integer idPlato;
     private String titulo;
     private String descripcion;
     private Double precio;
     private Integer calorias;
     private int imagen;
-    private boolean enOferta;
+    private Boolean enOferta;
 
-    public Plato(Integer id, String titulo, String descripcion, Double precio, Integer calorias) {
-        this.id = id;
+    public Plato() { }
+
+    @Ignore
+    public Plato(Integer idPlato, String titulo, String descripcion, Double precio, Integer calorias) {
+        this.idPlato = idPlato;
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.precio = precio;
@@ -34,16 +42,13 @@ public class Plato implements Parcelable {
         this.enOferta = false;
     }
 
+    @Ignore
     public Plato(Parcel in) {
         this.readFromParcel(in);
     }
 
-    public Plato() {
-
-    }
-
-    public Integer getId() {
-        return id;
+    public Integer getIdPlato() {
+        return idPlato;
     }
 
     public String getTitulo() {
@@ -66,12 +71,12 @@ public class Plato implements Parcelable {
         return imagen;
     }
 
-   public  boolean getEnOferta(){
+   public  Boolean getEnOferta(){
         return enOferta;
    }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setIdPlato(Integer idPlato) {
+        this.idPlato = idPlato;
     }
 
     public void setTitulo(String titulo) {
@@ -94,10 +99,9 @@ public class Plato implements Parcelable {
         this.imagen = imagen;
     }
 
-    public void setEnOferta (boolean enOferta){
+    public void setEnOferta (Boolean enOferta){
         this.enOferta = enOferta;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -105,7 +109,6 @@ public class Plato implements Parcelable {
         if (o == null || getClass() != o.getClass()) return false;
         Plato plato = (Plato) o;
         return imagen == plato.imagen &&
-                id.equals(plato.id) &&
                 titulo.equals(plato.titulo) &&
                 descripcion.equals(plato.descripcion) &&
                 precio == plato.precio &&
@@ -114,13 +117,13 @@ public class Plato implements Parcelable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, titulo, descripcion, precio, calorias, imagen);
+        return Objects.hash(titulo, descripcion, precio, calorias, imagen);
     }
 
     @Override
     public String toString() {
         return "Plato{" +
-                "id=" + id +
+                "id=" + idPlato +
                 ", titulo='" + titulo + '\'' +
                 ", descripcion='" + descripcion + '\'' +
                 ", precio=" + precio +
@@ -137,7 +140,7 @@ public class Plato implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags){
 
-        dest.writeInt(id);
+        dest.writeInt(idPlato);
         dest.writeString(titulo);
         dest.writeString(descripcion);
         dest.writeDouble(precio);
@@ -147,7 +150,7 @@ public class Plato implements Parcelable {
 
     private void readFromParcel(Parcel in){
 
-        id = in.readInt();
+        idPlato = in.readInt();
         titulo = in.readString();
         descripcion = in.readString();
         precio = in.readDouble();
@@ -166,6 +169,8 @@ public class Plato implements Parcelable {
         }
 
     };
+
+
 
 }
 

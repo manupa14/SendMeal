@@ -19,6 +19,7 @@ public class PlatoViewHolder extends RecyclerView.ViewHolder
     Button ofertar;
     Button editar;
     Button quitar;
+    TextView descripcion;
 
     public CardView getCv() {
         return cv;
@@ -76,6 +77,14 @@ public class PlatoViewHolder extends RecyclerView.ViewHolder
         this.quitar = quitar;
     }
 
+    public TextView getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(TextView descripcion) {
+        this.descripcion = descripcion;
+    }
+
     public PlatoViewHolder(View itemView)
     {
         super(itemView);
@@ -86,6 +95,7 @@ public class PlatoViewHolder extends RecyclerView.ViewHolder
         ofertar = itemView.findViewById(R.id.btnOfertar);
         editar = itemView.findViewById(R.id.btnEditar);
         quitar = itemView.findViewById(R.id.btnQuitar);
+        descripcion = itemView.findViewById(R.id.txtDescripcion);
 
     }
 

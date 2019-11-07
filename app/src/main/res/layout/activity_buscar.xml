@@ -5,29 +5,53 @@
     android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/tbBuscar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <SearchView
         android:id="@+id/svBuscar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:layout_marginStart="@dimen/cvElevation"
-        android:layout_marginTop="@dimen/cvElevation"
-        android:layout_marginEnd="@dimen/cvElevation"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:inputType="text"/>
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        app:layout_constraintTop_toBottomOf="@+id/tbBuscar"
+        tools:layout_editor_absoluteX="4dp">
+
+    </SearchView>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvBuscarPlatos"
-        android:layout_width="409dp"
-        android:layout_height="677dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/llMargin"
+        android:layout_marginBottom="@dimen/llMargin"
+        app:layout_constraintBottom_toTopOf="@+id/btnVerPedido"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/svBuscar" />
+        app:layout_constraintTop_toBottomOf="@+id/svBuscar">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <Button
+        android:id="@+id/btnVerPedido"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/cvElevation"
+        android:layout_marginEnd="@dimen/cvElevation"
+        android:layout_marginBottom="@dimen/llMargin"
+        android:text="@string/verPedido"
+        android:textSize="@dimen/buttons"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
