@@ -85,17 +85,24 @@ public class AltaPedido extends AppCompatActivity {
                 pedido.setFecha(new Date());
                 pedido.setLatitud(-1.0);
                 pedido.setLongitud(-1.0);
+                pedido.setItems(PedidoRepository.getInstance(getApplicationContext()).getItemsPedido());
+                Runnable r = new Runnable() {
+                    @Override
+                    public void run() {
+                        Long id = PedidoRepository.getInstance(getApplicationContext()).getPedidoDao().insert(pedido);
 
-                Long id = PedidoRepository.getInstance(getApplicationContext()).getPedidoDao().insert(pedido);
+                        for(ItemPedido itemPedido: PedidoRepository.getInstance(getApplicationContext()).getItemsPedido()) {
 
-                for(ItemPedido itemPedido: PedidoRepository.getInstance(getApplicationContext()).getItemsPedido()) {
+                            itemPedido.setIdPedido(id);
+                            ItemPedidoRepository.getInstance(getApplicationContext()).getItemPedidoDao().insert(itemPedido);
 
-                    itemPedido.setIdPedido(id);
-                    ItemPedidoRepository.getInstance(getApplicationContext()).getItemPedidoDao().insert(itemPedido);
+                        }
 
-                }
-
-                PedidoRepository.getInstance(getApplicationContext()).setItemsPedido(new ArrayList<ItemPedido>());
+                        PedidoRepository.getInstance(getApplicationContext()).setItemsPedido(new ArrayList<ItemPedido>());
+                    }
+                };
+                Thread thread = new Thread(r);
+                thread.start();
 
                 btnCrear.setEnabled(false);
                 btnAgregarItem.setEnabled(false);
