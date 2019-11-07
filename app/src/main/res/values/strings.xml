@@ -24,6 +24,7 @@
     <string name="descripcion">Descripcion</string>
     <string name="precio">Precio</string>
     <string name="calorias">Calorías</string>
+    <string name="miUbicacion">Mi ubicacion</string>
 
     <string name="isSeller">Es vendedor</string>
     <string name="btnAccept">Aceptar</string>
@@ -68,5 +69,6 @@ s
 
     <string name="itemPedidoQuitado">¡Se quitó el plato del pedido!</string>
     <string name="falloEnviarPedido">Lo sentimos, no se pudo enviar el pedido</string>
+
 
 </resources>
