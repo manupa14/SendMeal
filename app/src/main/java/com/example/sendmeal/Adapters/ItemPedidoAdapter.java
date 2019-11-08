@@ -2,11 +2,13 @@ package com.example.sendmeal.Adapters;
 
 import android.content.Context;
 
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.sendmeal.Activities.AltaPlato;
 import com.example.sendmeal.Domain.ItemPedido;
 import com.example.sendmeal.Holders.ItemPedidoViewHolder;
 import com.example.sendmeal.R;
@@ -39,7 +41,8 @@ public class ItemPedidoAdapter extends RecyclerView.Adapter<ItemPedidoViewHolder
         ItemPedido itemPedido = itemsPedido.get(position);
         String precio = "$".concat(itemPedido.getSubTotal().toString());
 
-        holder.getImgPlato().setImageResource(itemPedido.getPlato().getImagen());
+        Bitmap bitmapAux = AltaPlato.decodeImage(itemPedido.getPlato().getImagen());
+        holder.getImgPlato().setImageBitmap(bitmapAux);
         holder.getTxtTitulo().setText(itemPedido.getPlato().getTitulo());
         holder.getTxtPrecio().setText(precio);
         holder.getTxtCantidad().setText(itemPedido.getCantidad().toString());

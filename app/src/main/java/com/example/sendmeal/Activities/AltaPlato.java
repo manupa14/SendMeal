@@ -1,12 +1,21 @@
 package com.example.sendmeal.Activities;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -14,11 +23,18 @@ import com.example.sendmeal.Domain.Plato;
 import com.example.sendmeal.Persistence.PlatoRepository;
 import com.example.sendmeal.R;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 public class AltaPlato extends AppCompatActivity {
 
+    public static final int REQUEST_IMAGE_CAPTURE = 800;
     private EditText txtIdPlato;
     private EditText txtTitulo;
     private EditText txtDescripcion;
@@ -26,8 +42,11 @@ public class AltaPlato extends AppCompatActivity {
     private EditText txtCalorias;
     private Button btnRegistrarPlato;
     private Toolbar tbAltaPlato;
+    private ImageButton btnCamara;
     //para probar
     public static List<Plato> listaPlatos;
+    private String encodedImage = null;
+    private ImageView imgPlato;
 
 
     @Override
@@ -66,6 +85,8 @@ public class AltaPlato extends AppCompatActivity {
         txtCalorias = findViewById(R.id.txtCalorias);
         btnRegistrarPlato = findViewById(R.id.btnRegistrarPlato);
         tbAltaPlato = findViewById(R.id.tbAltaPlato);
+        btnCamara = findViewById(R.id.btnCamara);
+        imgPlato = findViewById(R.id.imgPlato);
     }
 
     private void configurarEventos(){
@@ -79,7 +100,7 @@ public class AltaPlato extends AppCompatActivity {
                 else {
                     /*Preguntamos si accedimos desde home, para saber si debemos crear el plato o solo editarlo*/
                     if(getIntent().getExtras().getString("startedFrom").equals("home")) {
-                        Plato plato = new Plato(Integer.parseInt(txtIdPlato.getText().toString()), txtTitulo.getText().toString(), txtDescripcion.getText().toString(), Double.parseDouble(txtPrecio.getText().toString()), Integer.parseInt(txtCalorias.getText().toString()));
+                        Plato plato = new Plato(Integer.parseInt(txtIdPlato.getText().toString()), txtTitulo.getText().toString(), txtDescripcion.getText().toString(), Double.parseDouble(txtPrecio.getText().toString()), Integer.parseInt(txtCalorias.getText().toString()),encodedImage);
                         listaPlatos.add(plato);
                         PlatoRepository.getInstance(getApplicationContext()).crearPlato(plato);
                     }
@@ -90,6 +111,16 @@ public class AltaPlato extends AppCompatActivity {
                         finish();
                     }
                     //Toast.makeText(getApplicationContext(), R.string.datosGuardados, Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        btnCamara.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                if(i.resolveActivity(getPackageManager()) != null){
+                    startActivityForResult(i,REQUEST_IMAGE_CAPTURE);
                 }
             }
         });
@@ -153,9 +184,34 @@ public class AltaPlato extends AppCompatActivity {
         btnRegistrarPlato.setVisibility(View.INVISIBLE);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
+        if(requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+
+                Bitmap selectedImage = (Bitmap) data.getExtras().get("data");
+                imgPlato.setImageBitmap(selectedImage);
+                encodedImage = encodeImage(selectedImage);
+
+        }
+    }
+
+    private String encodeImage(Bitmap bitmap) {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG,100,byteArrayOutputStream);
+        byte[] b = byteArrayOutputStream.toByteArray();
+        String encodedImage = Base64.encodeToString(b,Base64.DEFAULT);
+        return encodedImage;
+    }
+
+    public static Bitmap decodeImage(String encodedImage) {
+        byte[] decodedImage = Base64.decode(encodedImage,Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(decodedImage,0,decodedImage.length);
+    }
 
 
 }
+
 
 
