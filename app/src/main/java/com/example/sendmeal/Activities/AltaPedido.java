@@ -2,6 +2,7 @@ package com.example.sendmeal.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -27,16 +28,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class AltaPedido extends AppCompatActivity {
 
-    RecyclerView myRecyclerView;
-    ItemPedidoAdapter myItemPedidoAdapter;
-
+    private RecyclerView myRecyclerView;
+    private ItemPedidoAdapter myItemPedidoAdapter;
     private Toolbar tbAltaPedido;
     private Button btnCrear;
     private Button btnEnviar;
     private ImageButton btnSetMapa;
-
     private com.google.android.material.floatingactionbutton.FloatingActionButton btnAgregarItem;
-    Pedido pedido = new Pedido();
+    private Pedido pedido = new Pedido();
 
 
     //TODO ver por que se cargar platos iguales al pedido
@@ -62,7 +61,6 @@ public class AltaPedido extends AppCompatActivity {
             myItemPedidoAdapter = new ItemPedidoAdapter(PedidoRepository.getInstance(getApplicationContext()).getItemsPedido(), this);
             myRecyclerView.setAdapter(myItemPedidoAdapter);
         }
-
     }
 
     private void inicializarComponentes(){
@@ -91,18 +89,18 @@ public class AltaPedido extends AppCompatActivity {
                 pedido.setEstado(1);
                 pedido.setFecha(new Date());
                 pedido.setItems(PedidoRepository.getInstance(getApplicationContext()).getItemsPedido());
+
                 Runnable r = new Runnable() {
                     @Override
                     public void run() {
-                        Long id = PedidoRepository.getInstance(getApplicationContext()).getPedidoDao().insert(pedido);
-
+                        long id = PedidoRepository.getInstance(getApplicationContext()).getPedidoDao().insert(pedido);
+                        pedido.setIdPedido(id);
                         for(ItemPedido itemPedido: PedidoRepository.getInstance(getApplicationContext()).getItemsPedido()) {
 
                             itemPedido.setIdPedido(id);
                             ItemPedidoRepository.getInstance(getApplicationContext()).getItemPedidoDao().insert(itemPedido);
 
                         }
-
                         PedidoRepository.getInstance(getApplicationContext()).setItemsPedido(new ArrayList<ItemPedido>());
                     }
                 };
@@ -119,6 +117,15 @@ public class AltaPedido extends AppCompatActivity {
         btnEnviar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                Runnable r = new Runnable() {
+                    @Override
+                    public void run() {
+                        PedidoRepository.getInstance(getApplicationContext()).getPedidoDao().deleteByID(pedido.getIdPedido());
+                    }
+                };
+                Thread thread = new Thread(r);
+                thread.start();
 
                 pedido.setEstado(2);
                 PedidoRepository.getInstance(getApplicationContext()).guardarPedidoEnviado(pedido);
@@ -139,6 +146,7 @@ public class AltaPedido extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), MapPedidos.class);
+                i.putExtra("startedFrom", "altaPedido");
                 startActivityForResult(i, MapPedidos.CODIGO_MAPA);
             }
         });
@@ -157,7 +165,6 @@ public class AltaPedido extends AppCompatActivity {
                     pedido.setLatitud(data.getExtras().getDouble("latitud"));
                     pedido.setLongitud(data.getExtras().getDouble("longitud"));
                     btnCrear.setEnabled(true);
-                    myItemPedidoAdapter.notifyDataSetChanged();
                     break;
             }
         }

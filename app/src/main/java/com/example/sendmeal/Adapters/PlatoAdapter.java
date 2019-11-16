@@ -83,6 +83,7 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoViewHolder> {
                             Intent i = new Intent(contexto, AltaPedido.class);
                             i.putExtra("plato", plato);
                             i.putExtra("startedFrom","buscar");
+                            i.addFlags(i.FLAG_ACTIVITY_NEW_TASK);
                             contexto.startActivity(i);
                         }
                         break;

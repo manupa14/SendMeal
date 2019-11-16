@@ -1,9 +1,11 @@
 package com.example.sendmeal.Persistence;
 
-import android.content.ClipData;
 import android.content.Context;
+import android.os.Handler;
+import android.os.Message;
 import android.widget.Toast;
 
+import com.example.sendmeal.Activities.MapPedidos;
 import com.example.sendmeal.Domain.ItemPedido;
 import com.example.sendmeal.Domain.Pedido;
 import com.example.sendmeal.R;
@@ -22,6 +24,7 @@ public class PedidoRepository {
     private PedidoDao pedidoDao;
     private PedidoRest pedidoRest;
     private Context ctx;
+    private List<Pedido> pedidos = new ArrayList<>();
     private List<ItemPedido> itemsPedido = new ArrayList<>();
 
     private PedidoRepository(Context ctx){
@@ -62,6 +65,31 @@ public class PedidoRepository {
                 Toast.makeText(ctx, R.string.falloEnviarPedido, Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public void listarPedidosEnviados(final Handler h){
+        Call<List<Pedido>> llamada = this.pedidoRest.buscarTodos();
+        llamada.enqueue(new Callback<List<Pedido>>() {
+            @Override
+            public void onResponse(Call<List<Pedido>> call, Response<List<Pedido>> response) {
+                if(response.isSuccessful()){
+                    pedidos.clear();
+                    pedidos.addAll(response.body());
+                    Message m = new Message();
+                    m.arg1 = MapPedidos.BUSCAR_PEDIDOS_ENVIADOS;
+                    h.sendMessage(m);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Pedido>> call, Throwable t) {
+                Toast.makeText(ctx, R.string.falloBuscarPedidos, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public List<Pedido> getPedidos(){
+        return pedidos;
     }
 
 }
