@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.sendmeal.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -56,11 +57,17 @@ public class MapPedidos extends AppCompatActivity implements OnMapReadyCallback,
         btnAgregarUbicacion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), AltaPedido.class);
-                i.putExtra("latitud", latLng.latitude);
-                i.putExtra("longitud", latLng.longitude);
-                setResult(RESULT_OK, i);
-                finish();
+
+                    if(latLng != null) {
+                        Intent i = new Intent(getApplicationContext(), AltaPedido.class);
+                        i.putExtra("latitud", latLng.latitude);
+                        i.putExtra("longitud", latLng.longitude);
+                        setResult(RESULT_OK, i);
+                        finish();
+                    }
+                    else {
+                        Toast.makeText(getApplicationContext(), R.string.falloUbicacion, Toast.LENGTH_SHORT).show();
+                    }
             }
         });
 

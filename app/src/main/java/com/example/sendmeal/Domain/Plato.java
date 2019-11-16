@@ -143,6 +143,7 @@ public class Plato implements Parcelable {
         dest.writeInt(idPlato);
         dest.writeString(titulo);
         dest.writeString(descripcion);
+        dest.writeInt(calorias);
         dest.writeDouble(precio);
         dest.writeInt(imagen);
 
@@ -153,6 +154,7 @@ public class Plato implements Parcelable {
         idPlato = in.readInt();
         titulo = in.readString();
         descripcion = in.readString();
+        calorias = in.readInt();
         precio = in.readDouble();
         imagen = in.readInt();
 

@@ -10,6 +10,7 @@ import androidx.core.app.NotificationManagerCompat;
 
 import com.example.sendmeal.Activities.AltaPlato;
 import com.example.sendmeal.Activities.ListaPlatos;
+import com.example.sendmeal.Domain.Plato;
 import com.example.sendmeal.R;
 
 
@@ -23,14 +24,14 @@ public class MyReceiver extends BroadcastReceiver {
     @Override
     public void onReceive (Context context, Intent intent) {
 
-        int position = intent.getExtras().getInt("idPlatoSeleccionado");
+        Plato platoSeleccionado = intent.getExtras().getParcelable("platoSeleccionado");
 
         //Definimos que hacer cuando seleccionamos la notificacion
         Intent destino = new Intent(context, AltaPlato.class);
 
-       /*Enviamos el id del plato seleccionado y un string para avisarle a la actividad AltaPlato
+       /*Enviamos el plato seleccionado y un string para avisarle a la actividad AltaPlato
        * que la inicamos desde la notificacion*/
-        destino.putExtra("idPlatoSeleccionado",position);
+        destino.putExtra("platoSeleccionado",platoSeleccionado);
         destino.putExtra("startedFrom","notificacion");
 
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

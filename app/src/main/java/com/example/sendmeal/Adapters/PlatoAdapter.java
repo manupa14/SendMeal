@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -91,15 +92,15 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoViewHolder> {
             }
         });
 
-
         holder.getOfertar().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                listaPlato.get(position).setEnOferta(true);
+                Plato platoSeleccionado = listaPlato.get(position);
+                platoSeleccionado.setEnOferta(true);
 
                Intent nuevoServicio = new Intent(contexto,MyIntentService.class);
-               nuevoServicio.putExtra("idPlatoSeleccionado",position);
+               nuevoServicio.putExtra("platoSeleccionado",platoSeleccionado);
                contexto.startService(nuevoServicio);
 
             }
@@ -109,7 +110,8 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoViewHolder> {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(contexto, AltaPlato.class);
-                i.putExtra("idPlatoSeleccionado", position);
+                Plato platoSeleccionado = listaPlato.get(position);
+                i.putExtra("platoSeleccionado", platoSeleccionado);
                 i.putExtra("startedFrom","editar");
                 ((Activity)contexto).startActivityForResult(i,CODIGO_EDITAR_PLATO);
             }

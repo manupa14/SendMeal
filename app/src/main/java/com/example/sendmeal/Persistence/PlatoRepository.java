@@ -18,7 +18,9 @@ import retrofit2.Response;
 public class PlatoRepository {
 
     private static PlatoRepository _INSTANCE = null;
+    public static final int _BUSCAR_PLATOS_TODOS = 0;
     public static final int _BUSCAR_PLATOS = 1;
+    public static final int _ACCTUALIZAR_PLATO=2;
     private Context ctx;
     private PlatoDao platoDao;
     private PlatoRest platoRest;
@@ -78,7 +80,7 @@ public class PlatoRepository {
         return listaPlatos;
     }
 
-    /*public List<Plato> buscarTodos(final Handler h){
+    public List<Plato> buscarTodos(final Handler h){
         Call<List<Plato>> llamada = this.platoRest.buscarTodos();
         llamada.enqueue(new Callback<List<Plato>>() {
             @Override
@@ -86,8 +88,9 @@ public class PlatoRepository {
                 if(response.isSuccessful()){
                     listaPlatos.clear();
                     listaPlatos.addAll(response.body());
-
-
+                    Message m = new Message();
+                    m.arg1 = _BUSCAR_PLATOS_TODOS;
+                    h.sendMessage(m);
                 }
             }
             @Override
@@ -95,8 +98,27 @@ public class PlatoRepository {
                 Toast.makeText(ctx, R.string.falloCrear, Toast.LENGTH_SHORT).show();
             }
         });
-
         return listaPlatos;
-    }*/
+    }
 
+    public void actualizarPlato(final Plato plato) {
+        Call<Plato> llamada = this.platoRest.actualizar(plato.getIdPlato(),plato);
+        llamada.enqueue(new Callback<Plato>() {
+            @Override
+            public void onResponse(Call<Plato> call, Response<Plato> response) {
+
+                if(response.isSuccessful()){
+                    listaPlatos.remove(plato);
+                    listaPlatos.add(response.body());
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<Plato> call, Throwable t) {
+                Toast.makeText(ctx, R.string.falloEditar,Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
 }

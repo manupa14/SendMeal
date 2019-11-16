@@ -56,6 +56,7 @@ s
     <string name="falloAgregarItem">El plato ya forma parte de su pedido</string>
     <string name="falloBuscar">Lo sentimos, no se pudo encontrar el plato en el menu</string>
     <string name="falloMapa">Lo sentimos, no se pudo cargar la ubicacion</string>
+    <string name="falloUbicacion">Debe seleccionar la ubicacion en el mapa.</string>
 
     <string name="datosGuardados">¡Datos guardados correctamente!</string>
     <string name="platoBorrado">¡El plato se ha borrado correctamente!</string>
@@ -67,7 +68,7 @@ s
     <string name="mensajeNotificacion">¡Hay una nueva oferta disponible!</string>
 
     <string name="nombreCanal">Ofertas</string>
-    <string name="descripcionCanal">Este canal informara cuando existan nuevas ofertas</string>
+    <string name="descripcionCanal">Recibe notificaciones sobre nuevas ofertas disponibles</string>
 
     <string name="itemPedidoQuitado">¡Se quitó el plato del pedido!</string>
     <string name="falloEnviarPedido">Lo sentimos, no se pudo enviar el pedido</string>
