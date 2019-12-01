@@ -77,6 +77,46 @@ public class AltaPlato extends AppCompatActivity {
 
     }
 
+    public EditText getTxtIdPlato() {
+        return txtIdPlato;
+    }
+
+    public void setTxtIdPlato(EditText txtIdPlato) {
+        this.txtIdPlato = txtIdPlato;
+    }
+
+    public EditText getTxtTitulo() {
+        return txtTitulo;
+    }
+
+    public void setTxtTitulo(EditText txtTitulo) {
+        this.txtTitulo = txtTitulo;
+    }
+
+    public EditText getTxtDescripcion() {
+        return txtDescripcion;
+    }
+
+    public void setTxtDescripcion(EditText txtDescripcion) {
+        this.txtDescripcion = txtDescripcion;
+    }
+
+    public EditText getTxtPrecio() {
+        return txtPrecio;
+    }
+
+    public void setTxtPrecio(EditText txtPrecio) {
+        this.txtPrecio = txtPrecio;
+    }
+
+    public EditText getTxtCalorias() {
+        return txtCalorias;
+    }
+
+    public void setTxtCalorias(EditText txtCalorias) {
+        this.txtCalorias = txtCalorias;
+    }
+
     private void inicializarComponentes(){
         txtIdPlato = findViewById(R.id.txtIdPlato);
         txtTitulo = findViewById(R.id.txtTituloItem);
@@ -126,7 +166,7 @@ public class AltaPlato extends AppCompatActivity {
         });
     }
 
-    private boolean validarVacio() {
+    public boolean validarVacio() {
         //Retorna true si ningun campo de la actividad es vacio
         return txtIdPlato.getText().length()>0 &&
                 txtCalorias.getText().length()>0 &&
