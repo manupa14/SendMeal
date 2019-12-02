@@ -192,6 +192,7 @@ public class Registro extends AppCompatActivity {
                             else { //todas las restricciones se cumplieron
                                 String text = "¡Datos guardados correctamente!";
                                 Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
+                                limpiarDatos();
                             }
                         }
                     }
@@ -271,22 +272,36 @@ public class Registro extends AppCompatActivity {
         return esValida;
     }
 
+    private void limpiarDatos(){
+        txtNombre.setText("");
+        txtClave.setText("");
+        txtRepetirClave.setText("");
+        txtCorreo.setText("");
+        txtNumeroTarjeta.setText("");
+        txtCcv.setText("");
+        txtVencimiento.setText("");
+        sbCredito.setProgress(0);
+        btnNotificaciones.setPressed(false);
+        swEsVendedor.setChecked(false);
+        chkTerminos.setChecked(false);
+        txtAliasCbu.setText("");
+        txtCbu.setText("");
+        lblProgreso.setText(((Integer)creditoMinimo).toString());
+        rgTipoCuenta.check(R.id.rbBase);
+        creditoMinimo = creditoMinimoBase;
+    }
 
+    public Button getBtnRegistrar() {
+        return btnRegistrar;
+    }
 
+    public int getCreditoMinimo(){
+        return creditoMinimo;
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+    public int getCreditoMinimoBase(){
+        return creditoMinimoBase;
+    }
 
 }
 
