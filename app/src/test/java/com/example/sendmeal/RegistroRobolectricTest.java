@@ -24,7 +24,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
 @RunWith(RobolectricTestRunner.class)
-public class RegistroTest {
+public class RegistroRobolectricTest {
 
     private Registro activityRegistro;
 

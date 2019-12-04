@@ -140,7 +140,11 @@ public class AltaPlato extends AppCompatActivity {
                 else {
                     /*Preguntamos si accedimos desde home, para saber si debemos crear el plato o solo editarlo*/
                     if(getIntent().getExtras().getString("startedFrom").equals("home")) {
-                        Plato plato = new Plato(Integer.parseInt(txtIdPlato.getText().toString()), txtTitulo.getText().toString(), txtDescripcion.getText().toString(), Double.parseDouble(txtPrecio.getText().toString()), Integer.parseInt(txtCalorias.getText().toString()),encodedImage);
+                        Plato plato = new Plato(Integer.parseInt(txtIdPlato.getText().toString()),
+                                txtTitulo.getText().toString(), txtDescripcion.getText().toString(),
+                                Double.parseDouble(txtPrecio.getText().toString()),
+                                Integer.parseInt(txtCalorias.getText().toString()),
+                                encodedImage);
                         listaPlatos.add(plato);
                         PlatoRepository.getInstance(getApplicationContext()).crearPlato(plato);
                     }

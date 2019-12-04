@@ -14,7 +14,7 @@ import static junit.framework.TestCase.assertTrue;
 import static org.mockito.Mockito.doReturn;
 
 @RunWith(MockitoJUnitRunner.class)
-public class AltaPlatoTest {
+public class AltaPlatoJUnitMockitoTest {
 
     private AltaPlato activityAltaPlato;
 
