@@ -5,8 +5,8 @@ import android.util.Log;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessagingService;
 
-public class FirebaseService1 extends FirebaseMessagingService {
-    private static final String TAG = "MyFirebaseIIDService";
+public class FirebaseService1{
+    /*private static final String TAG = "MyFirebaseIIDService";
     @Override
     public void onCreate() {
         super.onCreate();
@@ -19,8 +19,5 @@ public class FirebaseService1 extends FirebaseMessagingService {
                 FirebaseInstanceId.getInstance().getToken();
         Log.d(TAG, "Refreshed token: " + refreshedToken);
         saveTokenToPrefs(refreshedToken);
-    }
-}
-
-
+    }*/
 }
