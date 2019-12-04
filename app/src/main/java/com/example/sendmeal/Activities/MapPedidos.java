@@ -23,6 +23,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -134,13 +135,13 @@ public class MapPedidos extends AppCompatActivity implements OnMapReadyCallback,
             public void handleMessage(Message msg) {
                 switch (msg.arg1){
                     case BUSCAR_PEDIDOS_CREADOS:
-                        mostrarPedidos("CREADO");
+                        mostrarPedidos("CREADO", BitmapDescriptorFactory.HUE_YELLOW);
                         PedidoRepository.getInstance(getApplicationContext()).listarPedidosEnviados(mHandler);
                         break;
 
                     case BUSCAR_PEDIDOS_ENVIADOS:
                         pedidos = PedidoRepository.getInstance(getApplicationContext()).getPedidos();
-                        mostrarPedidos("ENVIADO");
+                        mostrarPedidos("ENVIADO", BitmapDescriptorFactory.HUE_BLUE);
                         break;
 
 
@@ -151,7 +152,7 @@ public class MapPedidos extends AppCompatActivity implements OnMapReadyCallback,
 
     private void configurarFiltro(){
 
-        //spFiltro = findViewById(R.id.spEstados);
+        spFiltro = findViewById(R.id.spEstados);
         String[] estados = {"CREADO", "ENVIADO"};
         ArrayAdapter<String> spAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, estados);
         spAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -167,10 +168,12 @@ public class MapPedidos extends AppCompatActivity implements OnMapReadyCallback,
 
                 switch (position){
                     case 1:
-                        mostrarPedidos("CREADO");
+                        pedidos = PedidoRepository.getInstance(getApplicationContext()).getPedidoDao().getAll();
+                        mostrarPedidos("CREADO", BitmapDescriptorFactory.HUE_YELLOW);
                         break;
                     case 2:
-                        mostrarPedidos("ENVIADO");
+                        pedidos = PedidoRepository.getInstance(getApplicationContext()).getPedidos();
+                        mostrarPedidos("ENVIADO", BitmapDescriptorFactory.HUE_BLUE);
                         break;
                 }
             }
@@ -202,15 +205,14 @@ public class MapPedidos extends AppCompatActivity implements OnMapReadyCallback,
 
     }
 
-    private void mostrarPedidos(String estado) {
+    private void mostrarPedidos(String estado, float color) {
+                for (Pedido pedido : pedidos) {
+                    LatLng latLng = new LatLng(pedido.getLatitud(), pedido.getLongitud());
+                    mMap.addMarker(new MarkerOptions().position(latLng)
+                            .icon(BitmapDescriptorFactory.defaultMarker(color))
+                            .title("id: " + ((Long) pedido.getIdPedido()).toString())
+                            .snippet("Estado: " + estado));
+                }
 
-        for (Pedido pedido : pedidos) {
-            LatLng latLng = new LatLng(pedido.getLatitud(), pedido.getLongitud());
-            mMap.addMarker(new MarkerOptions().position(latLng)
-                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
-                    .title("id: " + ((Long) pedido.getIdPedido()).toString())
-                    .snippet("Estado: " + estado));
         }
-    }
-
 }
