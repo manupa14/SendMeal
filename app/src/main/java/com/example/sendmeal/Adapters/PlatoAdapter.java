@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -54,7 +55,8 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoViewHolder> {
         Plato myPlato = listaPlato.get(position);
         String pr = "$".concat(myPlato.getPrecio().toString());
 
-        holder.getImagen().setImageResource(myPlato.getImagen());
+        Bitmap bitmapAux = AltaPlato.decodeImage(myPlato.getImagen());
+        holder.getImagen().setImageBitmap(bitmapAux);
         holder.getTitulo().setText(myPlato.getTitulo());
         holder.getPrecio().setText(pr);
 

@@ -1,5 +1,6 @@
 package com.example.sendmeal.Domain;
 
+import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -25,7 +26,7 @@ public class Plato implements Parcelable {
     private String descripcion;
     private Double precio;
     private Integer calorias;
-    private int imagen;
+    private String imagen;
     private Boolean enOferta;
 
 
@@ -62,7 +63,7 @@ public class Plato implements Parcelable {
         return calorias;
     }
 
-    public int getImagen() {
+    public String getImagen() {
         return imagen;
     }
 
@@ -86,7 +87,7 @@ public class Plato implements Parcelable {
         this.calorias = calorias;
     }
 
-    public void setImagen(int imagen) {
+    public void setImagen(String imagen) {
         this.imagen = imagen;
     }
 
@@ -136,7 +137,8 @@ public class Plato implements Parcelable {
         dest.writeString(descripcion);
         dest.writeInt(calorias);
         dest.writeDouble(precio);
-        dest.writeInt(imagen);
+        dest.writeString(imagen);
+
     }
 
     private void readFromParcel(Parcel in){
@@ -145,7 +147,7 @@ public class Plato implements Parcelable {
         descripcion = in.readString();
         calorias = in.readInt();
         precio = in.readDouble();
-        imagen = in.readInt();
+        imagen = in.readString();
 
     }
 
