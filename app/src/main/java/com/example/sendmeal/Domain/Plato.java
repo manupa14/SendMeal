@@ -172,7 +172,5 @@ public class Plato implements Parcelable {
 
     };
 
-
-
 }
 

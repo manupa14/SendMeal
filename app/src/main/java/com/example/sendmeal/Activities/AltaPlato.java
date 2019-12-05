@@ -34,7 +34,6 @@ public class AltaPlato extends AppCompatActivity {
     private Plato platoSeleccionado;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 

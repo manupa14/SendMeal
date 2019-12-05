@@ -3,6 +3,7 @@ package com.example.sendmeal.Persistence;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.example.sendmeal.Domain.Plato;
@@ -14,6 +15,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.http.Tag;
 
 public class PlatoRepository {
 
@@ -95,7 +97,7 @@ public class PlatoRepository {
             }
             @Override
             public void onFailure(Call<List<Plato>> call, Throwable t) {
-                Toast.makeText(ctx, R.string.falloCrear, Toast.LENGTH_SHORT).show();
+                Toast.makeText(ctx, R.string.falloCrear, Toast.LENGTH_SHORT).show(); //mal
             }
         });
         return listaPlatos;
