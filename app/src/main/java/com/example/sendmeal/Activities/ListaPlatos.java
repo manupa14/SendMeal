@@ -95,7 +95,6 @@ public class ListaPlatos extends AppCompatActivity {
                     break;
             }
         }
-
     }
 
     private void createNotificationChannel() {
