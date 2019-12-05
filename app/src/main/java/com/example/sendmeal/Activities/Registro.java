@@ -20,6 +20,7 @@ import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.example.sendmeal.R;
 
@@ -40,7 +41,7 @@ public class Registro extends AppCompatActivity {
     private EditText txtVencimiento;
     private RadioGroup rgTipoCuenta;
     private SeekBar sbCredito;
-    private Button btnNotificaciones;
+    private ToggleButton btnNotificaciones;
     private Switch swEsVendedor;
     private CheckBox chkTerminos;
     private EditText txtAliasCbu;

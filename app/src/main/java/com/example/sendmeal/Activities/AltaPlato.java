@@ -3,7 +3,6 @@ package com.example.sendmeal.Activities;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
@@ -23,20 +22,12 @@ import com.example.sendmeal.Domain.Plato;
 import com.example.sendmeal.Persistence.PlatoRepository;
 import com.example.sendmeal.R;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
 
 public class AltaPlato extends AppCompatActivity {
 
     private EditText txtId;
     public static final int REQUEST_IMAGE_CAPTURE = 800;
-    private EditText txtIdPlato;
     private EditText txtTitulo;
     private EditText txtDescripcion;
     private EditText txtPrecio;
@@ -45,8 +36,6 @@ public class AltaPlato extends AppCompatActivity {
     private Toolbar tbAltaPlato;
     private Plato platoSeleccionado;
     private ImageButton btnCamara;
-    //para probar
-    public static List<Plato> listaPlatos;
     private String encodedImage = null;
     private ImageView imgPlato;
 
@@ -79,12 +68,12 @@ public class AltaPlato extends AppCompatActivity {
 
     }
 
-    public EditText getTxtIdPlato() {
-        return txtIdPlato;
+    public EditText getTxtId() {
+        return txtId;
     }
 
-    public void setTxtIdPlato(EditText txtIdPlato) {
-        this.txtIdPlato = txtIdPlato;
+    public void setTxtId(EditText txtId) {
+        this.txtId = txtId;
     }
 
     public EditText getTxtTitulo() {
@@ -149,16 +138,9 @@ public class AltaPlato extends AppCompatActivity {
                         plato.setDescripcion(txtDescripcion.getText().toString());
                         plato.setPrecio(Double.parseDouble(txtPrecio.getText().toString()));
                         plato.setCalorias(Integer.parseInt(txtCalorias.getText().toString()));
-                        plato.setImagen(R.drawable.ic_launcher_background);
+                        plato.setImagen(encodedImage);
                         plato.setEnOferta(false);
 
-                    if(getIntent().getExtras().getString("startedFrom").equals("home")) {
-                        Plato plato = new Plato(Integer.parseInt(txtIdPlato.getText().toString()),
-                                txtTitulo.getText().toString(), txtDescripcion.getText().toString(),
-                                Double.parseDouble(txtPrecio.getText().toString()),
-                                Integer.parseInt(txtCalorias.getText().toString()),
-                                encodedImage);
-                        listaPlatos.add(plato);
                         PlatoRepository.getInstance(getApplicationContext()).crearPlato(plato);
                     }
                     else {
