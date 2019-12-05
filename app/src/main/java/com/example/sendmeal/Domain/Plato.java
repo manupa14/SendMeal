@@ -20,8 +20,7 @@ public class Plato implements Parcelable {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "plato_id")
-
-    private Integer idPlato;
+    private int id;
     private String titulo;
     private String descripcion;
     private Double precio;
@@ -29,17 +28,9 @@ public class Plato implements Parcelable {
     private int imagen;
     private Boolean enOferta;
 
-    public Plato() { }
 
-    @Ignore
-    public Plato(Integer idPlato, String titulo, String descripcion, Double precio, Integer calorias) {
-        this.idPlato = idPlato;
-        this.titulo = titulo;
-        this.descripcion = descripcion;
-        this.precio = precio;
-        this.calorias = calorias;
-        this.imagen = R.drawable.ic_launcher_background;
-        this.enOferta = false;
+    public Plato(){
+
     }
 
     @Ignore
@@ -47,8 +38,12 @@ public class Plato implements Parcelable {
         this.readFromParcel(in);
     }
 
-    public Integer getIdPlato() {
-        return idPlato;
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTitulo() {
@@ -71,13 +66,9 @@ public class Plato implements Parcelable {
         return imagen;
     }
 
-   public  Boolean getEnOferta(){
+    public  Boolean getEnOferta(){
         return enOferta;
    }
-
-    public void setIdPlato(Integer idPlato) {
-        this.idPlato = idPlato;
-    }
 
     public void setTitulo(String titulo) {
         this.titulo = titulo;
@@ -103,6 +94,7 @@ public class Plato implements Parcelable {
         this.enOferta = enOferta;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -123,7 +115,7 @@ public class Plato implements Parcelable {
     @Override
     public String toString() {
         return "Plato{" +
-                "id=" + idPlato +
+                "id=" + id +
                 ", titulo='" + titulo + '\'' +
                 ", descripcion='" + descripcion + '\'' +
                 ", precio=" + precio +
@@ -139,19 +131,16 @@ public class Plato implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags){
-
-        dest.writeInt(idPlato);
+        dest.writeInt(id);
         dest.writeString(titulo);
         dest.writeString(descripcion);
         dest.writeInt(calorias);
         dest.writeDouble(precio);
         dest.writeInt(imagen);
-
     }
 
     private void readFromParcel(Parcel in){
-
-        idPlato = in.readInt();
+        id = in.readInt();
         titulo = in.readString();
         descripcion = in.readString();
         calorias = in.readInt();
@@ -171,8 +160,6 @@ public class Plato implements Parcelable {
         }
 
     };
-
-
 
 }
 

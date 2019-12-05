@@ -102,7 +102,7 @@ public class PlatoRepository {
     }
 
     public void actualizarPlato(final Plato plato) {
-        Call<Plato> llamada = this.platoRest.actualizar(plato.getIdPlato(),plato);
+        Call<Plato> llamada = this.platoRest.actualizar(plato.getId(),plato);
         llamada.enqueue(new Callback<Plato>() {
             @Override
             public void onResponse(Call<Plato> call, Response<Plato> response) {

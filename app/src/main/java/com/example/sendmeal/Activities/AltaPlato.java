@@ -1,10 +1,6 @@
 package com.example.sendmeal.Activities;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,16 +11,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.sendmeal.Domain.Plato;
-import com.example.sendmeal.Persistence.PedidoRepository;
 import com.example.sendmeal.Persistence.PlatoRepository;
 import com.example.sendmeal.R;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class AltaPlato extends AppCompatActivity {
 
-    private EditText txtIdPlato;
+    private EditText txtId;
     private EditText txtTitulo;
     private EditText txtDescripcion;
     private EditText txtPrecio;
@@ -33,11 +25,8 @@ public class AltaPlato extends AppCompatActivity {
     private Toolbar tbAltaPlato;
     private Plato platoSeleccionado;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alta_plato);
@@ -65,7 +54,8 @@ public class AltaPlato extends AppCompatActivity {
     }
 
     private void inicializarComponentes(){
-        txtIdPlato = findViewById(R.id.txtIdPlato);
+        txtId = findViewById(R.id.txtIdPlato);
+        txtId.setEnabled(false);
         txtTitulo = findViewById(R.id.txtTituloItem);
         txtDescripcion = findViewById(R.id.txtDescripcion);
         txtPrecio = findViewById(R.id.txtPrecioItem);
@@ -84,18 +74,25 @@ public class AltaPlato extends AppCompatActivity {
                 }
                 else {
                     /*Preguntamos si accedimos desde home, para saber si debemos crear el plato o solo editarlo*/
-                    if(getIntent().getExtras().getString("startedFrom").equals("home")) {
-                        Plato plato = new Plato(Integer.parseInt(txtIdPlato.getText().toString()), txtTitulo.getText().toString(), txtDescripcion.getText().toString(), Double.parseDouble(txtPrecio.getText().toString()), Integer.parseInt(txtCalorias.getText().toString()));
+                    if (getIntent().getExtras().getString("startedFrom").equals("home")) {
+
+                        Plato plato = new Plato();
+                        plato.setTitulo(txtTitulo.getText().toString());
+                        plato.setDescripcion(txtDescripcion.getText().toString());
+                        plato.setPrecio(Double.parseDouble(txtPrecio.getText().toString()));
+                        plato.setCalorias(Integer.parseInt(txtCalorias.getText().toString()));
+                        plato.setImagen(R.drawable.ic_launcher_background);
+                        plato.setEnOferta(false);
+
                         PlatoRepository.getInstance(getApplicationContext()).crearPlato(plato);
                     }
-                    else
-                    {
+                    else {
                         editarPlato(platoSeleccionado);
                         setResult(RESULT_OK);
                         PlatoRepository.getInstance(getApplicationContext()).actualizarPlato(platoSeleccionado);
                         finish();
                     }
-                    Toast.makeText(getApplicationContext(), R.string.datosGuardados, Toast.LENGTH_SHORT).show();
+
                 }
             }
         });
@@ -103,8 +100,7 @@ public class AltaPlato extends AppCompatActivity {
 
     private boolean validarVacio() {
         //Retorna true si ningun campo de la actividad es vacio
-        return txtIdPlato.getText().length()>0 &&
-                txtCalorias.getText().length()>0 &&
+        return txtCalorias.getText().length()>0 &&
                 txtDescripcion.getText().length()>0 &&
                 txtTitulo.getText().length()>0 &&
                 txtPrecio.getText().length()>0;
@@ -112,8 +108,7 @@ public class AltaPlato extends AppCompatActivity {
 
     private void cargarDatosEditables(Plato plato){
         //Este metodo carga en la actividad los datos del plato seleccionado para edicion.
-
-        txtIdPlato.setText(plato.getIdPlato().toString(), TextView.BufferType.EDITABLE);
+        txtId.setText(((Integer) plato.getId()).toString());
         txtTitulo.setText(plato.getTitulo(), TextView.BufferType.EDITABLE);
         txtDescripcion.setText(plato.getDescripcion(), TextView.BufferType.EDITABLE);
         txtPrecio.setText(plato.getPrecio().toString(), TextView.BufferType.EDITABLE);
@@ -122,7 +117,6 @@ public class AltaPlato extends AppCompatActivity {
 
     private void editarPlato(Plato plato) {
         //Este metodo setea los nuevos valores de los atributos del plato seleccionado para edicion
-        plato.setIdPlato(Integer.parseInt(txtIdPlato.getText().toString()));
         plato.setTitulo(txtTitulo.getText().toString());
         plato.setDescripcion(txtDescripcion.getText().toString());
         plato.setPrecio(Double.parseDouble(txtPrecio.getText().toString()));
@@ -132,8 +126,7 @@ public class AltaPlato extends AppCompatActivity {
     private void cargarDatosNoEditables(Plato plato) {
         ////Este metodo carga en la actividad los datos del plato pero no permite modificarlos
 
-        txtIdPlato.setText(plato.getIdPlato().toString(), TextView.BufferType.NORMAL);
-        txtIdPlato.setEnabled(false);
+        txtId.setText(((Integer) plato.getId()).toString());
         txtTitulo.setText(plato.getTitulo(), TextView.BufferType.NORMAL);
         txtTitulo.setEnabled(false);
         txtDescripcion.setText(plato.getDescripcion(), TextView.BufferType.NORMAL);
