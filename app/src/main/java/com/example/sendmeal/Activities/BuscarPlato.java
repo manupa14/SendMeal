@@ -25,7 +25,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class BuscarPlato extends AppCompatActivity {
 
-    List<Plato> listaDataSet = new ArrayList<>();
+    public static List<Plato> listaDataSet = new ArrayList<>();
     private Toolbar tbBuscar;
     private SearchView svBuscar;
     private Button btnVerPedido;

@@ -55,8 +55,10 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoViewHolder> {
         Plato myPlato = listaPlato.get(position);
         String pr = "$".concat(myPlato.getPrecio().toString());
 
-        Bitmap bitmapAux = AltaPlato.decodeImage(myPlato.getImagen());
-        holder.getImagen().setImageBitmap(bitmapAux);
+        if (!myPlato.getImagen().isEmpty()){
+            Bitmap bitmapAux = AltaPlato.decodeImage(myPlato.getImagen());
+            holder.getImagen().setImageBitmap(bitmapAux);
+        }
         holder.getTitulo().setText(myPlato.getTitulo());
         holder.getPrecio().setText(pr);
 

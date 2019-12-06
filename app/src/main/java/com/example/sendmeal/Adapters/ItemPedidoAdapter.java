@@ -41,8 +41,10 @@ public class ItemPedidoAdapter extends RecyclerView.Adapter<ItemPedidoViewHolder
         ItemPedido itemPedido = itemsPedido.get(position);
         String precio = "$".concat(itemPedido.getSubTotal().toString());
 
-        Bitmap bitmapAux = AltaPlato.decodeImage(itemPedido.getPlato().getImagen());
-        holder.getImgPlato().setImageBitmap(bitmapAux);
+        if (!itemPedido.getPlato().getImagen().isEmpty()){
+            Bitmap bitmapAux = AltaPlato.decodeImage(itemPedido.getPlato().getImagen());
+            holder.getImgPlato().setImageBitmap(bitmapAux);
+        }
         holder.getTxtTitulo().setText(itemPedido.getPlato().getTitulo());
         holder.getTxtPrecio().setText(precio);
         holder.getTxtCantidad().setText(itemPedido.getCantidad().toString());
