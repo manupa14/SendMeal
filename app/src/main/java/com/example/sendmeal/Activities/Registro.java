@@ -26,8 +26,10 @@ import com.example.sendmeal.R;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
+import static java.lang.Character.isDigit;
 import static java.lang.Character.isLetter;
 
 public class Registro extends AppCompatActivity {
@@ -65,17 +67,6 @@ public class Registro extends AppCompatActivity {
         configurarEventos();
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
     private void inicializarComponentes(){
         txtNombre = findViewById(R.id.txtNombreRegistrar);
         txtClave = findViewById(R.id.txtClave);
@@ -92,8 +83,8 @@ public class Registro extends AppCompatActivity {
         txtCbu = findViewById(R.id.txtCBU);
         llVendedor = findViewById(R.id.hiddenLayout);
         btnRegistrar = findViewById(R.id.btnRegistrarUsuario);
-        lblProgreso = findViewById(R.id.lblCreditoInicial);
-        lblProgreso.setText(((Integer)creditoMinimo).toString());
+        lblProgreso = findViewById(R.id.lblProgresoCredito);
+        lblProgreso.setText("0");
         rgTipoCuenta = findViewById(R.id.rgTipoCuenta);
         tbRegistro = findViewById(R.id.tbRegistro);
         creditoMinimo = creditoMinimoBase;
@@ -128,8 +119,7 @@ public class Registro extends AppCompatActivity {
         sbCredito.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
-                String aux = ((Integer)(progress + creditoMinimo)).toString();
-                lblProgreso.setText(aux);
+                lblProgreso.setText(((Integer) progress).toString());
             }
 
             @Override
@@ -158,7 +148,7 @@ public class Registro extends AppCompatActivity {
                         break;
                 }
                 sbCredito.setProgress(0);
-                lblProgreso.setText(((Integer)creditoMinimo).toString());
+                lblProgreso.setText("0");
             }
         });
 
@@ -193,7 +183,7 @@ public class Registro extends AppCompatActivity {
                             else { //todas las restricciones se cumplieron
                                 String text = "¡Datos guardados correctamente!";
                                 Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
-                                limpiarDatos();
+                                //limpiarDatos();
                             }
                         }
                     }
@@ -238,39 +228,56 @@ public class Registro extends AppCompatActivity {
         return resultado;
     }
 
-    //REVISAR
     private Boolean restriccionVencimiento(){
 
         String fechaIngresada = txtVencimiento.getText().toString();
 
-        Boolean esValida = true;
+        Boolean esValida = false;
 
-        try{
-            SimpleDateFormat formatoFecha = new SimpleDateFormat("MM/YY");
+        if (validarFormatoFecha(fechaIngresada)) {
+            Integer mes = Integer.parseInt(fechaIngresada.substring(0, 2));
+            Integer año = Integer.parseInt(fechaIngresada.substring(3, 7));
 
-            Date fechaVencimiento = formatoFecha.parse(fechaIngresada);
+            Calendar fechaActual = Calendar.getInstance();
+            Integer añoActual = fechaActual.get(Calendar.YEAR);
+            Integer mesActual = fechaActual.get(Calendar.MONTH) + 1;
 
-            Date fechaActual = formatoFecha.parse(formatoFecha.format(new Date()));
-
-            Integer mes = Integer.parseInt(fechaIngresada.substring(0,1));//PUEDE FALLAR
-            System.out.println("mes ingresado: "+mes);
-            Integer año = Integer.parseInt(fechaIngresada.substring(3,4));//PUEDE FALLAR
-            System.out.println("año ingresado: "+año);
-
-            if(mes<1 || mes>12 || año<1 || año>12) esValida = false;
-            else {
-                long diferenciaEnMilis = fechaVencimiento.getTime() - fechaActual.getTime();
-
-                int diferenciaEnDias = (int)(diferenciaEnMilis/(24 * 60 * 60 * 1000));
-
-                if(diferenciaEnDias<93) esValida = false;
+            if (mes >= 1 && mes <= 12) {
+                if (añoActual.equals(año)) {
+                    if ((mes - mesActual) > 3) {
+                        esValida = true;
+                    }
+                }
+                else {
+                    if ((año - añoActual) > 1) {
+                        esValida = true;
+                    }
+                    else {
+                        if ((año - añoActual) == 1) {
+                            if ((mesActual - mes) < 9) {
+                                esValida = true;
+                            }
+                        }
+                    }
+                }
             }
-        }
-        catch(ParseException e){
-            esValida = false;
         }
 
         return esValida;
+    }
+
+    private boolean validarFormatoFecha(String fecha){
+        boolean esValido = false;
+
+        if (fecha.length() == 7) {
+            if (isDigit(fecha.charAt(0)) && isDigit(fecha.charAt(1)) && fecha.charAt(2) == '/'
+                    && isDigit(fecha.charAt(3)) && isDigit(fecha.charAt(4))
+                    && isDigit(fecha.charAt(5)) && isDigit(fecha.charAt(6))) {
+                esValido = true;
+            }
+        }
+
+        return esValido;
     }
 
     private void limpiarDatos(){
@@ -282,12 +289,12 @@ public class Registro extends AppCompatActivity {
         txtCcv.setText("");
         txtVencimiento.setText("");
         sbCredito.setProgress(0);
-        btnNotificaciones.setPressed(false);
+        btnNotificaciones.setChecked(false);
         swEsVendedor.setChecked(false);
         chkTerminos.setChecked(false);
         txtAliasCbu.setText("");
         txtCbu.setText("");
-        lblProgreso.setText(((Integer)creditoMinimo).toString());
+        lblProgreso.setText("0");
         rgTipoCuenta.check(R.id.rbBase);
         creditoMinimo = creditoMinimoBase;
     }

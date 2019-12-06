@@ -8,7 +8,7 @@
     <string name="creditCard">Tarjeta de credito</string>
     <string name="number">Numero</string>
     <string name="ccv">CCV</string>
-    <string name="mmaa">MM/AA</string>
+    <string name="mmaa">MM/AAAA</string>
     <string name="accountType">Tipo de cuenta</string>
     <string name="base">Base</string>
     <string name="premium">Premium</string>

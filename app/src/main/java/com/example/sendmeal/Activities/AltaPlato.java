@@ -3,6 +3,7 @@ package com.example.sendmeal.Activities;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
@@ -26,8 +27,8 @@ import java.io.ByteArrayOutputStream;
 
 public class AltaPlato extends AppCompatActivity {
 
-    private EditText txtId;
     public static final int REQUEST_IMAGE_CAPTURE = 800;
+    private EditText txtId;
     private EditText txtTitulo;
     private EditText txtDescripcion;
     private EditText txtPrecio;
@@ -38,34 +39,33 @@ public class AltaPlato extends AppCompatActivity {
     private ImageButton btnCamara;
     private String encodedImage = null;
     private ImageView imgPlato;
+    private Drawable drawableDefault;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alta_plato);
 
         inicializarComponentes();
+
         setSupportActionBar(tbAltaPlato);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         configurarEventos();
 
         String startedFrom = getIntent().getExtras().getString("startedFrom");
 
-        if(startedFrom.equals("home")){
-            //listaPlatos = new ArrayList<Plato>();
-        }
-        if(startedFrom.equals("editar")){
+        if (startedFrom.equals("editar")) {
             platoSeleccionado = getIntent().getExtras().getParcelable("platoSeleccionado");
             cargarDatosEditables(platoSeleccionado);
         }
-        if (startedFrom.equals("notificacion")){
-            platoSeleccionado = getIntent().getExtras().getParcelable("platoSeleccionado");
-            cargarDatosNoEditables(platoSeleccionado);
+        else {
+            if (startedFrom.equals("notificacion")){
+                platoSeleccionado = getIntent().getExtras().getParcelable("platoSeleccionado");
+                cargarDatosNoEditables(platoSeleccionado);
+            }
         }
-
-
     }
 
     public EditText getTxtId() {
@@ -119,6 +119,7 @@ public class AltaPlato extends AppCompatActivity {
         tbAltaPlato = findViewById(R.id.tbAltaPlato);
         btnCamara = findViewById(R.id.btnCamara);
         imgPlato = findViewById(R.id.imgPlato);
+        drawableDefault = imgPlato.getDrawable();
     }
 
     private void configurarEventos(){
@@ -167,10 +168,11 @@ public class AltaPlato extends AppCompatActivity {
 
     public boolean validarVacio() {
         //Retorna true si ningun campo de la actividad es vacio
-        return txtCalorias.getText().length()>0 &&
-                txtDescripcion.getText().length()>0 &&
-                txtTitulo.getText().length()>0 &&
-                txtPrecio.getText().length()>0;
+        return txtCalorias.getText().length()>0
+                && txtDescripcion.getText().length()>0
+                && txtTitulo.getText().length()>0
+                && txtPrecio.getText().length()>0
+                && imgPlato.getDrawable() != drawableDefault;
     }
 
     private void cargarDatosEditables(Plato plato){
