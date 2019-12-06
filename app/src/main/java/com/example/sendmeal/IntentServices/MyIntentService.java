@@ -1,18 +1,12 @@
 package com.example.sendmeal.IntentServices;
 
 import android.app.IntentService;
-import android.app.Notification;
 import android.content.Intent;
-import android.os.Bundle;
-import android.os.Message;
-import android.widget.Toast;
 
-import com.example.sendmeal.Activities.ListaPlatos;
+import com.example.sendmeal.Domain.Plato;
 import com.example.sendmeal.R;
 import com.example.sendmeal.Receivers.MyReceiver;
 
-import java.util.logging.Handler;
-import java.util.logging.LogRecord;
 
 public class MyIntentService extends IntentService {
 
@@ -24,10 +18,10 @@ public class MyIntentService extends IntentService {
     protected void onHandleIntent (Intent intent){
 
         try{
-            int position = intent.getExtras().getInt("idPlatoSeleccionado");
+            Plato platoSeleccionado = intent.getExtras().getParcelable("platoSeleccionado");
             Thread.currentThread().sleep(10000);
             Intent i = new Intent();
-            i.putExtra("idPlatoSeleccionado",position);
+            i.putExtra("platoSeleccionado", platoSeleccionado);
             i.putExtra("Titulo", getString(R.string.tituloNotificacion));
             i.putExtra("Mensaje", getString(R.string.mensajeNotificacion));
             i.setAction(MyReceiver.EVENTO_OFERTAR);

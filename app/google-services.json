@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "743541700529-lcck2d6r1fh8aad27gojaker51jrohd6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.sendmeal",
+            "certificate_hash": "30efc3e1f7517a707d73c4c262b48765138ff916"
+          }
+        },
+        {
           "client_id": "743541700529-7b071c7655j25en3q1idouragiu3ftfl.apps.googleusercontent.com",
           "client_type": 3
         }

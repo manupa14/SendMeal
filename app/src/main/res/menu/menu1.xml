@@ -10,10 +10,13 @@
     <item
         android:id="@+id/itemLista"
         android:title="@string/menu1Opt3" />
-
     <item
-        android:id="@+id/itemBuscar"
+        android:id="@+id/itemPedido"
         android:title="@string/menu1Opt4"
+        />
+    <item
+        android:id="@+id/verPedidos"
+        android:title="@string/menu1Opt5"
         />
 </menu>
 

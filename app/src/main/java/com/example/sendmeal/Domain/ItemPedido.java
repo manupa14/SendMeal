@@ -21,7 +21,7 @@ public class ItemPedido {
     private Integer idItemPedido;
 
     @ColumnInfo(name = "pedido_id")
-    private Long idPedido;
+    private long idPedido;
 
     private Integer cantidad;
 
@@ -38,11 +38,11 @@ public class ItemPedido {
         this.idItemPedido = idItemPedido;
     }
 
-    public Long getIdPedido() {
+    public long getIdPedido() {
         return idPedido;
     }
 
-    public void setIdPedido(Long idPedido) {
+    public void setIdPedido(long idPedido) {
         this.idPedido = idPedido;
     }
 

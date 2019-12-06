@@ -62,7 +62,7 @@ public class BuscarPlato extends AppCompatActivity {
         @Override
         public void handleMessage(Message msg) {
             listaDataSet = PlatoRepository.getInstance(getApplicationContext()).getListaPlatos();
-            switch (msg.arg1 ){
+            switch (msg.arg1){
                 case PlatoRepository._BUSCAR_PLATOS:
                     myPlatoAdapter = new PlatoAdapter(listaDataSet, getApplicationContext(),1);
                     myRecyclerView.setAdapter(myPlatoAdapter);

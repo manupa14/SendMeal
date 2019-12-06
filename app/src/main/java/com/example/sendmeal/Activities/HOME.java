@@ -2,6 +2,7 @@ package com.example.sendmeal.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -9,6 +10,9 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.sendmeal.R;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 public class HOME extends AppCompatActivity {
 
@@ -53,9 +57,15 @@ public class HOME extends AppCompatActivity {
                 startActivity(i3);
                 return true;
 
-            case R.id.itemBuscar:
+            case R.id.itemPedido:
                 Intent i4=new Intent(this, BuscarPlato.class);
                 startActivity(i4);
+                return true;
+
+            case R.id.verPedidos:
+                Intent i5=new Intent(this, MapPedidos.class);
+                i5.putExtra("startedFrom", "home");
+                startActivity(i5);
                 return true;
 
             default:

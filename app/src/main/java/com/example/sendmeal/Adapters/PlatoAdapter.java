@@ -5,6 +5,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,7 +55,8 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoViewHolder> {
         Plato myPlato = listaPlato.get(position);
         String pr = "$".concat(myPlato.getPrecio().toString());
 
-        holder.getImagen().setImageResource(myPlato.getImagen());
+        Bitmap bitmapAux = AltaPlato.decodeImage(myPlato.getImagen());
+        holder.getImagen().setImageBitmap(bitmapAux);
         holder.getTitulo().setText(myPlato.getTitulo());
         holder.getPrecio().setText(pr);
 
@@ -82,6 +85,7 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoViewHolder> {
                             Intent i = new Intent(contexto, AltaPedido.class);
                             i.putExtra("plato", plato);
                             i.putExtra("startedFrom","buscar");
+                            i.addFlags(i.FLAG_ACTIVITY_NEW_TASK);
                             contexto.startActivity(i);
                         }
                         break;
@@ -91,15 +95,15 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoViewHolder> {
             }
         });
 
-
         holder.getOfertar().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                listaPlato.get(position).setEnOferta(true);
+                Plato platoSeleccionado = listaPlato.get(position);
+                platoSeleccionado.setEnOferta(true);
 
                Intent nuevoServicio = new Intent(contexto,MyIntentService.class);
-               nuevoServicio.putExtra("idPlatoSeleccionado",position);
+               nuevoServicio.putExtra("platoSeleccionado",platoSeleccionado);
                contexto.startService(nuevoServicio);
 
             }
@@ -109,7 +113,8 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoViewHolder> {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(contexto, AltaPlato.class);
-                i.putExtra("idPlatoSeleccionado", position);
+                Plato platoSeleccionado = listaPlato.get(position);
+                i.putExtra("platoSeleccionado", platoSeleccionado);
                 i.putExtra("startedFrom","editar");
                 ((Activity)contexto).startActivityForResult(i,CODIGO_EDITAR_PLATO);
             }

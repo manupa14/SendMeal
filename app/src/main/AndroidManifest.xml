@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.sendmeal">
+
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
     <application
-        android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Design.Light.NoActionBar">
-
-
+        android:theme="@style/Theme.Design.Light.NoActionBar"
+        android:usesCleartextTraffic="true">
 
         <activity android:name=".Activities.HOME">
             <intent-filter>
@@ -36,7 +39,29 @@
         <activity android:name=".Activities.AltaPedido"
             android:parentActivityName=".Activities.HOME">
         </activity>
+        <activity android:name=".Activities.MapPedidos"
+            android:parentActivityName=".Activities.AltaPedido">
+        </activity>
+
         <service android:name=".IntentServices.MyIntentService"></service>
+
+        <service
+            android:name=".Firebase.FirebaseService1"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <meta-data android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <meta-data android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCuYHwH_F4qzlVLJYDJWIR5FZWS_eN5loA"/>
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="10001"/>
+
+
 
     </application>
 

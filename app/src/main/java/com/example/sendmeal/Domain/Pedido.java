@@ -14,7 +14,7 @@ public class Pedido {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "pedido_id")
-    private Integer idPedido;
+    private long idPedido;
 
     //1.PENDIENTE, 2.ENVIADO, 3.ACEPTADO, 4.RECHAZADO, 5.EN_PREPARACION, 6.EN_ENVIO, 7.ENTREGADO, 8.CANCELADO
     private Integer estado;
@@ -25,11 +25,11 @@ public class Pedido {
     @Ignore
     private List<ItemPedido> items;
 
-    public Integer getIdPedido() {
+    public long getIdPedido() {
         return idPedido;
     }
 
-    public void setIdPedido(Integer idPedido) {
+    public void setIdPedido(long idPedido) {
         this.idPedido = idPedido;
     }
 
