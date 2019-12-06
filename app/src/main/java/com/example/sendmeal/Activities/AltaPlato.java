@@ -37,9 +37,8 @@ public class AltaPlato extends AppCompatActivity {
     private Toolbar tbAltaPlato;
     private Plato platoSeleccionado;
     private ImageButton btnCamara;
-    private String encodedImage = null;
+    private String encodedImage = "";
     private ImageView imgPlato;
-    private Drawable drawableDefault;
 
 
     @Override
@@ -119,7 +118,6 @@ public class AltaPlato extends AppCompatActivity {
         tbAltaPlato = findViewById(R.id.tbAltaPlato);
         btnCamara = findViewById(R.id.btnCamara);
         imgPlato = findViewById(R.id.imgPlato);
-        drawableDefault = imgPlato.getDrawable();
     }
 
     private void configurarEventos(){
@@ -133,7 +131,6 @@ public class AltaPlato extends AppCompatActivity {
                 else {
                     /*Preguntamos si accedimos desde home, para saber si debemos crear el plato o solo editarlo*/
                     if (getIntent().getExtras().getString("startedFrom").equals("home")) {
-
                         Plato plato = new Plato();
                         plato.setTitulo(txtTitulo.getText().toString());
                         plato.setDescripcion(txtDescripcion.getText().toString());
@@ -171,8 +168,7 @@ public class AltaPlato extends AppCompatActivity {
         return txtCalorias.getText().length()>0
                 && txtDescripcion.getText().length()>0
                 && txtTitulo.getText().length()>0
-                && txtPrecio.getText().length()>0
-                && imgPlato.getDrawable() != drawableDefault;
+                && txtPrecio.getText().length()>0;
     }
 
     private void cargarDatosEditables(Plato plato){

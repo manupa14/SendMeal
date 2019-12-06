@@ -183,7 +183,7 @@ public class Registro extends AppCompatActivity {
                             else { //todas las restricciones se cumplieron
                                 String text = "¡Datos guardados correctamente!";
                                 Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
-                                //limpiarDatos();
+                                limpiarDatos();
                             }
                         }
                     }

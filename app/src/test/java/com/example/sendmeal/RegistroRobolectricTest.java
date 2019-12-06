@@ -1,10 +1,8 @@
 package com.example.sendmeal;
 
-import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.Switch;
@@ -51,7 +49,7 @@ public class RegistroRobolectricTest {
         EditText txtAliasCbu = activityRegistro.findViewById(R.id.txtAliasCbu);
         EditText txtCbu = activityRegistro.findViewById(R.id.txtCBU);
         Button btnRegistrar = activityRegistro.findViewById(R.id.btnRegistrarUsuario);
-        TextView lblProgreso = activityRegistro.findViewById(R.id.lblCreditoInicial);
+        TextView lblProgreso = activityRegistro.findViewById(R.id.lblProgresoCredito);
         RadioGroup rgTipoCuenta = activityRegistro.findViewById(R.id.rgTipoCuenta);
         int creditoMinimo = activityRegistro.getCreditoMinimo();
         int creditoMinimoBase = activityRegistro.getCreditoMinimoBase();
@@ -60,10 +58,10 @@ public class RegistroRobolectricTest {
         txtNombre.setText("Matias");
         txtClave.setText("admin");
         txtRepetirClave.setText("admin");
-        txtCorreo.setText("matiasdurand@outlook.com");
+        txtCorreo.setText("asd@gmail");
         txtNumeroTarjeta.setText("123456789");
         txtCcv.setText("123");
-        txtVencimiento.setText("12/20");
+        txtVencimiento.setText("12/2020");
         rgTipoCuenta.check(R.id.rbPremium);
         btnNotificaciones.setChecked(true);
         swEsVendedor.setChecked(true);
@@ -86,10 +84,10 @@ public class RegistroRobolectricTest {
 
         assertEquals(R.id.rbBase, rgTipoCuenta.getCheckedRadioButtonId());
 
-        assertEquals(((Integer)creditoMinimo).toString(), lblProgreso.getText().toString());
+        assertEquals("0", lblProgreso.getText().toString());
         assertEquals(0, sbCredito.getProgress());
 
-        assertFalse(btnNotificaciones.isActivated());
+        assertFalse(btnNotificaciones.isChecked());
 
         assertFalse(swEsVendedor.isChecked());
 

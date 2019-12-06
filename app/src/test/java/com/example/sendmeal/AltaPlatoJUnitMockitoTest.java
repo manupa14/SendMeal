@@ -32,13 +32,11 @@ public class AltaPlatoJUnitMockitoTest {
 
         doReturn(1).when(edtMock).length();
 
-        doReturn(edtMock).when(txtIdPlatoMock).getText();
         doReturn(edtMock).when(txtTituloMock).getText();
         doReturn(edtMock).when(txtDescripcionMock).getText();
         doReturn(edtMock).when(txtPrecioMock).getText();
         doReturn(edtMock).when(txtCaloriasMock).getText();
 
-        activityAltaPlato.setTxtIdPlato(txtIdPlatoMock);
         activityAltaPlato.setTxtTitulo(txtTituloMock);
         activityAltaPlato.setTxtDescripcion(txtDescripcionMock);
         activityAltaPlato.setTxtPrecio(txtPrecioMock);
