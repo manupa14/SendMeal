@@ -176,8 +176,6 @@ public class AltaPlato extends AppCompatActivity {
         plato.setPrecio(Double.parseDouble(txtPrecio.getText().toString()));
         plato.setCalorias(Integer.parseInt(txtCalorias.getText().toString()));
         plato.setImagen(encodedImage);
-        ListaPlatos.listaDataSet.remove(plato);
-        ListaPlatos.listaDataSet.add(plato);
     }
 
     private void cargarDatosNoEditables(Plato plato) {

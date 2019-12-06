@@ -39,10 +39,7 @@ public class ListaPlatos extends AppCompatActivity {
     private RecyclerView myRecyclerView;
     private PlatoAdapter myPlatoAdapter;
     private Toolbar tbListaPlatos;
-    public static List<Plato> listaDataSet = new ArrayList<>();
-
-
-
+    public List<Plato> listaDataSet = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,9 +110,9 @@ public class ListaPlatos extends AppCompatActivity {
     public Handler myHandler = new Handler(Looper.myLooper()){
         @Override
         public void handleMessage(Message msg) {
+            listaDataSet = PlatoRepository.getInstance(getApplicationContext()).getListaPlatos();
             switch (msg.arg1) {
                 case PlatoRepository._BUSCAR_PLATOS_TODOS:
-                    listaDataSet = PlatoRepository.getInstance(getApplicationContext()).getListaPlatos();
                     myPlatoAdapter = new PlatoAdapter(listaDataSet, context,0);
                     myRecyclerView.setAdapter(myPlatoAdapter);
                     break;

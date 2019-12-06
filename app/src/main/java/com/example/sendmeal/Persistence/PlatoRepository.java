@@ -96,7 +96,7 @@ public class PlatoRepository {
             }
             @Override
             public void onFailure(Call<List<Plato>> call, Throwable t) {
-                Toast.makeText(ctx, R.string.falloCrear, Toast.LENGTH_SHORT).show(); //mal
+                Toast.makeText(ctx, R.string.falloBuscarTodos, Toast.LENGTH_SHORT).show();
             }
         });
         return listaPlatos;

@@ -93,7 +93,7 @@ public class AltaPedido extends AppCompatActivity {
                 Runnable r = new Runnable() {
                     @Override
                     public void run() {
-                        Long idCreado = PedidoRepository.getInstance(getApplicationContext()).getPedidoDao().insert(pedido);
+                        long idCreado = PedidoRepository.getInstance(getApplicationContext()).getPedidoDao().insert(pedido);
 
                         pedido.setIdPedido(idCreado);//Guardo el id en el pedido para luego borrarlo.
 

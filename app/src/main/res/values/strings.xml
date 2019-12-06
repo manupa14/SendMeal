@@ -54,6 +54,7 @@
     <string name="falloCrear">Lo sentimos, no se pudo crear el plato</string>
     <string name="falloAgregarItem">El plato ya forma parte de su pedido</string>
     <string name="falloBuscar">Lo sentimos, no se pudo encontrar el plato en el menu</string>
+    <string name="falloBuscarTodos">Lo sentimos, no se pudo encontrar el plato en el menu</string>
     <string name="falloMapa">Lo sentimos, no se pudo cargar la ubicacion</string>
     <string name="falloUbicacion">Debe seleccionar la ubicacion en el mapa.</string>
     <string name="falloBuscarPedidos">Lo sentimos, no se pudo recuperar los pedidos.</string>
