@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.util.Base64;
 import android.view.View;
@@ -145,7 +146,7 @@ public class AltaPlato extends AppCompatActivity {
                     else {
                         editarPlato(platoSeleccionado);
                         setResult(RESULT_OK);
-                        PlatoRepository.getInstance(getApplicationContext()).actualizarPlato(platoSeleccionado);
+                        PlatoRepository.getInstance(getApplicationContext()).actualizarPlato(platoSeleccionado, new Handler());
                         finish();
                     }
 
@@ -204,7 +205,11 @@ public class AltaPlato extends AppCompatActivity {
         txtPrecio.setEnabled(false);
         txtCalorias.setText(plato.getCalorias().toString(), TextView.BufferType.NORMAL);
         txtCalorias.setEnabled(false);
+        imgPlato.setImageBitmap(decodeImage(plato.getImagen()));
+        imgPlato.setEnabled(false);
         btnRegistrarPlato.setVisibility(View.INVISIBLE);
+        btnCamara.setVisibility(View.INVISIBLE);
+
     }
 
     @Override

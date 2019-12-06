@@ -170,5 +170,4 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoViewHolder> {
         holder.getDescripcion().setVisibility(View.VISIBLE);
     }
 
-
 }

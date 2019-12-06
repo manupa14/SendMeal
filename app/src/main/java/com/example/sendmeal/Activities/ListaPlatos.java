@@ -119,8 +119,8 @@ public class ListaPlatos extends AppCompatActivity {
                     myPlatoAdapter = new PlatoAdapter(listaDataSet, contexto,0);
                     myRecyclerView.setAdapter(myPlatoAdapter);
                     break;
-            }
 
+            }
         }
     };
 }
