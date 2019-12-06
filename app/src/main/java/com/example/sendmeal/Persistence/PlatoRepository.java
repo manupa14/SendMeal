@@ -123,4 +123,19 @@ public class PlatoRepository {
         });
 
     }
+
+    public void borrarPlato(final Plato plato) {
+        Call<Void> llamada = this.platoRest.borrar(plato.getId());
+        llamada.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                listaPlatos.remove(plato);
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+
+            }
+        });
+    }
 }

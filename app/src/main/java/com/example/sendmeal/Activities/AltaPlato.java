@@ -140,6 +140,7 @@ public class AltaPlato extends AppCompatActivity {
                         plato.setEnOferta(false);
 
                         PlatoRepository.getInstance(getApplicationContext()).crearPlato(plato);
+                        limpiarPantalla();
                     }
                     else {
                         editarPlato(platoSeleccionado);
@@ -178,6 +179,8 @@ public class AltaPlato extends AppCompatActivity {
         txtDescripcion.setText(plato.getDescripcion(), TextView.BufferType.EDITABLE);
         txtPrecio.setText(plato.getPrecio().toString(), TextView.BufferType.EDITABLE);
         txtCalorias.setText(plato.getCalorias().toString(), TextView.BufferType.EDITABLE);
+        encodedImage = plato.getImagen();
+        imgPlato.setImageBitmap(decodeImage(plato.getImagen()));
     }
 
     private void editarPlato(Plato plato) {
@@ -186,6 +189,7 @@ public class AltaPlato extends AppCompatActivity {
         plato.setDescripcion(txtDescripcion.getText().toString());
         plato.setPrecio(Double.parseDouble(txtPrecio.getText().toString()));
         plato.setCalorias(Integer.parseInt(txtCalorias.getText().toString()));
+        plato.setImagen(encodedImage);
     }
 
     private void cargarDatosNoEditables(Plato plato) {
@@ -229,6 +233,14 @@ public class AltaPlato extends AppCompatActivity {
         return BitmapFactory.decodeByteArray(decodedImage,0,decodedImage.length);
     }
 
+    private void limpiarPantalla() {
+        txtId.setText("");
+        txtTitulo.setText("");
+        txtDescripcion.setText("");
+        txtPrecio.setText("");
+        txtCalorias.setText("");
+
+    }
 
 }
 

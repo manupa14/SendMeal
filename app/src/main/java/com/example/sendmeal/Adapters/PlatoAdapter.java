@@ -21,6 +21,7 @@ import com.example.sendmeal.Domain.Plato;
 import com.example.sendmeal.Holders.PlatoViewHolder;
 import com.example.sendmeal.IntentServices.MyIntentService;
 import com.example.sendmeal.Persistence.PedidoRepository;
+import com.example.sendmeal.Persistence.PlatoRepository;
 import com.example.sendmeal.R;
 
 
@@ -132,8 +133,13 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoViewHolder> {
                 builder.setPositiveButton(R.string.btnAccept, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        listaPlato.remove(position);
+
+                        Plato plato = listaPlato.get(position);
+                        PlatoRepository.getInstance(contexto).borrarPlato(plato);
+
                         Toast.makeText(contexto, R.string.platoBorrado, Toast.LENGTH_SHORT).show();
+
+                        listaPlato.remove(plato);
                         notifyDataSetChanged();
                     }
                 });
