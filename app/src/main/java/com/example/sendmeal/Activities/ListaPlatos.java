@@ -33,14 +33,15 @@ import static java.security.AccessController.getContext;
 
 public class ListaPlatos extends AppCompatActivity {
 
-    private Context contexto;
+    private static final int CODIGO_EDITAR_PLATO = 1;
+    public static final String CANAL_MENSAJES_ID = "10001";
+    private Context context;
     private RecyclerView myRecyclerView;
     private PlatoAdapter myPlatoAdapter;
     private Toolbar tbListaPlatos;
-    private List<Plato> listaDataSet = new ArrayList<>();
+    public static List<Plato> listaDataSet = new ArrayList<>();
 
-    private static final int CODIGO_EDITAR_PLATO = 1;
-    public static final String CANAL_MENSAJES_ID="10001";
+
 
 
     @Override
@@ -68,7 +69,7 @@ public class ListaPlatos extends AppCompatActivity {
 
     private void inicializarComponentes() {
         tbListaPlatos = findViewById(R.id.tbListaPlatos);
-        contexto = this;
+        context = this;
     }
 
     private void configurarEventos() {
@@ -79,19 +80,18 @@ public class ListaPlatos extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data){
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(resultCode == RESULT_OK){
+        if (resultCode == RESULT_OK){
             switch (requestCode){
-
                 case CODIGO_EDITAR_PLATO:
                     //le avisamos a nuestro adaptador que cambiaron los datos
                     myPlatoAdapter.notifyDataSetChanged();
                     break;
             }
         }
-        else{
-            switch(requestCode) {
+        else {
+            switch (requestCode) {
                 case CODIGO_EDITAR_PLATO:
-                    Toast.makeText(getApplicationContext(), R.string.falloEditar, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.falloEditar, Toast.LENGTH_SHORT).show();
                     break;
             }
         }
@@ -110,17 +110,17 @@ public class ListaPlatos extends AppCompatActivity {
         }
     }
 
-    Handler myHandler = new Handler(Looper.myLooper()){
+    public Handler myHandler = new Handler(Looper.myLooper()){
         @Override
         public void handleMessage(Message msg) {
-            listaDataSet = PlatoRepository.getInstance(getApplicationContext()).getListaPlatos();
             switch (msg.arg1) {
                 case PlatoRepository._BUSCAR_PLATOS_TODOS:
-                    myPlatoAdapter = new PlatoAdapter(listaDataSet, contexto,0);
+                    listaDataSet = PlatoRepository.getInstance(getApplicationContext()).getListaPlatos();
+                    myPlatoAdapter = new PlatoAdapter(listaDataSet, context,0);
                     myRecyclerView.setAdapter(myPlatoAdapter);
                     break;
-
             }
         }
     };
+
 }

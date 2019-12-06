@@ -2,7 +2,6 @@ package com.example.sendmeal.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -28,8 +27,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class AltaPedido extends AppCompatActivity {
 
-    private RecyclerView myRecyclerView;
-    private ItemPedidoAdapter myItemPedidoAdapter;
+    private RecyclerView mRecyclerView;
+    private ItemPedidoAdapter mItemPedidoAdapter;
     private Toolbar tbAltaPedido;
     private Button btnCrear;
     private Button btnEnviar;
@@ -38,54 +37,55 @@ public class AltaPedido extends AppCompatActivity {
     private Pedido pedido = new Pedido();
 
 
-    //TODO ver por que se cargar platos iguales al pedido
-    //TODO agreagar precio total
-    //TODO Lista Platos
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alta_pedido);
 
         inicializarComponentes();
+
         setSupportActionBar(tbAltaPedido);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         configurarEventos();
 
         String startedFrom = getIntent().getExtras().getString("startedFrom");
 
-        if(startedFrom.equals("buscar")){
+        if (startedFrom.equals("buscar")) {
             Plato plato = getIntent().getParcelableExtra("plato");
             agregarItemPedido(plato);
         }
-        if(startedFrom.equals("verPedido")) {
-            myItemPedidoAdapter = new ItemPedidoAdapter(PedidoRepository.getInstance(getApplicationContext()).getItemsPedido(), this);
-            myRecyclerView.setAdapter(myItemPedidoAdapter);
+        else {
+            if (startedFrom.equals("verPedido")) {
+                mItemPedidoAdapter = new ItemPedidoAdapter(
+                        PedidoRepository.getInstance(this).getItemsPedido(), this);
+                mRecyclerView.setAdapter(mItemPedidoAdapter);
+            }
         }
     }
 
     private void inicializarComponentes(){
-
         tbAltaPedido = findViewById(R.id.tbAltaPedido);
+
         btnCrear = findViewById(R.id.btnCrear);
-        btnEnviar = findViewById(R.id.btnEnviar);
-        btnAgregarItem = findViewById(R.id.fltBtnAgregarItem);
-        btnSetMapa=findViewById(R.id.btnSetMapa);
-
-        myRecyclerView = findViewById(R.id.rvAltaPedidos);
-        myRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        myRecyclerView.setItemAnimator(new DefaultItemAnimator());
-
         btnCrear.setEnabled(false);
+
+        btnEnviar = findViewById(R.id.btnEnviar);
         btnEnviar.setEnabled(false);
 
+        btnAgregarItem = findViewById(R.id.fltBtnAgregarItem);
+
+        btnSetMapa = findViewById(R.id.btnSetMapa);
+
+        mRecyclerView = findViewById(R.id.rvAltaPedidos);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
     }
 
     private void configurarEventos(){
-
         btnCrear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 pedido.setEstado(1);
                 pedido.setFecha(new Date());
                 pedido.setItems(PedidoRepository.getInstance(getApplicationContext()).getItemsPedido());
@@ -93,14 +93,15 @@ public class AltaPedido extends AppCompatActivity {
                 Runnable r = new Runnable() {
                     @Override
                     public void run() {
-                        long id = PedidoRepository.getInstance(getApplicationContext()).getPedidoDao().insert(pedido);
-                        pedido.setIdPedido(id);
-                        for(ItemPedido itemPedido: PedidoRepository.getInstance(getApplicationContext()).getItemsPedido()) {
+                        Long idCreado = PedidoRepository.getInstance(getApplicationContext()).getPedidoDao().insert(pedido);
 
-                            itemPedido.setIdPedido(id);
+                        pedido.setIdPedido(idCreado);//Guardo el id en el pedido para luego borrarlo.
+
+                        for (ItemPedido itemPedido: PedidoRepository.getInstance(getApplicationContext()).getItemsPedido()) {
+                            itemPedido.setIdPedido(idCreado);
                             ItemPedidoRepository.getInstance(getApplicationContext()).getItemPedidoDao().insert(itemPedido);
-
                         }
+
                         PedidoRepository.getInstance(getApplicationContext()).setItemsPedido(new ArrayList<ItemPedido>());
                     }
                 };
@@ -110,14 +111,12 @@ public class AltaPedido extends AppCompatActivity {
                 btnCrear.setEnabled(false);
                 btnAgregarItem.setEnabled(false);
                 btnEnviar.setEnabled(true);
-
             }
         });
 
         btnEnviar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Runnable r = new Runnable() {
                     @Override
                     public void run() {
@@ -128,16 +127,15 @@ public class AltaPedido extends AppCompatActivity {
                 thread.start();
 
                 pedido.setEstado(2);
-                PedidoRepository.getInstance(getApplicationContext()).guardarPedidoEnviado(pedido);
 
+                PedidoRepository.getInstance(getApplicationContext()).guardarPedidoEnviado(pedido);
             }
         });
 
         btnAgregarItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                Intent i = new Intent(getApplicationContext(),BuscarPlato.class);
+                Intent i = new Intent(getApplicationContext(), BuscarPlato.class);
                 startActivity(i);
             }
         });
@@ -150,36 +148,9 @@ public class AltaPedido extends AppCompatActivity {
                 startActivityForResult(i, MapPedidos.CODIGO_MAPA);
             }
         });
-
-
-
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if(resultCode == RESULT_OK){
-            switch (requestCode){
-                case MapPedidos.CODIGO_MAPA:
-                    pedido.setLatitud(data.getExtras().getDouble("latitud"));
-                    pedido.setLongitud(data.getExtras().getDouble("longitud"));
-                    btnCrear.setEnabled(true);
-                    break;
-            }
-        }
-        else{
-            switch (requestCode){
-                case MapPedidos.CODIGO_MAPA:
-                    Toast.makeText(getApplicationContext(), R.string.falloMapa, Toast.LENGTH_SHORT).show();
-                    break;
-            }
-        }
-
     }
 
     private void agregarItemPedido(Plato plato){
-
         ItemPedido itemPedido = new ItemPedido();
 
         itemPedido.setPlato(plato);
@@ -188,11 +159,31 @@ public class AltaPedido extends AppCompatActivity {
 
         PedidoRepository.getInstance(getApplicationContext()).getItemsPedido().add(itemPedido);
 
-        myItemPedidoAdapter = new ItemPedidoAdapter(PedidoRepository.getInstance(getApplicationContext()).getItemsPedido(), this);
+        mItemPedidoAdapter = new ItemPedidoAdapter(PedidoRepository.getInstance(getApplicationContext()).getItemsPedido(), this);
 
-        myRecyclerView.setAdapter(myItemPedidoAdapter);
-
+        mRecyclerView.setAdapter(mItemPedidoAdapter);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case MapPedidos.CODIGO_MAPA:
+                    pedido.setLatitud(data.getExtras().getDouble("latitud"));
+                    pedido.setLongitud(data.getExtras().getDouble("longitud"));
+                    btnCrear.setEnabled(true);
+                    break;
+            }
+        }
+        else {
+            switch (requestCode){
+                case MapPedidos.CODIGO_MAPA:
+                    Toast.makeText(getApplicationContext(), R.string.falloMapa, Toast.LENGTH_SHORT).show();
+                    break;
+            }
+        }
+    }
 
 }

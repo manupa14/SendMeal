@@ -3,9 +3,10 @@ package com.example.sendmeal.Activities;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.util.Base64;
 import android.view.View;
@@ -20,6 +21,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.sendmeal.Adapters.PlatoAdapter;
 import com.example.sendmeal.Domain.Plato;
 import com.example.sendmeal.Persistence.PlatoRepository;
 import com.example.sendmeal.R;
@@ -68,40 +70,16 @@ public class AltaPlato extends AppCompatActivity {
         }
     }
 
-    public EditText getTxtId() {
-        return txtId;
-    }
-
-    public void setTxtId(EditText txtId) {
-        this.txtId = txtId;
-    }
-
-    public EditText getTxtTitulo() {
-        return txtTitulo;
-    }
-
     public void setTxtTitulo(EditText txtTitulo) {
         this.txtTitulo = txtTitulo;
-    }
-
-    public EditText getTxtDescripcion() {
-        return txtDescripcion;
     }
 
     public void setTxtDescripcion(EditText txtDescripcion) {
         this.txtDescripcion = txtDescripcion;
     }
 
-    public EditText getTxtPrecio() {
-        return txtPrecio;
-    }
-
     public void setTxtPrecio(EditText txtPrecio) {
         this.txtPrecio = txtPrecio;
-    }
-
-    public EditText getTxtCalorias() {
-        return txtCalorias;
     }
 
     public void setTxtCalorias(EditText txtCalorias) {
@@ -111,6 +89,7 @@ public class AltaPlato extends AppCompatActivity {
     private void inicializarComponentes(){
         txtId = findViewById(R.id.txtIdPlato);
         txtId.setEnabled(false);
+
         txtTitulo = findViewById(R.id.txtTituloItem);
         txtDescripcion = findViewById(R.id.txtDescripcion);
         txtPrecio = findViewById(R.id.txtPrecioItem);
@@ -126,13 +105,14 @@ public class AltaPlato extends AppCompatActivity {
         btnRegistrarPlato.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!validarVacio()){ // si faltan campos por completar
+                if (!validarVacio()) { // si faltan campos por completar
                     Toast.makeText(getApplicationContext(), R.string.faltanCampos, Toast.LENGTH_SHORT).show();
                 }
                 else {
                     /*Preguntamos si accedimos desde home, para saber si debemos crear el plato o solo editarlo*/
                     if (getIntent().getExtras().getString("startedFrom").equals("home")) {
                         Plato plato = new Plato();
+
                         plato.setTitulo(txtTitulo.getText().toString());
                         plato.setDescripcion(txtDescripcion.getText().toString());
                         plato.setPrecio(Double.parseDouble(txtPrecio.getText().toString()));
@@ -141,12 +121,13 @@ public class AltaPlato extends AppCompatActivity {
                         plato.setEnOferta(false);
 
                         PlatoRepository.getInstance(getApplicationContext()).crearPlato(plato);
+
                         limpiarPantalla();
                     }
                     else {
                         editarPlato(platoSeleccionado);
                         setResult(RESULT_OK);
-                        PlatoRepository.getInstance(getApplicationContext()).actualizarPlato(platoSeleccionado, new Handler());
+                        PlatoRepository.getInstance(getApplicationContext()).actualizarPlato(platoSeleccionado);
                         finish();
                     }
 
@@ -158,8 +139,9 @@ public class AltaPlato extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                if(i.resolveActivity(getPackageManager()) != null){
-                    startActivityForResult(i,REQUEST_IMAGE_CAPTURE);
+
+                if (i.resolveActivity(getPackageManager()) != null) {
+                    startActivityForResult(i, REQUEST_IMAGE_CAPTURE);
                 }
             }
         });
@@ -180,8 +162,11 @@ public class AltaPlato extends AppCompatActivity {
         txtDescripcion.setText(plato.getDescripcion(), TextView.BufferType.EDITABLE);
         txtPrecio.setText(plato.getPrecio().toString(), TextView.BufferType.EDITABLE);
         txtCalorias.setText(plato.getCalorias().toString(), TextView.BufferType.EDITABLE);
+
         encodedImage = plato.getImagen();
-        imgPlato.setImageBitmap(decodeImage(plato.getImagen()));
+        if (!encodedImage.isEmpty()) {
+            imgPlato.setImageBitmap(decodeImage(encodedImage));
+        }
     }
 
     private void editarPlato(Plato plato) {
@@ -191,11 +176,12 @@ public class AltaPlato extends AppCompatActivity {
         plato.setPrecio(Double.parseDouble(txtPrecio.getText().toString()));
         plato.setCalorias(Integer.parseInt(txtCalorias.getText().toString()));
         plato.setImagen(encodedImage);
+        ListaPlatos.listaDataSet.remove(plato);
+        ListaPlatos.listaDataSet.add(plato);
     }
 
     private void cargarDatosNoEditables(Plato plato) {
         ////Este metodo carga en la actividad los datos del plato pero no permite modificarlos
-
         txtId.setText(((Integer) plato.getId()).toString());
         txtTitulo.setText(plato.getTitulo(), TextView.BufferType.NORMAL);
         txtTitulo.setEnabled(false);
@@ -205,23 +191,25 @@ public class AltaPlato extends AppCompatActivity {
         txtPrecio.setEnabled(false);
         txtCalorias.setText(plato.getCalorias().toString(), TextView.BufferType.NORMAL);
         txtCalorias.setEnabled(false);
-        imgPlato.setImageBitmap(decodeImage(plato.getImagen()));
-        imgPlato.setEnabled(false);
-        btnRegistrarPlato.setVisibility(View.INVISIBLE);
         btnCamara.setVisibility(View.INVISIBLE);
 
+        encodedImage = plato.getImagen();
+        if (!encodedImage.isEmpty()) {
+            imgPlato.setImageBitmap(decodeImage(encodedImage));
+        }
+        imgPlato.setEnabled(false);
+
+        btnRegistrarPlato.setVisibility(View.INVISIBLE);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-
-                Bitmap selectedImage = (Bitmap) data.getExtras().get("data");
-                imgPlato.setImageBitmap(selectedImage);
-                encodedImage = encodeImage(selectedImage);
-
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            Bitmap selectedImage = (Bitmap) data.getExtras().get("data");
+            imgPlato.setImageBitmap(selectedImage);
+            encodedImage = encodeImage(selectedImage);
         }
     }
 
@@ -244,7 +232,6 @@ public class AltaPlato extends AppCompatActivity {
         txtDescripcion.setText("");
         txtPrecio.setText("");
         txtCalorias.setText("");
-
     }
 
 }

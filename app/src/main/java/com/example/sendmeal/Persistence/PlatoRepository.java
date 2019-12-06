@@ -22,7 +22,6 @@ public class PlatoRepository {
     private static PlatoRepository _INSTANCE = null;
     public static final int _BUSCAR_PLATOS_TODOS = 0;
     public static final int _BUSCAR_PLATOS = 1;
-    public static final int _ACTUALIZAR_PLATO=2;
     private Context ctx;
     private PlatoDao platoDao;
     private PlatoRest platoRest;
@@ -103,20 +102,15 @@ public class PlatoRepository {
         return listaPlatos;
     }
 
-    public void actualizarPlato(final Plato plato, final Handler h) {
-        Call<Plato> llamada = this.platoRest.actualizar(plato.getId(),plato);
+    public void actualizarPlato(final Plato plato) {
+        Call<Plato> llamada = this.platoRest.actualizar(plato.getId(), plato);
         llamada.enqueue(new Callback<Plato>() {
             @Override
             public void onResponse(Call<Plato> call, Response<Plato> response) {
-
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     listaPlatos.remove(plato);
                     listaPlatos.add(response.body());
-                    Message m = new Message();
-                    m.arg1 = _ACTUALIZAR_PLATO;
-                    h.sendMessage(m);
                 }
-
             }
 
             @Override

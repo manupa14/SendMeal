@@ -119,7 +119,7 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoViewHolder> {
                 Plato platoSeleccionado = listaPlato.get(position);
                 i.putExtra("platoSeleccionado", platoSeleccionado);
                 i.putExtra("startedFrom","editar");
-                ((Activity)contexto).startActivityForResult(i,CODIGO_EDITAR_PLATO);
+                ((Activity) contexto).startActivityForResult(i, CODIGO_EDITAR_PLATO);
             }
         });
 
@@ -127,7 +127,7 @@ public class PlatoAdapter extends RecyclerView.Adapter<PlatoViewHolder> {
             @Override
             public void onClick(View view) {
 
-                AlertDialog.Builder builder = new AlertDialog.Builder((Activity)contexto);
+                AlertDialog.Builder builder = new AlertDialog.Builder(contexto);
                 builder.setTitle(R.string.tituloAlertDialogQuitar);
                 builder.setMessage(R.string.mensajeAlertDialogQuitar);
                 builder.setPositiveButton(R.string.btnAccept, new DialogInterface.OnClickListener() {
