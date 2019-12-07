@@ -21,6 +21,17 @@ public class Pedido {
     private Date fecha;
     private Double latitud;
     private Double longitud;
+    private String token;
+
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
 
     @Ignore
     private List<ItemPedido> items;

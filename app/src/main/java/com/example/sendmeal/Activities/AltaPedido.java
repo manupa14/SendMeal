@@ -1,7 +1,10 @@
 package com.example.sendmeal.Activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -11,13 +14,19 @@ import com.example.sendmeal.Adapters.ItemPedidoAdapter;
 import com.example.sendmeal.Domain.ItemPedido;
 import com.example.sendmeal.Domain.Pedido;
 import com.example.sendmeal.Domain.Plato;
+import com.example.sendmeal.Firebase.MyFirebaseMessagingService;
 import com.example.sendmeal.Persistence.ItemPedidoRepository;
 import com.example.sendmeal.Persistence.PedidoRepository;
 import com.example.sendmeal.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 import java.util.ArrayList;
 import java.util.Date;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -51,6 +60,7 @@ public class AltaPedido extends AppCompatActivity {
 
         String startedFrom = getIntent().getExtras().getString("startedFrom");
 
+
         if (startedFrom.equals("buscar")) {
             Plato plato = getIntent().getParcelableExtra("plato");
             agregarItemPedido(plato);
@@ -60,6 +70,16 @@ public class AltaPedido extends AppCompatActivity {
                 mItemPedidoAdapter = new ItemPedidoAdapter(
                         PedidoRepository.getInstance(this).getItemsPedido(), this);
                 mRecyclerView.setAdapter(mItemPedidoAdapter);
+            }
+            else{
+                if(startedFrom.equals("FirebaseNotification")) {
+                    mItemPedidoAdapter = new ItemPedidoAdapter(
+                            PedidoRepository.getInstance(this).getItemsPedido(), this);
+                    mRecyclerView.setAdapter(mItemPedidoAdapter);
+                    btnCrear.setEnabled(false);
+                    btnEnviar.setEnabled(false);
+                    btnSetMapa.setEnabled(false);
+                }
             }
         }
     }
@@ -86,6 +106,39 @@ public class AltaPedido extends AppCompatActivity {
         btnCrear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                FirebaseInstanceId.getInstance().getInstanceId()
+                        .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                                if (!task.isSuccessful()) {
+                                    Log.w("AltaPedido", "getInstanceId failed", task.getException());
+                                    return;
+                                }
+
+                                // Get new Instance ID token
+                                String token = task.getResult().getToken();
+
+                                // Log and toast
+                                String msg = R.string.msg_token_fmt + token;
+                                Log.d("AltaPedido", msg);
+                                Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+
+                                MyFirebaseMessagingService MyFirebase = new MyFirebaseMessagingService();
+
+                                //guardar a preferencias
+                                SharedPreferences preferences =
+                                        PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                                SharedPreferences.Editor editor = preferences.edit();
+                                editor.putString("registration_id", token);
+                                editor.apply();
+
+                                //guardar a preferencias
+                                pedido.setToken(token);
+
+                            }
+                        });
+
                 pedido.setEstado(1);
                 pedido.setFecha(new Date());
                 pedido.setItems(PedidoRepository.getInstance(getApplicationContext()).getItemsPedido());

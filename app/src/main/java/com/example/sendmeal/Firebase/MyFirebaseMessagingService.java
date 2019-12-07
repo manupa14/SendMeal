@@ -16,16 +16,15 @@ import android.util.Log;
 
 
 import androidx.core.app.NotificationCompat;
+
+import com.example.sendmeal.Activities.AltaPedido;
 import com.example.sendmeal.Activities.ListaPlatos;
 import com.example.sendmeal.R;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
-import static android.content.ContentValues.TAG;
-import static java.security.AccessController.getContext;
+import java.util.Map;
+
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
     @Override
@@ -41,7 +40,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     }
 
     public void showNotification(String title,String message){
-        Intent intent = new Intent(this, ListaPlatos.class);
+        Intent intent = new Intent(this, AltaPedido.class);
+        intent.putExtra("startedFrom","FirebaseNotification");
         String channel_id="send_meal_channel";
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         TaskStackBuilder taskStackBuilder = TaskStackBuilder.create(this);
@@ -72,18 +72,13 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         super.onNewToken(s);
     }
 
-    private void saveTokenToPrefs(String _token){
-        SharedPreferences preferences =
-                PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putString("registration_id", _token);
-        editor.apply();
-    }
-    private String getTokenFromPrefs(){
+
+
+    public String getTokenFromPrefs(){
         SharedPreferences preferences =
                 PreferenceManager.getDefaultSharedPreferences(this);
         return preferences.getString("registration_id", null);
     }
 
-    
+
 }

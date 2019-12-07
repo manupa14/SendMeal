@@ -25,6 +25,7 @@
     <string name="precio">Precio</string>
     <string name="calorias">Calorías</string>
     <string name="miUbicacion">Mi ubicacion</string>
+    <string name="msg_token_fmt">El token es</string>
 
     <string name="isSeller">Es vendedor</string>
     <string name="btnAccept">Aceptar</string>

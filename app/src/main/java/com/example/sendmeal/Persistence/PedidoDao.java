@@ -15,6 +15,9 @@ public interface PedidoDao {
     @Query("SELECT * FROM Pedido")
     List<Pedido> getAll();
 
+    @Query("SELECT * FROM Pedido where pedido.token = :ptoken")
+    Pedido getByToken(String ptoken);
+
     @Insert
     void insertAll(Pedido... pedidos);
 
